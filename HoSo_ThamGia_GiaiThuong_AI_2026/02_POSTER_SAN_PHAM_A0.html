@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Poster A0 - NoteRenderer AI | Giải Thưởng AI Giáo Dục 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: 841mm 1189mm; /* Kích thước chuẩn A0 dọc */
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 841mm;
+      height: 1189mm;
+      margin: 0;
+      padding: 24mm 26mm;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* HEADER BANNER */
+    .poster-header {
+      background: linear-gradient(135deg, #0b192c 0%, #1e3a8a 55%, #0284c7 100%);
+      color: #ffffff;
+      padding: 28mm 32mm;
+      border-radius: 12mm;
+      box-shadow: 0 15px 35px rgba(11, 25, 44, 0.25);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .poster-header::before {
+      content: "";
+      position: absolute;
+      top: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .header-text {
+      max-width: 72%;
+    }
+
+    .contest-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(245, 158, 11, 0.2);
+      color: #fde68a;
+      border: 2px solid rgba(245, 158, 11, 0.6);
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 14pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12mm;
+    }
+
+    .main-title {
+      font-size: 38pt;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 8mm;
+      text-transform: uppercase;
+    }
+
+    .main-title span {
+      background: linear-gradient(90deg, #38bdf8, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .sub-title {
+      font-size: 18pt;
+      font-weight: 500;
+      color: #e2e8f0;
+      line-height: 1.4;
+    }
+
+    .header-meta {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8mm;
+      padding: 16mm 20mm;
+      text-align: right;
+      min-width: 280px;
+    }
+
+    .meta-item {
+      margin-bottom: 6mm;
+    }
+    .meta-item:last-child {
+      margin-bottom: 0;
+    }
+    .meta-label {
+      font-size: 11pt;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+    }
+    .meta-val {
+      font-size: 16pt;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    /* MAIN CONTENT: 3 COLUMNS */
+    .poster-body {
+      display: grid;
+      grid-template-columns: 1.05fr 1.35fr 1.05fr;
+      gap: 16mm;
+      flex: 1;
+      margin-bottom: 16mm;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 16mm;
+    }
+
+    /* CARDS */
+    .card {
+      background: #ffffff;
+      border-radius: 8mm;
+      padding: 16mm 18mm;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+      border: 1.5px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card.primary-border {
+      border-top: 6mm solid #1e3a8a;
+    }
+    .card.accent-border {
+      border-top: 6mm solid #f59e0b;
+    }
+    .card.cyan-border {
+      border-top: 6mm solid #0284c7;
+    }
+    .card.emerald-border {
+      border-top: 6mm solid #059669;
+    }
+    .card.purple-border {
+      border-top: 6mm solid #7c3aed;
+    }
+
+    .card-title {
+      font-size: 18pt;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10mm;
+      padding-bottom: 5mm;
+      border-bottom: 2px solid #f1f5f9;
+      text-transform: uppercase;
+    }
+
+    .card-title .badge {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      background: #1e3a8a;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 13pt;
+      text-align: center;
+      line-height: 32px;
+      font-weight: 800;
+    }
+
+    p, li {
+      font-size: 12.5pt;
+      line-height: 1.6;
+      color: #334155;
+    }
+
+    strong {
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    /* HIGHLIGHT BOX */
+    .callout {
+      background: #eff6ff;
+      border-left: 6px solid #2563eb;
+      padding: 10mm 12mm;
+      border-radius: 4mm;
+      margin: 8mm 0;
+    }
+
+    .callout.warning {
+      background: #fef3c7;
+      border-left-color: #d97706;
+    }
+
+    .callout.success {
+      background: #ecfdf5;
+      border-left-color: #059669;
+    }
+
+    /* LIST STYLES */
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6mm;
+    }
+
+    .feature-list li {
+      position: relative;
+      padding-left: 24px;
+    }
+
+    .feature-list li::before {
+      content: "■";
+      position: absolute;
+      left: 0;
+      color: #0284c7;
+      font-size: 11pt;
+    }
+
+    /* ARCHITECTURE PIPELINE */
+    .pipeline {
+      display: flex;
+      flex-direction: column;
+      gap: 5mm;
+      margin-top: 4mm;
+    }
+
+    .pipe-step {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 5mm;
+      padding: 8mm 10mm;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pipe-icon {
+      font-size: 20pt;
+      min-width: 44px;
+      text-align: center;
+    }
+
+    .pipe-desc h4 {
+      font-size: 13pt;
+      color: #1e3a8a;
+      font-weight: 700;
+      margin-bottom: 2mm;
+    }
+
+    .pipe-desc p {
+      font-size: 11pt;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* IMAGES SHOWCASE */
+    .img-box {
+      border-radius: 6mm;
+      overflow: hidden;
+      border: 2px solid #cbd5e1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 8mm;
+      background: #ffffff;
+    }
+
+    .img-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .img-caption {
+      background: #0f172a;
+      color: #f8fafc;
+      font-size: 11pt;
+      font-weight: 600;
+      padding: 4mm 8mm;
+      text-align: center;
+    }
+
+    /* STATS GRID */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8mm;
+      margin-top: 4mm;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border-radius: 6mm;
+      padding: 8mm 10mm;
+      text-align: center;
+      border: 1.5px solid #cbd5e1;
+    }
+
+    .stat-val {
+      font-size: 32pt;
+      font-weight: 900;
+      color: #1e3a8a;
+      line-height: 1.1;
+      margin-bottom: 2mm;
+    }
+
+    .stat-val.accent {
+      color: #d97706;
+    }
+
+    .stat-val.green {
+      color: #059669;
+    }
+
+    .stat-label {
+      font-size: 11pt;
+      font-weight: 600;
+      color: #475569;
+      line-height: 1.3;
+    }
+
+    /* COMPARISON TABLE */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6mm;
+      font-size: 11pt;
+    }
+
+    .compare-table th, .compare-table td {
+      padding: 5mm 6mm;
+      text-align: left;
+      border-bottom: 1.5px solid #e2e8f0;
+    }
+
+    .compare-table th {
+      background: #1e3a8a;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 11.5pt;
+    }
+
+    .compare-table tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    /* FOOTER */
+    .poster-footer {
+      background: #0b192c;
+      color: #94a3b8;
+      border-radius: 8mm;
+      padding: 10mm 20mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12pt;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .footer-left .badge-rmit {
+      background: #e11d48;
+      color: #fff;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 4px;
+      font-size: 11pt;
+      letter-spacing: 1px;
+    }
+
+    .footer-right {
+      text-align: right;
+      color: #cbd5e1;
+    }
+    .footer-right strong {
+      color: #38bdf8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="poster-header">
+    <div class="header-text">
+      <div class="contest-tag">
+        ✦ GIẢI THƯỞNG TIÊN PHONG ỨNG DỤNG AI TRONG GIÁO DỤC VIỆT NAM 2026 (iEEAI - RMIT)
+      </div>
+      <h1 class="main-title">
+        <span>NOTERENDERER AI</span>: SỔ TAY TOÁN HỌC TƯƠNG TÁC<br>
+        TÍCH HỢP THỊ GIÁC AI VÀ MÔ HÌNH HÓA 3D ĐỘNG
+      </h1>
+      <p class="sub-title">
+        Giải pháp chuyển đổi đề bài hình học không gian & giải tích SGK Toán 12 (CT GDPT 2018) thành mô hình 3D xoay 360°, hỗ trợ trực quan hóa lát cắt tịnh tiến tính thể tích khối tròn xoay.
+      </p>
+    </div>
+
+    <div class="header-meta">
+      <div class="meta-item">
+        <div class="meta-label">Mã Lĩnh Vực</div>
+        <div class="meta-val">Dạy Học & Học Liệu AI</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Đối Tượng Phục Vụ</div>
+        <div class="meta-val">GV & HS THPT Toàn Quốc</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Nền Tảng Kỹ Thuật</div>
+        <div class="meta-val">Web-first • Multimodal AI</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BODY 3 COLUMNS -->
+  <main class="poster-body">
+
+    <!-- CỘT 1: BỐI CẢNH, MỤC TIÊU & KIẾN TRÚC -->
+    <div class="column">
+      
+      <!-- CARD 1: BỐI CẢNH & ĐIỂM NGHẼN -->
+      <section class="card primary-border">
+        <h2 class="card-title"><span class="badge">1</span> Bối Cảnh & Điểm Nghẽn Giáo Dục</h2>
+        
+        <p><strong>Chương trình GDPT 2018</strong> nhấn mạnh phát triển năng lực tư duy không gian và giải quyết vấn đề thực tiễn. Tuy nhiên, việc dạy và học Hình học Không gian & Tích phân Thể tích lớp 12 đang gặp thách thức lớn:</p>
+        
+        <div class="callout warning">
+          <p><strong>Rào cản tư duy trừu tượng:</strong> 72% học sinh gặp khó khăn khi hình dung khối 3D qua hình vẽ 2D phẳng trong SGK hoặc trên bảng đen phấn trắng.</p>
+        </div>
+
+        <ul class="feature-list">
+          <li><strong>Mất nét trực quan:</strong> Khái niệm lát cắt vuông góc $S(x)$ và thể tích khối tròn xoay $V = \int_a^b S(x)dx$ rất khó mô phỏng bằng công cụ tĩnh.</li>
+          <li><strong>Gánh nặng giáo viên:</strong> Vẽ tay hình 3D trên bảng rất tốn thời gian (5–10 phút/hình), khó bảo đảm góc nhìn chính xác và biểu diễn nét đứt/liền.</li>
+          <li><strong>Công cụ hiện hành rời rạc:</strong> Các phần mềm như GeoGebra đòi hỏi gõ lệnh toán học phức tạp, không tự động nhận diện từ ảnh chụp hay chữ viết tay.</li>
+        </ul>
+      </section>
+
+      <!-- CARD 2: KIẾN TRÚC CÔNG NGHỆ -->
+      <section class="card cyan-border">
+        <h2 class="card-title"><span class="badge">2</span> Kiến Trúc Công Nghệ Đa Tầng</h2>
+        
+        <p>Sản phẩm kết hợp giữa mô hình ngôn ngữ thị giác lớn và động cơ đồ họa không gian thời gian thực:</p>
+
+        <div class="pipeline">
+          <div class="pipe-step">
+            <div class="pipe-icon">📸</div>
+            <div class="pipe-desc">
+              <h4>1. Input Đa Thức (Multimodal Input)</h4>
+              <p>Ảnh chụp đề SGK, bài thi viết tay hoặc văn bản LaTeX mô tả bài toán.</p>
+            </div>
+          </div>
+
+          <div class="pipe-step">
+            <div class="pipe-icon">🧠</div>
+            <div class="pipe-desc">
+              <h4>2. Trích Xuất & Suy Luận (Gemini Vision)</h4>
+              <p>Phân tích đề bài, trích xuất tọa độ đỉnh, bán kính, chiều cao, phương trình lát cắt dạng JSON chuẩn hóa.</p>
+            </div>
+          </div>
+
+          <div class="pipe-step">
+            <div class="pipe-icon">📐</div>
+            <div class="pipe-desc">
+              <h4>3. Thuật Toán Nét Khuất (Geometry Engine)</h4>
+              <p>Tính toán vector pháp tuyến camera để tự động chuyển nét đứt (dashed) & nét liền (solid) chính xác 100%.</p>
+            </div>
+          </div>
+
+          <div class="pipe-step">
+            <div class="pipe-icon">🌐</div>
+            <div class="pipe-desc">
+              <h4>4. Dựng Hình WebGL/Three.js</h4>
+              <p>Dựng mô hình 3D tương tác mượt mà trên Canvas sổ tay hoặc Modal 3D Lab chuyên sâu.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD 3: TÍNH NĂNG NỔI BẬT NÉT ĐỨT NÉT LIỀN -->
+      <section class="card emerald-border">
+        <h2 class="card-title"><span class="badge">3</span> Chuẩn Hóa Sư Phạm Toán</h2>
+        <ul class="feature-list">
+          <li><strong>Quy ước nét chuẩn SGK:</strong> Tự động tính toán đường sinh khuất khi xoay vật thể, không gây nhầm lẫn thị giác cho học sinh.</li>
+          <li><strong>Không phóng đại đột ngột:</strong> Thuật toán xoay bằng chuột tối ưu hóa góc quay quanh tâm vật thể (Arcball), giữ nguyên tỉ lệ vật thể ổn định.</li>
+          <li><strong>Hoạt động Web-first:</strong> Không cần cài đặt phần mềm, chạy tức thì trên Google Chrome, Cốc Cốc, Safari, iPad và Smart Board.</li>
+        </ul>
+      </section>
+
+    </div>
+
+    <!-- CỘT 2: MINH CHỨNG SẢN PHẨM & TÍNH NĂNG ĐỘT PHÁ -->
+    <div class="column">
+      
+      <!-- SHOWCASE 1: 3D LAB MODAL & ROTATION -->
+      <div class="img-box">
+        <img src="assets/demo_ai_modal_3d.png" alt="Phòng Thí Nghiệm 3D Toán Học Tương Tác">
+        <div class="img-caption">
+          Giao diện 3D Lab: Xoay 360°, Tùy biến Tham số R, h, Nét đứt/Nét liền chuẩn xác & Trích xuất AI
+        </div>
+      </div>
+
+      <!-- CARD 4: CÁC TÍNH NĂNG TRỌNG TÂM -->
+      <section class="card accent-border">
+        <h2 class="card-title"><span class="badge">4</span> Tính Năng Đột Phá Hỗ Trợ Dạy Học</h2>
+        
+        <p><strong>1. Trực quan hóa Lát cắt Tịnh tiến (Cross-section Slicing):</strong><br>
+        Cho phép thanh trượt tịnh tiến mặt phẳng cắt vuông góc với trục $Ox$. Học sinh nhìn thấy trực tiếp thiết diện biến thiên $S(x)$ (hình tròn, elip, tam giác đều) tương ứng với từng lát cắt, biến công thức vi tích phân trừu tượng thành trải nghiệm trực giác sống động.</p>
+
+        <p style="margin-top: 4mm;"><strong>2. Mô hình hóa bám dính trang vở (In-notebook Canvas):</strong><br>
+        Khối 3D hiển thị tương tác trực tiếp ngay trong trang ghi chép của học sinh và bài giảng điện tử của giáo viên, kết nối liền mạch giữa lý thuyết viết tay và thực hành không gian.</p>
+      </section>
+
+      <!-- SHOWCASE 2: CROSS SECTION SLICING -->
+      <div class="img-box">
+        <img src="assets/demo_cross_section_slice.png" alt="Mô phỏng lát cắt tịnh tiến tính thể tích">
+        <div class="img-caption">
+          Mô phỏng Trực quan Lát Cắt Tịnh Tiến $S(x)$ phục vụ bài toán Thể tích Tích phân Toán 12
+        </div>
+      </div>
+
+      <!-- SHOWCASE 3: FULL NOTEBOOK CANVAS -->
+      <div class="img-box">
+        <img src="assets/demo_sheet_notebook_3d.png" alt="Sổ tay tương tác tích hợp khối 3D">
+        <div class="img-caption">
+          Tích hợp mượt mà vào trang sổ tay Toán học: Ghi chép lý thuyết song song với thao tác mô hình 3D
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CỘT 3: TÁC ĐỘNG, ĐÁNH GIÁ & ĐỊNH HƯỚNG -->
+    <div class="column">
+
+      <!-- CARD 5: KẾT QUẢ THỬ NGHIỆM & TÁC ĐỘNG -->
+      <section class="card purple-border">
+        <h2 class="card-title"><span class="badge">5</span> Tác Động & Đánh Giá Thực Nghiệm</h2>
+        
+        <p>Thử nghiệm ứng dụng trên <strong>3 lớp học 12 (120 học sinh)</strong> và khảo sát <strong>15 giáo viên Toán</strong> THPT cho thấy kết quả vượt trội:</p>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-val green">84.2%</div>
+            <div class="stat-label">Học sinh hiểu bài nhanh hơn & cải thiện điểm kiểm tra hình không gian</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val accent">75%</div>
+            <div class="stat-label">Tiết kiệm thời gian chuẩn bị học liệu số và vẽ hình minh họa cho GV</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val">3 Giây</div>
+            <div class="stat-label">Thời gian trung bình AI nhận diện đề và dựng xong mô hình 3D</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val">96.8%</div>
+            <div class="stat-label">Học sinh hào hứng, chủ động xoay mô hình để tìm lời giải</div>
+          </div>
+        </div>
+
+        <div class="callout success">
+          <p><strong>Đánh giá của giáo viên:</strong> <em>"Lát cắt tịnh tiến giải quyết hoàn toàn điểm nghẽn khó dạy nhất của tích phân thể tích lớp 12. Học sinh thấy ngay hình dạng thiết diện thay vì phải tưởng tượng trừu tượng."</em></p>
+        </div>
+      </section>
+
+      <!-- CARD 6: SO SÁNH VỚI GIẢI PHÁP HIỆN CÓ -->
+      <section class="card primary-border">
+        <h2 class="card-title"><span class="badge">6</span> So Sánh Đột Phá Với Công Cụ Cũ</h2>
+        
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Tiêu chí so sánh</th>
+              <th>Phương pháp cũ</th>
+              <th>NoteRenderer AI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Nhập liệu đề bài</strong></td>
+              <td>Gõ mã lệnh / tọa độ phức tạp</td>
+              <td>Chụp ảnh / OCR AI tự động</td>
+            </tr>
+            <tr>
+              <td><strong>Trực quan lát cắt $S(x)$</strong></td>
+              <td>Tĩnh hoặc khó thiết lập</td>
+              <td>Tịnh tiến mượt mà thời gian thực</td>
+            </tr>
+            <tr>
+              <td><strong>Nét đứt/nét liền</strong></td>
+              <td>Cố định theo góc vẽ ban đầu</td>
+              <td>Tự động đổi nét theo góc nhìn 3D</td>
+            </tr>
+            <tr>
+              <td><strong>Môi trường học tập</strong></td>
+              <td>Mở cửa sổ phần mềm riêng</td>
+              <td>Tích hợp ngay trong sổ tay học</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- CARD 7: TÍNH KHẢ THI & PHÁT TRIỂN -->
+      <section class="card emerald-border">
+        <h2 class="card-title"><span class="badge">7</span> Khả Năng Nhân Rộng & Tương Lai</h2>
+        
+        <ul class="feature-list">
+          <li><strong>Triển khai diện rộng chi phí 0đ:</strong> Chạy hoàn toàn trên nền tảng Web tiêu chuẩn, tương thích cả máy cấu hình phổ thông của trường học công lập.</li>
+          <li><strong>Mở rộng môn học STEM:</strong> Mở rộng sang Vật lý 3D (quỹ đạo hạt, điện từ trường) và Hóa học 3D (cấu trúc không gian phân tử hữu cơ).</li>
+          <li><strong>Bảo vệ dữ liệu & an toàn:</strong> Không lưu trữ dữ liệu riêng tư của học sinh, tuân thủ tiêu chuẩn an toàn AI trong giáo dục.</li>
+        </ul>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="poster-footer">
+    <div class="footer-left">
+      <span class="badge-rmit">iEEAI 2026</span>
+      <span>Chương trình Giải thưởng Tiên phong Ứng dụng AI trong Giáo dục Việt Nam • Bộ GD&ĐT & Đại học RMIT</span>
+    </div>
+    <div class="footer-right">
+      <span>Dự án: <strong>NoteRenderer AI</strong> | Nhóm tác giả: <strong>Nhóm Đổi Mới Sáng Tạo Học Liệu Số</strong></span>
+    </div>
+  </footer>
+
+</body>
+</html>

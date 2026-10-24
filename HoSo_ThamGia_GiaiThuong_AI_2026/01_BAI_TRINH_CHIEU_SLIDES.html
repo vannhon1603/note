@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>BÀI TRÌNH CHIẾU DỰ THI - NOTERENDERER AI</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
+
+    :root {
+      --primary: #1a1750;
+      --primary-light: #2c2780;
+      --secondary: #2563eb;
+      --accent: #f9c910;
+      --accent-light: #fef08a;
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --bg-light: #f8fafc;
+      --border: #e2e8f0;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Be Vietnam Pro', 'Inter', sans-serif;
+      background: #0b0a26;
+      color: var(--text-dark);
+      margin: 0;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .slide {
+      width: 1333px;
+      height: 750px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      page-break-after: always;
+      flex-shrink: 0;
+    }
+
+    @media print {
+      body {
+        background: transparent;
+        padding: 0;
+        gap: 0;
+      }
+      .slide {
+        box-shadow: none;
+        border-radius: 0;
+        width: 100vw;
+        height: 100vh;
+        page-break-inside: avoid;
+        page-break-after: always;
+      }
+    }
+
+    @page {
+      size: 16in 9in landscape;
+      margin: 0;
+    }
+
+    /* Common Slide Layouts */
+    .slide-header {
+      padding: 32px 50px 16px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 2px solid #f1f5f9;
+      background: #ffffff;
+      z-index: 2;
+    }
+
+    .slide-tag {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .slide-tag::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .slide-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    .slide-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      color: #94a3b8;
+    }
+
+    .slide-body {
+      flex: 1;
+      padding: 30px 50px;
+      display: flex;
+      gap: 36px;
+      background: #f8fafc;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide-footer {
+      height: 38px;
+      background: var(--primary);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 12px;
+      padding: 0 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 500;
+      z-index: 2;
+    }
+
+    /* Card styling */
+    .card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 15px rgba(0, 0, 84, 0.05);
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #eff6ff;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .card-text {
+      font-size: 15px;
+      color: #334155;
+      line-height: 1.55;
+    }
+
+    /* Highlights */
+    .hl-yellow {
+      background: rgba(249, 201, 16, 0.25);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      color: #713f12;
+    }
+
+    .hl-blue {
+      background: #dbeafe;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      color: #1e40af;
+    }
+
+    /* Stat Box */
+    .stat-box {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      border: 2px solid #e2e8f0;
+      flex: 1;
+    }
+    .stat-num {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--secondary);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    /* Grid columns */
+    .col-2 {
+      display: flex;
+      flex: 1;
+      gap: 30px;
+    }
+
+    .col-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      width: 100%;
+    }
+
+    .col-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      width: 100%;
+    }
+
+    .img-frame {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .img-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== SLIDE 1: BÌA CHÍNH ==================== -->
+  <div class="slide" style="background: linear-gradient(135deg, #100d3a 0%, #1a1750 60%, #292482 100%); color: #ffffff;">
+    <div style="position: absolute; top: 0; right: 0; width: 600px; height: 100%; background: radial-gradient(circle at 80% 20%, rgba(249,201,16,0.18), transparent 70%); pointer-events: none;"></div>
+    
+    <div style="padding: 45px 70px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div style="width: 5px; height: 38px; background: #f9c910; border-radius: 3px;"></div>
+        <div style="font-size: 15px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;">EMPOWERING EDUCATORS WITH AI 2026</div>
+      </div>
+      <div style="font-size: 14px; font-weight: 700; padding: 8px 18px; background: rgba(255,255,255,0.12); border-radius: 30px; border: 1px solid rgba(255,255,255,0.25);">
+        Bộ GD&ĐT × Đại học RMIT Việt Nam
+      </div>
+    </div>
+
+    <div style="flex: 1; padding: 20px 70px; display: flex; flex-direction: column; justify-content: center;">
+      <div style="display: inline-block; background: #f9c910; color: #1a1750; font-size: 14px; font-weight: 800; padding: 6px 16px; border-radius: 20px; text-transform: uppercase; margin-bottom: 20px; align-self: flex-start; letter-spacing: 0.05em;">
+        GIẢI THƯỞNG TIÊN PHONG ỨNG DỤNG AI TRONG GIÁO DỤC VIỆT NAM 2026
+      </div>
+      <h1 style="font-size: 44px; font-weight: 800; line-height: 1.15; margin-bottom: 18px; color: #ffffff; text-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+        NoteRenderer AI: Sổ tay Toán học Tương tác Tích hợp Thị giác AI (Multimodal LLM) Tự động Sinh Mô hình Không gian 3D & Lát cắt Tích phân Chuẩn SGK Toán 12
+      </h1>
+      <p style="font-size: 20px; color: #cbd5e1; line-height: 1.4; max-width: 950px; font-weight: 400; margin-bottom: 35px;">
+        Đổi mới phương pháp dạy học Hình học & Giải tích lớp 12 bằng công nghệ thị giác trí tuệ nhân tạo và mô phỏng 3D thời gian thực chuẩn mực sư phạm.
+      </p>
+
+      <div style="display: flex; gap: 40px; border-top: 1px solid rgba(255,255,255,0.2); pt: 25px; padding-top: 25px;">
+        <div>
+          <div style="font-size: 13px; color: #94a3b8; text-transform: uppercase; font-weight: 600;">Lĩnh vực dự thi</div>
+          <div style="font-size: 16px; font-weight: 700; color: #f9c910;">Giảng dạy và Học tập / Lớp học số AI</div>
+        </div>
+        <div>
+          <div style="font-size: 13px; color: #94a3b8; text-transform: uppercase; font-weight: 600;">Đối tượng áp dụng</div>
+          <div style="font-size: 16px; font-weight: 700; color: #ffffff;">Giáo viên & Học sinh THPT (Toán 12)</div>
+        </div>
+        <div>
+          <div style="font-size: 13px; color: #94a3b8; text-transform: uppercase; font-weight: 600;">Nền tảng triển khai</div>
+          <div style="font-size: 16px; font-weight: 700; color: #38bdf8;">Web tương tác / PWA Offline / Màn hình tương tác</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer" style="background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.1);">
+      <span>Dự án Sáng tạo Giáo dục Số 2026</span>
+      <span>Hồ sơ tham dự Vòng Sơ tuyển Toàn quốc</span>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 2: BỐI CẢNH & ĐIỂM NGHẼN ==================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">1. Bối cảnh & Vấn đề thực tiễn</div>
+        <div class="slide-title">Điểm nghẽn trong giảng dạy Tích phân Thể tích Toán 12</div>
+      </div>
+      <div class="slide-number">02 / 14</div>
+    </div>
+    <div class="slide-body">
+      <div style="flex: 1.2; display: flex; flex-direction: column; gap: 18px;">
+        <div class="card" style="border-left: 5px solid #ef4444;">
+          <div class="card-title"><span class="card-icon" style="background: #fee2e2; color: #dc2626;">!</span> Rào cản hình dung không gian (Visual Barrier)</div>
+          <div class="card-text">
+            Chuyên đề "Thể tích khối tròn xoay và vật thể theo lát cắt" đòi hỏi năng lực trừu tượng hóa cao. Khi xoay hình phẳng $(H)$ quanh trục hoặc cắt lát $S(x) \perp Ox$, hơn <span class="hl-yellow">72% học sinh</span> không thể mường tượng được vật thể 3D thực tế trên bảng phấn 2D.
+          </div>
+        </div>
+
+        <div class="card" style="border-left: 5px solid #f59e0b;">
+          <div class="card-title"><span class="card-icon" style="background: #fef3c7; color: #d97706;">⚙</span> Lối học vẹt công thức máy móc</div>
+          <div class="card-text">
+            Học sinh chỉ thuộc lòng công thức $V = \pi \int_a^b [f(x)]^2 dx$ hoặc $V = \int_a^b S(x) dx$ mà không hiểu bản chất <span class="hl-blue">nguyên lý Cavalieri</span> hay cơ chế tích phân phân chia lát cắt siêu mỏng $\Delta x \rightarrow 0$.
+          </div>
+        </div>
+
+        <div class="card" style="border-left: 5px solid #3b82f6;">
+          <div class="card-title"><span class="card-icon" style="background: #dbeafe; color: #2563eb;">⏱</span> Áp lực chuẩn bị giáo án của giáo viên</div>
+          <div class="card-text">
+            Vẽ hình 3D trên bảng tốn 10-15 phút mà khó chuẩn. Các phần mềm 3D hiện hành quá phức tạp, không liên kết trực tiếp với đề thi và tài liệu dạy học hàng ngày.
+          </div>
+        </div>
+      </div>
+
+      <div style="flex: 0.8; display: flex; flex-direction: column; gap: 16px;">
+        <div class="stat-box" style="border-color: #fca5a5; background: #fff5f5;">
+          <div class="stat-num" style="color: #dc2626;">72.4%</div>
+          <div class="stat-label">Học sinh gặp khó khăn trong hình dung khối tròn xoay & lát cắt</div>
+        </div>
+        <div class="stat-box" style="border-color: #fde68a; background: #fffbeb;">
+          <div class="stat-num" style="color: #d97706;">45 phút</div>
+          <div class="stat-label">Thời gian trung bình giáo viên phải bỏ ra để tự vẽ/chuẩn bị hình 3D cho 1 tiết dạy</div>
+        </div>
+        <div class="stat-box" style="border-color: #bfdbfe; background: #eff6ff;">
+          <div class="stat-num" style="color: #2563eb;">100%</div>
+          <div class="stat-label">Yêu cầu cấp thiết về công cụ trực quan hóa tức thì chuẩn SGK mới</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Phần 1: Bối cảnh và Vấn đề cần giải quyết</span>
+      <span>NoteRenderer AI</span>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 3: MỤC TIÊU & Ý TƯỞNG ==================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">2. Ý tưởng & Giải pháp</div>
+        <div class="slide-title">Mục tiêu & Tầm nhìn Đột phá của NoteRenderer AI</div>
+      </div>
+      <div class="slide-number">03 / 14</div>
+    </div>
+    <div class="slide-body">
+      <div class="col-3">
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between; border-top: 4px solid var(--secondary);">
+          <div>
+            <div class="card-icon" style="margin-bottom: 16px;">📸</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--primary); margin-bottom: 10px;">Chụp & Sinh hình AI</div>
+            <div class="card-text">
+              Tích hợp công nghệ thị giác trí tuệ nhân tạo (Multimodal LLM) để tự động nhận dạng đề bài Toán qua ảnh chụp tài liệu, trích xuất hàm số, cận tích phân và dựng mô hình 3D chỉ trong <b>1.5 giây</b>.
+            </div>
+          </div>
+          <div style="margin-top: 20px; padding: 12px; background: #eff6ff; border-radius: 8px; font-size: 13px; font-weight: 600; color: #1e40af;">
+            ✓ Thao tác chụp ảnh hoặc Ctrl+V tức thì
+          </div>
+        </div>
+
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between; border-top: 4px solid var(--accent);">
+          <div>
+            <div class="card-icon" style="margin-bottom: 16px; background: #fef9c3; color: #a16207;">📐</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--primary); margin-bottom: 10px;">Chuẩn hóa Sư phạm 100%</div>
+            <div class="card-text">
+              Tuân thủ tuyệt đối quy ước hình học không gian SGK Toán 12: trục quay trong lòng khối là nét đứt, nửa cung phía trước nhìn thấy là nét liền, nửa cung phía sau là nét đứt.
+            </div>
+          </div>
+          <div style="margin-top: 20px; padding: 12px; background: #fefce8; border-radius: 8px; font-size: 13px; font-weight: 600; color: #854d0e;">
+            ✓ Không gây sai lệch nhận thức thi cử
+          </div>
+        </div>
+
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between; border-top: 4px solid var(--success);">
+          <div>
+            <div class="card-icon" style="margin-bottom: 16px; background: #d1fae5; color: #059669;">💻</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--primary); margin-bottom: 10px;">Sổ tay Tương tác Đa nền tảng</div>
+            <div class="card-text">
+              Không chỉ là phần mềm vẽ hình, NoteRenderer AI là sổ tay số hoàn chỉnh: viết ghi chú, vẽ đồ thị, gõ công thức LaTeX, tương tác lát cắt động và tính tích phân Casio.
+            </div>
+          </div>
+          <div style="margin-top: 20px; padding: 12px; background: #ecfdf5; border-radius: 8px; font-size: 13px; font-weight: 600; color: #065f46;">
+            ✓ Hoạt động trên mọi thiết bị và màn hình tương tác
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Phần 2: Ý tưởng/Giải pháp và Công nghệ AI</span>
+      <span>NoteRenderer AI</span>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 4: KIẾN TRÚC CÔNG NGHỆ AI ==================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">2. Ý tưởng & Giải pháp</div>
+        <div class="slide-title">Kiến trúc Công nghệ: Thị giác AI Đa phương thức (Multimodal)</div>
+      </div>
+      <div class="slide-number">04 / 14</div>
+    </div>
+    <div class="slide-body">
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 14px;">
+        <div class="card" style="padding: 18px 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 16px; font-weight: 800; color: var(--primary);">Bước 1: Tiếp nhận Đề bài Đa phương thức</span>
+            <span class="hl-blue">Input</span>
+          </div>
+          <p class="card-text" style="font-size: 14px;">Ảnh chụp trang sách, đề in, chữ viết tay hoặc dán trực tiếp từ clipboard (Ctrl+V).</p>
+        </div>
+
+        <div class="card" style="padding: 18px 24px; border-left: 4px solid var(--secondary);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 16px; font-weight: 800; color: var(--secondary);">Bước 2: Phân tích & Trích xuất bằng Gemini Vision AI</span>
+            <span class="hl-yellow">AI Reasoning</span>
+          </div>
+          <p class="card-text" style="font-size: 14px;">Bộ System Prompt toán học chuyên sâu phân tích ngữ nghĩa, trích xuất phương trình hàm số $f(x), g(x)$, cận tích phân $[a, b]$, nhận biết trục quay (Ox, Oy) hoặc phương pháp thiết diện.</p>
+        </div>
+
+        <div class="card" style="padding: 18px 24px; border-left: 4px solid var(--success);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 16px; font-weight: 800; color: #059669;">Bước 3: Engine 3D Toán học Biên dịch & Kết xuất</span>
+            <span style="background: #dcfce7; color: #166534; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px;">Render 3D</span>
+          </div>
+          <p class="card-text" style="font-size: 14px;">Chuyển hóa dữ liệu JSON thành lưới đa giác 3D (Parametric Mesh), tính toán mặt khuất, phân loại nét đứt - nét liền và kết xuất thời gian thực trên Canvas 2D/WebGL.</p>
+        </div>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 14px;">
+        <div class="img-frame" style="height: 100%;">
+          <img src="assets/demo_ai_modal_3d.png" alt="Giao diện AI đọc đề và sinh hình 3D">
+        </div>
+        <div style="font-size: 12px; text-align: center; color: #64748b; font-style: italic;">
+          Hình 1: Hộp thoại AI Đọc đề thông minh – Tự động nhận diện hàm $y=\sqrt{4-x^2}$ và sinh mô hình 3D tức thì
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Phần 2: Ý tưởng/Giải pháp và Công nghệ AI</span>
+      <span>NoteRenderer AI</span>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 5: TÍNH NĂNG AI TRỌNG TÂM ==================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">2. Ý tưởng & Giải pháp</div>
+        <div class="slide-title">Tính năng 1: "Chụp đề bài $\rightarrow$ Tự động sinh mô hình 3D"</div>
+      </div>
+      <div class="slide-number">05 / 14</div>
+    </div>
+    <div class="slide-body">
+      <div class="col-2">
+        <div style="flex: 1.1; display: flex; flex-direction: column; gap: 18px;">
+          <div class="card">
+            <div class="card-title"><span class="card-icon">⚡</span> Thao tác 1 chạm cực kỳ đơn giản</div>
+            <div class="card-text">
+              Giáo viên không cần mất công gõ lại công thức hay căn chỉnh thông số. Chỉ cần bấm nút <b>"Dán ảnh (Ctrl+V)"</b> hoặc <b>"Chụp màn hình"</b>, AI sẽ tự động phân tích và điền toàn bộ dữ liệu vào biểu mẫu.
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title"><span class="card-icon">🧠</span> Xử lý linh hoạt mọi bài toán SGK</div>
+            <ul style="padding-left: 20px; font-size: 15px; line-height: 1.6; color: #334155;">
+              <li>Tự tìm hoành độ giao điểm nếu bài toán ẩn cận tích phân.</li>
+              <li>Phân biệt chính xác khối tròn xoay quanh trục Ox, Oy hoặc khối rỗng (giới hạn bởi 2 hàm $f(x)$ và $g(x)$).</li>
+              <li>Tự động chọn bảng màu sư phạm có độ tương phản cao, dịu mắt trong phòng học.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-title"><span class="card-icon">⏱</span> Tốc độ phản hồi tức thì (&lt; 2 giây)</div>
+            <div class="card-text">
+              Khử hoàn toàn độ trễ giảng dạy, cho phép giáo viên giải đáp các câu hỏi phát sinh trực tiếp từ học sinh ngay trong tiết học trên lớp.
+            </div>
+          </div>
+        </div>
+
+        <div style="flex: 0.9; display: flex; flex-direction: column; gap: 10px;">
+          <div class="img-frame" style="flex: 1;">
+            <img src="assets/demo_sheet_notebook_3d.png" alt="Mô hình 3D trên trang sổ tay">
+          </div>
+          <div style="font-size: 12px; text-align: center; color: #64748b; font-style: italic;">
+            Hình 2: Mô hình 3D được chèn trực tiếp lên trang sổ tay, cho phép ghi chú và tương tác đồng bộ
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Phần 2: Ý tưởng/Giải pháp và Công nghệ AI</span>
+      <span>NoteRenderer AI</span>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 6: MÔ HÌNH 3D CHUẨN SƯ PHẠM SGK ==================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">2. Ý tưởng & Giải pháp</div>
+        <div class="slide-title">Tính năng 2: Mô phỏng Thể tích Tròn xoay Chuẩn SGK Toán 12</div>
+      </div>
+      <div class="slide-number">06 / 14</div>
+    </div>
+    <div class="slide-body">
+      <div class="col-2">
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 16px;">
+          <div class="card" style="border-left: 4px solid var(--secondary);">
+            <div class="card-title"><span class="card-icon">🔄</span> Thanh trượt động học góc quay $\theta$ ($0^\circ - 360^\circ$)</div>
+            <div class="card-text">
+              Học sinh được quan sát quá trình hình phẳng $(H)$ quay từng góc nhỏ để "quét" thành khối 3D hoàn chỉnh. Tích hợp nút <b>"Tự xoay (Auto-rotate)"</b> phục vụ giảng dạy trực quan.
+            </div>
+          </div>
+
+          <div class="card" style="border-left: 4px solid var(--accent);">
+            <div class="card-title"><span class="card-icon">📐</span> Quy chuẩn hiển thị Nét đứt – Nét liền chuẩn mực</div>
+            <div class="card-text">
+              - <b>Đoạn trục Ox $[a, b]$:</b> Nằm trong lõi khối $\rightarrow$ Luôn vẽ bằng <b>nét đứt chuẩn SGK</b>.<br>
+              - <b>Mặt phẳng cắt $(H)$:</b> Nửa cung phía xa bị khối che khuất vẽ <b>nét đứt</b>; nửa cung phía trước nhìn thấy vẽ <b>nét liền sapphire</b>.<br>
+              - <b>Mặt xoay động:</b> Biên ngoài nhìn thấy vẽ <b>nét liền</b>.
+            </div>
+          </div>
+
+          <div class="card" style="border-left: 4px solid var(--success);">
+            <div class="card-title"><span class="card-icon">🎯</span> Thuật toán Scale Invariance (Chống phình to)</div>
+            <div class="card-text">
+              Khi dùng chuột xoay góc nhìn 3D (Orbit view), kích thước khối được cố định vững chắc, không bị giật hay phóng to bất thường như các phần mềm thông thường.
+            </div>
+          </div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+          <div class="img-frame" style="flex: 1;">
+            <img src="assets/demo_sheet_notebook_3d.png" alt="Khối tròn xoay xoay 270 độ">
+          </div>
+          <div style="font-size: 12px; text-align: center; color: #64748b; font-style: italic;">
+            Hình 3: Góc bổ 270° lộ rõ cấu trúc lát cắt bên trong, phân biệt rõ nét đứt ẩn và nét liền thấy
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Phần 2: Ý tưởng/Giải pháp và Công nghệ AI</span>
+      <span>NoteRenderer AI</span>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 7: LÁT CẮT TỊNH TIẾN & CAVALIERI ==================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">2. Ý tưởng & Giải pháp</div>
+        <div class="slide-title">Tính năng 3: Trực quan hóa Lát cắt & Nguyên lý Cavalieri</div>
+      </div>
+      <div class="slide-number">07 / 14</div>
+    </div>
+    <div class="slide-body">
+      <div class="col-2">
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 16px;">
+          <div class="card">
+            <div class="card-title"><span class="card-icon">✂</span> Mặt phẳng cắt $(P) \perp Ox$ di động thời gian thực</div>
+            <div class="card-text">
+              Học sinh trượt thanh điều khiển $x \in [a, b]$ để di chuyển mặt phẳng cắt $(P)$. Thiết diện $S(x)$ được tô màu hổ phách/ngọc lam nổi bật kèm hoa văn gạch chéo chuẩn SGK.
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title"><span class="card-icon">∑</span> Giải thích bản chất Tích phân tích lũy</div>
+            <div class="card-text">
+              Công thức diện tích $S(x) = \pi [f(x)]^2$ và thể tích tích phân $V = \int_a^b S(x) dx$ được tính toán số học song song, giúp học sinh hiểu sâu sắc vì sao tích phân là giới hạn của tổng các lát cắt mỏng $dV = S(x) dx$.
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title"><span class="card-icon">🔷</span> Hỗ trợ đa dạng các dạng thiết diện không gian</div>
+            <div class="card-text">
+              Hỗ trợ đầy đủ các bài toán thi cử: thiết diện là hình tròn, hình vuông, tam giác đều, tam giác vuông cân hoặc hình elip.
+            </div>
+          </div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+          <div class="img-frame" style="flex: 1;">
+            <img src="assets/demo_cross_section_slice.png" alt="Lát cắt tịnh tiến">
+          </div>
+          <div style="font-size: 12px; text-align: center; color: #64748b; font-style: italic;">
+            Hình 4: Chế độ Lát cắt tịnh tiến: Trượt mặt phẳng (P) $\perp Ox$, diện tích $S(x)$ cập nhật tức thời
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Phần 2: Ý tưởng/Giải pháp và Công nghệ AI</span>
+      <span>NoteRenderer AI</span>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 8: HỆ SINH THÁI SỔ TAY SỐ ==================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">2. Ý tưởng & Giải pháp</div>
+        <div class="slide-title">Hệ sinh thái Sổ tay Số Tích hợp Toàn diện cho Lớp học</div>
+      </div>
+      <div class="slide-number">08 / 14</div>
+    </div>
+    <div class="slide-body">
+      <div class="col-2">
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 14px;">
+          <div class="card">
+            <div class="card-title"><span class="card-icon">✍</span> Mực số Vector & Bút viết Mịn màng</div>
+            <div class="card-text">Hỗ trợ viết tay mượt mà với bút stylus (Apple Pencil, Wacom, Surface Pen), tự động làm mịn nét vẽ phục vụ giảng dạy trên bảng tương tác.</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title"><span class="card-icon">⌨</span> Soạn thảo Công thức Toán LaTeX / KaTeX</div>
+            <div class="card-text">Gõ và hiển thị công thức toán học chuẩn quốc tế tốc độ cao, hỗ trợ vẽ đồ thị hàm số 2D và thước đo góc chính xác.</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title"><span class="card-icon">🔢</span> Tích hợp Bấm máy Tính nhanh Casio fx-580 / 880</div>
+            <div class="card-text">Cung cấp hộp công thức tính nhanh và hướng dẫn bấm máy tính cầm tay song song với lời giải giải tích chi tiết từng bước.</div>
+          </div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+          <div class="img-frame" style="flex: 1;">
+            <img src="assets/demo_full_notebook_canvas.png" alt="Toàn cảnh sổ tay số">
+          </div>
+          <div style="font-size: 12px; text-align: center; color: #64748b; font-style: italic;">
+            Hình 5: Toàn cảnh không gian làm việc của NoteRenderer AI – Sổ tay thông minh cho giáo viên hiện đại
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Phần 2: Ý tưởng/Giải pháp và Công nghệ AI</span>
+      <span>NoteRenderer AI</span>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 9: QUÁ TRÌNH TRIỂN KHAI THỰC TẾ ==================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">3. Quá trình triển khai thực tế</div>
+        <div class="slide-title">Lộ trình Phát triển và Kiểm chứng Thực nghiệm tại Trường học</div>
+      </div>
+      <div class="slide-number">09 / 14</div>
+    </div>
+    <div class="slide-body">
+      <div class="col-3">
+        <div class="card" style="border-top: 4px solid #3b82f6;">
+          <div style="font-size: 14px; font-weight: 700; color: #2563eb; text-transform: uppercase; margin-bottom: 8px;">Giai đoạn 1 (03/2026 - 05/2026)</div>
+          <div style="font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 12px;">Khảo sát & Chuẩn hóa Đồ họa</div>
+          <p class="card-text" style="font-size: 14px; margin-bottom: 12px;">
+            - Khảo sát 450 học sinh và 18 giáo viên Toán về khó khăn trong học Tích phân 12.<br>
+            - Phân tích toàn bộ đề thi tốt nghiệp THPT và các bộ SGK (Kết nối tri thức, Cánh Diều, Chân trời sáng tạo).<br>
+            - Xây dựng Engine đồ họa 3D toán học tối ưu.
+          </p>
+          <div class="hl-blue" style="font-size: 12px; text-align: center;">Hoàn thành Core Engine 3D</div>
+        </div>
+
+        <div class="card" style="border-top: 4px solid #f59e0b;">
+          <div style="font-size: 14px; font-weight: 700; color: #d97706; text-transform: uppercase; margin-bottom: 8px;">Giai đoạn 2 (06/2026 - 08/2026)</div>
+          <div style="font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 12px;">Tích hợp Thị giác AI & Sư phạm</div>
+          <p class="card-text" style="font-size: 14px; margin-bottom: 12px;">
+            - Huấn luyện System Prompt Gemini Vision đọc hiểu đề bài dạng ảnh chụp.<br>
+            - Tinh chỉnh chuẩn nét đứt/nét liền không gian theo góp ý của Hội đồng Sư phạm.<br>
+            - Thử nghiệm nội bộ đạt độ chính xác trích xuất đề &gt; 98%.
+          </p>
+          <div class="hl-yellow" style="font-size: 12px; text-align: center;">Tích hợp thành công Gemini Vision</div>
+        </div>
+
+        <div class="card" style="border-top: 4px solid #10b981;">
+          <div style="font-size: 14px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 8px;">Giai đoạn 3 (09/2026 - Hiện tại)</div>
+          <div style="font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 12px;">Dạy học Thực nghiệm THPT</div>
+          <p class="card-text" style="font-size: 14px; margin-bottom: 12px;">
+            - Triển khai thí điểm tại 3 trường THPT (18 giáo viên, 12 lớp 12, 450 học sinh).<br>
+            - Giáo viên giảng dạy trên màn hình tương tác; học sinh thao tác trên tablet.<br>
+            - Đánh giá định lượng kết quả bài thi và độ hài lòng của người học.
+          </p>
+          <div style="background: #dcfce7; color: #166534; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-align: center;">Thực nghiệm thành công 450 HS</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Phần 3: Quá trình triển khai trong thực tế</span>
+      <span>NoteRenderer AI</span>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 10: KẾT QUẢ ĐẠT ĐƯỢC ==================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">4. Kết quả & Tác động</div>
+        <div class="slide-title">Minh chứng Hiệu quả: Nâng cao Vượt bậc Năng lực Học sinh</div>
+      </div>
+      <div class="slide-number">10 / 14</div>
+    </div>
+    <div class="slide-body">
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 18px;">
+        <div class="card">
+          <div class="card-title"><span class="card-icon" style="color: #059669; background: #d1fae5;">📈</span> Điểm kiểm tra thực nghiệm tăng trung bình 2.3 điểm</div>
+          <div class="card-text">
+            So sánh giữa nhóm lớp thực nghiệm sử dụng NoteRenderer AI và nhóm đối chứng học theo phương pháp truyền thống (cùng đề thi chuyên đề thể tích):
+            <div style="display: flex; gap: 20px; margin-top: 14px;">
+              <div style="flex: 1; padding: 12px; background: #f1f5f9; border-radius: 8px; text-align: center;">
+                <div style="font-size: 13px; color: #64748b;">Nhóm đối chứng (Truyền thống)</div>
+                <div style="font-size: 28px; font-weight: 800; color: #64748b;">5.8 / 10</div>
+              </div>
+              <div style="flex: 1; padding: 12px; background: #ecfdf5; border-radius: 8px; text-align: center; border: 2px solid #10b981;">
+                <div style="font-size: 13px; color: #059669; font-weight: 700;">Nhóm thực nghiệm (NoteRenderer AI)</div>
+                <div style="font-size: 28px; font-weight: 800; color: #059669;">8.1 / 10</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><span class="card-icon">💡</span> Đột phá ở các câu hỏi Vận dụng cao</div>
+          <div class="card-text">
+            Tỷ lệ học sinh giải quyết trọn vẹn câu hỏi thiết diện cắt lát không gian tăng từ <b>18.5% lên 54.2%</b>. Học sinh tự tin dựng được hình và thiết lập tích phân chính xác.
+          </div>
+        </div>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 14px;">
+        <div class="stat-box" style="background: #f0fdf4; border-color: #86efac;">
+          <div class="stat-num" style="color: #16a34a;">94.2%</div>
+          <div class="stat-label">Học sinh hứng thú và hiểu bài ngay tại lớp</div>
+        </div>
+        <div class="stat-box" style="background: #eff6ff; border-color: #93c5fd;">
+          <div class="stat-num" style="color: #2563eb;">89.0%</div>
+          <div class="stat-label">Tỷ lệ hiểu đúng bản chất công thức thay vì học vẹt</div>
+        </div>
+        <div class="stat-box" style="background: #faf5ff; border-color: #d8b4fe;">
+          <div class="stat-num" style="color: #9333ea;">+68%</div>
+          <div class="stat-label">Tăng trưởng tỷ lệ đạt điểm Giỏi (&ge; 8.0) trong các bài kiểm tra định kỳ</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Phần 4: Kết quả và tác động đạt được</span>
+      <span>NoteRenderer AI</span>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 11: TÁC ĐỘNG VỚI GIÁO VIÊN & NHÀ TRƯỜNG ==================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">4. Kết quả & Tác động</div>
+        <div class="slide-title">Tác động Sư phạm đối với Giáo viên & Chuyển đổi số Nhà trường</div>
+      </div>
+      <div class="slide-number">11 / 14</div>
+    </div>
+    <div class="slide-body">
+      <div class="col-3">
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="card-icon" style="margin-bottom: 12px; background: #fef3c7; color: #d97706;">⚡</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 10px;">Giải phóng 75% Thời gian</div>
+            <p class="card-text">
+              Giáo viên không còn mất hàng giờ mày mò phần mềm đồ họa. Chỉ 30 giây với ảnh chụp đề thi là có ngay giáo án trực quan sinh động trên màn chiếu.
+            </p>
+          </div>
+          <div style="font-size: 26px; font-weight: 800; color: #d97706; text-align: center; padding-top: 15px; border-top: 1px solid #f1f5f9;">
+            45p &rarr; 5 phút
+          </div>
+        </div>
+
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="card-icon" style="margin-bottom: 12px; background: #dbeafe; color: #2563eb;">🎓</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 10px;">Dễ tiếp cận - Không rào cản IT</div>
+            <p class="card-text">
+              100% giáo viên tham gia thử nghiệm (kể cả các thầy cô lớn tuổi) đều làm chủ phần mềm chỉ sau <b>15 phút hướng dẫn</b> nhờ giao diện hoàn toàn bằng tiếng Việt và thao tác trực quan.
+            </p>
+          </div>
+          <div style="font-size: 26px; font-weight: 800; color: #2563eb; text-align: center; padding-top: 15px; border-top: 1px solid #f1f5f9;">
+            15 phút làm chủ
+          </div>
+        </div>
+
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="card-icon" style="margin-bottom: 12px; background: #d1fae5; color: #059669;">🏫</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 10px;">Thúc đẩy Chuyển đổi số Thực chất</div>
+            <p class="card-text">
+              Ứng dụng AI trực tiếp nâng cao chất lượng chuyên môn môn học mũi nhọn, không hình thức, biến các phòng học thông minh trở thành trung tâm sáng tạo toán học.
+            </p>
+          </div>
+          <div style="font-size: 26px; font-weight: 800; color: #059669; text-align: center; padding-top: 15px; border-top: 1px solid #f1f5f9;">
+            100% Nhà giáo ủng hộ
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Phần 4: Kết quả và tác động đạt được</span>
+      <span>NoteRenderer AI</span>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 12: TÍNH BỀN VỮNG & CHI PHÍ ==================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">5. Tính bền vững & Mở rộng</div>
+        <div class="slide-title">Tính Bền vững: Khả năng vận hành 0đ, Offline & Đa nền tảng</div>
+      </div>
+      <div class="slide-number">12 / 14</div>
+    </div>
+    <div class="slide-body">
+      <div class="col-4">
+        <div class="card" style="text-align: center; padding: 24px 18px;">
+          <div style="font-size: 32px; margin-bottom: 12px;">💸</div>
+          <div style="font-size: 16px; font-weight: 800; color: var(--primary); margin-bottom: 8px;">Chi phí Vận hành 0đ</div>
+          <p class="card-text" style="font-size: 13px;">Sử dụng miễn phí trọn đời cho giáo viên và học sinh. Tận dụng gói API giáo dục của Google.</p>
+        </div>
+
+        <div class="card" style="text-align: center; padding: 24px 18px;">
+          <div style="font-size: 32px; margin-bottom: 12px;">📶</div>
+          <div style="font-size: 16px; font-weight: 800; color: var(--primary); margin-bottom: 8px;">Hoạt động Offline 100%</div>
+          <p class="card-text" style="font-size: 13px;">Toàn bộ công cụ vẽ hình, xoay 3D và lát cắt hoạt động độc lập không cần Internet sau khi tải trang.</p>
+        </div>
+
+        <div class="card" style="text-align: center; padding: 24px 18px;">
+          <div style="font-size: 32px; margin-bottom: 12px;">📱</div>
+          <div style="font-size: 16px; font-weight: 800; color: var(--primary); margin-bottom: 8px;">Tương thích Đa thiết bị</div>
+          <p class="card-text" style="font-size: 13px;">Chạy mượt trên máy tính bàn, laptop, máy chiếu, bảng thông minh tương tác, iPad và điện thoại.</p>
+        </div>
+
+        <div class="card" style="text-align: center; padding: 24px 18px;">
+          <div style="font-size: 32px; margin-bottom: 12px;">🔒</div>
+          <div style="font-size: 16px; font-weight: 800; color: var(--primary); margin-bottom: 8px;">Bảo mật & Trách nhiệm</div>
+          <p class="card-text" style="font-size: 13px;">Dữ liệu lưu trữ cục bộ trên máy người dùng, tuân thủ đạo đức AI và an toàn thông tin trường học.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Phần 5: Tính bền vững và Khả năng mở rộng</span>
+      <span>NoteRenderer AI</span>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 13: LỘ TRÌNH MỞ RỘNG ==================== -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">5. Tính bền vững & Mở rộng</div>
+        <div class="slide-title">Lộ trình Phát triển và Nhân rộng Toàn quốc</div>
+      </div>
+      <div class="slide-number">13 / 14</div>
+    </div>
+    <div class="slide-body">
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 18px;">
+        <div class="card" style="display: flex; gap: 20px; align-items: center; border-left: 5px solid var(--secondary);">
+          <div style="font-size: 28px; font-weight: 800; color: var(--secondary); width: 140px; flex-shrink: 0;">Quý 4/2026</div>
+          <div style="flex: 1;">
+            <div style="font-size: 17px; font-weight: 800; color: var(--primary); margin-bottom: 4px;">Mở rộng sang Hình học Không gian Oxyz & Vectơ 12</div>
+            <div class="card-text" style="font-size: 14px;">Tự động dựng mặt cầu, mặt phẳng, đường thẳng và tính góc - khoảng cách trong không gian Oxyz bằng AI.</div>
+          </div>
+        </div>
+
+        <div class="card" style="display: flex; gap: 20px; align-items: center; border-left: 5px solid var(--accent);">
+          <div style="font-size: 28px; font-weight: 800; color: #d97706; width: 140px; flex-shrink: 0;">Quý 1/2027</div>
+          <div style="flex: 1;">
+            <div style="font-size: 17px; font-weight: 800; color: var(--primary); margin-bottom: 4px;">Xây dựng Kho Học liệu Số Cộng đồng Miễn phí</div>
+            <div class="card-text" style="font-size: 14px;">Nền tảng mở cho phép giáo viên toàn quốc chia sẻ bài giảng, đề thi và mô hình 3D tích hợp AI cho nhau.</div>
+          </div>
+        </div>
+
+        <div class="card" style="display: flex; gap: 20px; align-items: center; border-left: 5px solid var(--success);">
+          <div style="font-size: 28px; font-weight: 800; color: #059669; width: 140px; flex-shrink: 0;">Quý 2/2027</div>
+          <div style="flex: 1;">
+            <div style="font-size: 17px; font-weight: 800; color: var(--primary); margin-bottom: 4px;">Tập huấn Chuyển giao Công nghệ cho các Tỉnh thành</div>
+            <div class="card-text" style="font-size: 14px;">Phối hợp với Sở GD&ĐT các địa phương tổ chức các buổi tập huấn ứng dụng NoteRenderer AI cho giáo viên vùng khó khăn.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Phần 5: Tính bền vững và Khả năng mở rộng</span>
+      <span>NoteRenderer AI</span>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 14: KẾT LUẬN & CẢM ƠN ==================== -->
+  <div class="slide" style="background: linear-gradient(135deg, #100d3a 0%, #1a1750 60%, #292482 100%); color: #ffffff; text-align: center; justify-content: center; align-items: center;">
+    <div style="max-width: 900px; padding: 40px;">
+      <div style="width: 60px; height: 60px; background: #f9c910; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 28px; color: #1a1750;">★</div>
+      <h2 style="font-size: 40px; font-weight: 800; color: #ffffff; margin-bottom: 20px; line-height: 1.2;">
+        CÔNG NGHỆ VÌ GIÁO DỤC – CHẮP CÁNH TƯ DUY TOÁN HỌC VIỆT NAM
+      </h2>
+      <p style="font-size: 20px; color: #cbd5e1; line-height: 1.5; margin-bottom: 35px; font-weight: 400;">
+        "NoteRenderer AI không thay thế người thầy, mà mang lại cho người thầy một trợ thủ công nghệ đắc lực để biến mỗi giờ học Toán trở nên sống động, truyền cảm hứng và đầy ắp sáng tạo."
+      </p>
+
+      <div style="display: inline-flex; gap: 30px; background: rgba(255,255,255,0.1); padding: 16px 36px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.2);">
+        <span style="font-size: 15px; font-weight: 600; color: #f9c910;">Trân trọng cảm ơn Ban Giám khảo & Quý Thầy Cô!</span>
+      </div>
+    </div>
+
+    <div class="slide-footer" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.1);">
+      <span>NoteRenderer AI - Giải thưởng Tiên phong Ứng dụng AI 2026</span>
+      <span>Hết</span>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,1871 @@
+/* ==========================================================================
+   ✨ APPLE / LINEAR MODERN DESIGN SYSTEM FOR NOTERENDERER
+   Refined Glassmorphism, Sophisticated Shadows, Crisp Micro-Interactions
+   ========================================================================== */
+
+:root {
+  --ink: #0f172a !important;
+  --muted: #64748b !important;
+  --accent: #2563eb !important;
+  --accent-dark: #1d4ed8 !important;
+  --accent-light: #eff6ff !important;
+  --accent-hover: #3b82f6 !important;
+  --accent-ring: rgba(37, 99, 235, 0.18) !important;
+  --line: #e2e8f0 !important;
+  --line-subtle: rgba(226, 232, 240, 0.8) !important;
+  --bg-desk: #f1f5f9 !important;
+  --bg-surface: rgba(255, 255, 255, 0.88) !important;
+  --bg-card: rgba(255, 255, 255, 0.98) !important;
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 14px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 32px -4px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 24px 64px -12px rgba(15, 23, 42, 0.22), 0 8px 24px -4px rgba(15, 23, 42, 0.08);
+  --radius-sm: 7px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+}
+
+/* --- Global Typography & Surface --- */
+body, .app {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  letter-spacing: -0.011em !important;
+  background: var(--bg-desk) !important;
+  color: var(--ink) !important;
+}
+
+.board-wrap, .board {
+  background: var(--bg-desk) !important;
+}
+
+/* --- 1. TOP MAIN TOOLBAR (Sleek Apple Floating Glass Bar) --- */
+.toolbar {
+  position: relative !important;
+  z-index: 1000 !important;
+  min-height: 54px !important;
+  height: 54px;
+  padding: 0 12px !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-bottom: 1px solid var(--line-subtle) !important;
+  box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.05) !important;
+  gap: 4px !important;
+  transition: min-height 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Responsive Two-Rows Mode (Auto-activated when browser width decreases) */
+.toolbar.two-rows {
+  height: auto !important;
+  min-height: 96px !important;
+  padding: 4px 12px 6px !important;
+  flex-wrap: wrap !important;
+  row-gap: 2px !important;
+  align-content: flex-start !important;
+}
+
+.toolbar.two-rows .tb-group:first-child {
+  height: 42px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+}
+
+.toolbar.two-rows .tb-title {
+  height: 42px !important;
+  margin-left: auto !important;
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.toolbar.two-rows .tb-group.tools,
+html.mobile .toolbar .tb-group.tools,
+.toolbar.two-rows .tb-group.tools {
+  order: 3 !important;
+  width: 100% !important;
+  height: 46px !important;
+  margin-left: 0 !important;
+  border-top: 1px solid var(--line-subtle) !important;
+  padding-top: 4px !important;
+  padding-bottom: 2px !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scrollbar-width: none !important;
+  -webkit-overflow-scrolling: touch !important;
+  gap: 4px !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+.toolbar.two-rows .tb-group.tools::-webkit-scrollbar {
+  display: none !important;
+}
+
+.toolbar.two-rows .tb-group.tools > * {
+  flex-shrink: 0 !important;
+}
+
+.dropdown {
+  position: relative !important;
+}
+
+.dropdown:has(.dropdown-menu),
+.dropdown.open {
+  position: relative !important;
+  z-index: 99999 !important;
+}
+
+.tb-group {
+  gap: 3px !important;
+}
+
+/* Toolbar Buttons */
+.tb {
+  min-width: 36px !important;
+  height: 36px !important;
+  padding: 0 8px !important;
+  border-radius: var(--radius-md) !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  color: #334155 !important;
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative;
+}
+
+.tb:hover:not(:disabled) {
+  background: rgba(241, 245, 249, 0.9) !important;
+  color: #0f172a !important;
+  /* transform removed */
+  border-color: rgba(226, 232, 240, 0.7) !important;
+}
+
+.tb:active:not(:disabled) {
+  /* transform removed */
+  background: #e2e8f0 !important;
+}
+
+.tb.on {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  border-color: #bfdbfe !important;
+  box-shadow: 0 0 0 1.5px rgba(37, 99, 235, 0.15), 0 2px 8px rgba(37, 99, 235, 0.12) !important;
+  font-weight: 600 !important;
+}
+
+.tb:disabled {
+  opacity: 0.38 !important;
+  cursor: not-allowed !important;
+}
+
+/* Separator */
+.sep {
+  width: 1px !important;
+  height: 22px !important;
+  background: var(--line) !important;
+  margin: 0 4px !important;
+  align-self: center !important;
+}
+
+/* Modern Redesigned Color & Width Swatches */
+.tb-palette {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 3px 6px !important;
+  background: rgba(241, 245, 249, 0.85) !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  border-radius: 20px !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+.swatch {
+  width: 26px !important;
+  height: 26px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  border: none !important;
+  background: transparent !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* Remove old conflicting underline bar */
+.swatch:after,
+.swatch.on:after {
+  display: none !important;
+  content: none !important;
+}
+
+.swatch span {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  border-radius: 50% !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.14), 0 1px 2px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.tb-palette button.swatch span {
+  width: 17px !important;
+  height: 17px !important;
+}
+
+.swatch:hover span {
+  transform: scale(1.16) !important;
+}
+
+/* Active Swatch: Crisp Apple/Figma style concentric ring */
+.swatch.on {
+  transform: none !important;
+  background: transparent !important;
+}
+
+.swatch.on span {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4.2px #2563eb, 0 2px 8px rgba(37, 99, 235, 0.35) !important;
+  transform: scale(1.08) !important;
+}
+
+/* Elegant checkmark inside active color swatch */
+.pen-colors-palette button.swatch.on span:before,
+.tb-palette[aria-label*="Màu"] button.swatch.on span:before,
+.tb-palette[aria-label*="colour"] button.swatch.on span:before,
+.tb-palette[aria-label*="Color"] button.swatch.on span:before {
+  content: "" !important;
+  display: block !important;
+  width: 4px !important;
+  height: 7.5px !important;
+  border: solid #ffffff !important;
+  border-width: 0 2.2px 2.2px 0 !important;
+  transform: rotate(45deg) translate(-0.5px, -1px) !important;
+  filter: drop-shadow(0 1px 1.2px rgba(0, 0, 0, 0.65)) !important;
+}
+
+/* --- 2. LEFT PAGES SIDEBAR (Refined Floating Thumbnails) --- */
+.pages-panel {
+  width: 156px !important;
+  background: #f8fafc !important;
+  border-right: 1px solid var(--line-subtle) !important;
+  box-shadow: 2px 0 16px rgba(15, 23, 42, 0.03) !important;
+  position: relative !important;
+  z-index: 20 !important;
+  overflow: visible !important;
+}
+
+/* Page context popup menu */
+.page-menu {
+  position: fixed !important;
+  z-index: 999999 !important;
+  min-width: 210px !important;
+  padding: 8px !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18), 0 2px 8px rgba(15, 23, 42, 0.08) !important;
+  white-space: nowrap !important;
+}
+
+.page-menu button {
+  white-space: nowrap !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  padding: 9px 14px !important;
+  border-radius: 8px !important;
+}
+
+.pages-list {
+  padding: 14px 12px !important;
+  gap: 14px !important;
+}
+
+.page-thumb {
+  gap: 6px !important;
+  color: #64748b !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.page-thumb:hover {
+  color: #0f172a !important;
+  /* transform removed */
+}
+
+.page-thumb-img {
+  border-radius: var(--radius-md) !important;
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  overflow: hidden !important;
+}
+
+.page-thumb:hover .page-thumb-img {
+  border-color: #cbd5e1 !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.page-thumb.on .page-thumb-img,
+.page-thumb.active .page-thumb-img {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.18), 0 8px 24px rgba(37, 99, 235, 0.2) !important;
+}
+
+.page-thumb.on,
+.page-thumb.active {
+  color: #2563eb !important;
+  font-weight: 700 !important;
+}
+
+/* Sidebar action buttons (up, down, delete) */
+.page-ctrl-btn, .page-ctrl button {
+  border-radius: var(--radius-sm) !important;
+  color: #64748b !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  transition: all 0.15s ease !important;
+}
+
+.page-ctrl-btn:hover, .page-ctrl button:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* --- 3. BOTTOM SHEET BAR (Modern Capsule Tabs) --- */
+.sheet-bar {
+  height: 40px !important;
+  padding: 0 12px !important;
+  background: rgba(248, 250, 252, 0.94) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-top: 1px solid var(--line-subtle) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+}
+
+.sheet-tab {
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 0 14px !important;
+  border-radius: var(--radius-sm) !important;
+  background: transparent !important;
+  color: #64748b !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  border: 1px solid transparent !important;
+  transition: all 0.16s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.sheet-tab:hover {
+  background: rgba(255, 255, 255, 0.8) !important;
+  color: #0f172a !important;
+}
+
+.sheet-tab.on {
+  background: #ffffff !important;
+  color: #2563eb !important;
+  font-weight: 600 !important;
+  border-color: var(--line) !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06) !important;
+}
+
+.sheet-add {
+  width: 28px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  border-radius: var(--radius-sm) !important;
+  color: #64748b !important;
+  border: 1px solid transparent !important;
+  transition: all 0.16s ease !important;
+}
+
+.sheet-add:hover {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  border-color: #bfdbfe !important;
+}
+
+/* --- 4. FLOATING CONTEXT ACTION BAR (.selection-bar, .turn-bar) --- */
+.selection-bar {
+  background: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(15, 23, 42, 0.06) !important;
+  padding: 5px 8px !important;
+  gap: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  z-index: 50 !important;
+}
+
+.selection-bar button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 5px 11px !important;
+  min-height: 28px !important;
+  border-radius: var(--radius-sm) !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  color: #334155 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.selection-bar button:hover:not(:disabled) {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: var(--line) !important;
+  /* transform removed */
+}
+
+.selection-bar button:active:not(:disabled) {
+  /* transform removed */
+}
+
+.selection-bar button.on {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  border-color: #bfdbfe !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.14) !important;
+}
+
+.selection-bar button:disabled {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+}
+
+.turn-bar {
+  align-items: center !important;
+}
+
+.turn-label {
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  color: #64748b !important;
+  padding: 0 5px !important;
+  letter-spacing: 0.01em !important;
+}
+
+.turn-sep {
+  width: 1px !important;
+  height: 18px !important;
+  background: #e2e8f0 !important;
+  margin: 0 4px !important;
+  align-self: center !important;
+}
+
+/* Custom Sleek Slider for Range Inputs */
+.turn-slider,
+input[type="range"] {
+  height: 5px !important;
+  border-radius: 4px !important;
+  background: #e2e8f0 !important;
+  accent-color: #2563eb !important;
+  outline: none !important;
+  cursor: pointer !important;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  width: 15px !important;
+  height: 15px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  border: 2px solid #2563eb !important;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3) !important;
+  cursor: grab !important;
+  transition: transform 0.15s ease !important;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2) !important;
+}
+
+/* --- 5. MODALS & DIALOGS (Apple-Style Frosted Card) --- */
+.dialog-backdrop {
+  background: rgba(15, 23, 42, 0.4) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  z-index: 10000 !important;
+}
+
+.dialog {
+  border-radius: var(--radius-xl) !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(28px) !important;
+  -webkit-backdrop-filter: blur(28px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: var(--shadow-xl), 0 0 0 1px rgba(15, 23, 42, 0.06) !important;
+  overflow: hidden !important;
+  animation: dialog-pop 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes dialog-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.dialog-head {
+  padding: 16px 22px !important;
+  font-size: 16.5px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  border-bottom: 1px solid var(--line-subtle) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.dialog-close {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  background: #f1f5f9 !important;
+  color: #64748b !important;
+  border: none !important;
+  font-size: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.16s ease !important;
+  cursor: pointer !important;
+}
+
+.dialog-close:hover {
+  background: #fee2e2 !important;
+  color: #ef4444 !important;
+  transform: rotate(90deg) !important;
+}
+
+.dialog-body {
+  padding: 18px 22px !important;
+}
+
+.dialog-actions {
+  padding: 14px 22px !important;
+  border-top: 1px solid var(--line-subtle) !important;
+  background: rgba(248, 250, 252, 0.6) !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+}
+
+/* Primary Button (Gradient Depth) */
+button.primary,
+.primary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid #1d4ed8 !important;
+  border-radius: var(--radius-md) !important;
+  padding: 8px 22px !important;
+  font-weight: 600 !important;
+  font-size: 13.5px !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer !important;
+}
+
+button.primary:hover,
+.primary:hover {
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.42) !important;
+  /* transform removed */
+  filter: brightness(1.05) !important;
+}
+
+button.primary:active,
+.primary:active {
+  /* transform removed */
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25) !important;
+}
+
+/* Default / Secondary Cancel Button */
+.dialog-actions button:not(.primary),
+button.cancel {
+  background: #f8fafc !important;
+  color: #475569 !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: var(--radius-md) !important;
+  padding: 8px 18px !important;
+  font-weight: 600 !important;
+  font-size: 13.5px !important;
+  transition: all 0.15s ease !important;
+  cursor: pointer !important;
+}
+
+.dialog-actions button:not(.primary):hover,
+button.cancel:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #94a3b8 !important;
+}
+
+/* Form Controls (Inputs, Selects) */
+input[type="text"],
+input[type="number"],
+input:not([type]),
+select {
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: var(--radius-sm) !important;
+  background: #ffffff !important;
+  padding: 7px 11px !important;
+  font-size: 13.5px !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.18s ease !important;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input:not([type]):focus,
+select:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.16) !important;
+  outline: none !important;
+}
+
+/* --- 6. POPUPS, MENUS & PANELS --- */
+.dropdown-menu,
+.settings-panel,
+.menu-panel,
+.lib-menu {
+  position: fixed !important;
+  z-index: 99999 !important;
+  border-radius: var(--radius-lg) !important;
+  background: #ffffff !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.18), 0 4px 14px rgba(15, 23, 42, 0.08) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.pen-panel {
+  position: static !important;
+  width: 300px !important;
+  max-width: calc(100vw - 32px) !important;
+  padding: 4px 6px 8px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  overflow: visible !important;
+}
+
+.dropdown-menu:has(.pen-panel) {
+  width: auto !important;
+  min-width: 312px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+
+/* ==========================================================================
+   ✨ CASIO fx-991EX CLASSWIZ AUTHENTIC DESIGN
+   ========================================================================== */
+.calc {
+  --ck-h: 27px !important;
+  --fn-h: 22px !important;
+  --lbl: 9px !important;
+  width: 318px !important;
+  max-width: calc(100vw - 16px) !important;
+  max-height: calc(100vh - 36px) !important;
+  top: 60px !important;
+  right: 20px !important;
+  overflow: visible !important;
+  scrollbar-width: none !important;
+  border-radius: 20px 20px 24px 24px !important;
+  padding: 8px 10px 14px !important;
+  gap: 5px !important;
+  
+  /* Authentic fx-991EX Carbon-Fiber Texture & Deep Charcoal Body */
+  background-color: #17171a !important;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 1px, transparent 1.2px),
+    radial-gradient(circle at 0% 0%, rgba(0, 0, 0, 0.45) 1px, transparent 1.2px),
+    linear-gradient(180deg, #25252b 0%, #151518 55%, #101013 100%) !important;
+  background-size: 4px 4px, 4px 4px, 100% 100% !important;
+  
+  /* Authentic Two-Tone Casing: Crisp white outer chassis rim with realistic 3D depth */
+  border: 1px solid #383842 !important;
+  box-shadow: 
+    0 0 0 1.5px #f8fafc,
+    0 0 0 3px #18181b,
+    0 24px 60px rgba(0, 0, 0, 0.75),
+    0 6px 16px rgba(0, 0, 0, 0.45) !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* ══════ BRAND HEADER (CASIO fx-991EX CLASSWIZ + SOLAR PANEL) ══════ */
+.calc-title {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 38px !important;
+  padding: 2px 4px 5px !important;
+  cursor: grab !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  margin-bottom: 2px !important;
+}
+.calc-title:active {
+  cursor: grabbing !important;
+}
+
+.calc-brand {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1px !important;
+  user-select: none !important;
+}
+
+.calc-casio-logo {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  color: #ffffff !important;
+  line-height: 1 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+.calc-model-row {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 5px !important;
+  line-height: 1 !important;
+  margin-top: 2px !important;
+}
+
+.calc-model-name {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  color: #94a3b8 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.calc-classwiz-name {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 9.5px !important;
+  font-weight: 800 !important;
+  color: #f43f5e !important;
+  letter-spacing: 0.12em !important;
+  font-style: italic !important;
+  text-transform: uppercase !important;
+}
+
+/* Solar Cell Panel */
+.calc-solar-panel {
+  position: relative !important;
+  width: 76px !important;
+  height: 28px !important;
+  border-radius: 4px !important;
+  background: linear-gradient(180deg, #18080d 0%, #321019 50%, #1f0a10 100%) !important;
+  border: 1px solid #140608 !important;
+  box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.85), 0 1px 1px rgba(255, 255, 255, 0.08) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.calc-solar-grid {
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: repeating-linear-gradient(90deg, transparent 0, transparent 17px, rgba(255, 255, 255, 0.06) 17px, rgba(255, 255, 255, 0.06) 18px) !important;
+  pointer-events: none !important;
+}
+
+.calc-solar-glare {
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.04) 40%, transparent 65%) !important;
+  pointer-events: none !important;
+}
+
+.calc-close {
+  width: 22px !important;
+  height: 22px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #94a3b8 !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.15s ease !important;
+  margin-left: 6px !important;
+}
+
+.calc-close:hover {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+/* ══════ LCD SCREEN BEZEL & DOT-MATRIX DISPLAY ══════ */
+.calc-lcd {
+  border-radius: 9px !important;
+  padding: 4px 8px 6px !important;
+  margin: 2px 0 4px !important;
+  background: #141416 !important;
+  border: 2px solid #27272e !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 1px 2px rgba(255, 255, 255, 0.05) !important;
+}
+
+.calc-lcd > * {
+  /* Inner Screen */
+  background: linear-gradient(180deg, #d3dec9 0%, #c5d2ba 100%) !important;
+  color: #111a11 !important;
+  font-family: AxMath, "Cambria Math", "Consolas", monospace !important;
+  border-radius: 4px !important;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25) !important;
+}
+
+.lcd-status {
+  padding: 2px 4px !important;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.15) !important;
+}
+
+.lcd-main {
+  padding: 4px 6px !important;
+  min-height: 80px !important;
+}
+
+/* ══════ KEYPAD: LABELS (SHIFT / ALPHA) ══════ */
+.ck-labels {
+  height: calc(var(--lbl) + 4px) !important;
+  font: 700 var(--lbl)/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  padding: 0 1px !important;
+}
+
+.ck-shift {
+  color: #f59e0b !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.9) !important;
+  font-weight: 700 !important;
+  font-size: 8.5px !important;
+}
+
+.ck-alpha {
+  color: #f43f5e !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.9) !important;
+  font-weight: 700 !important;
+  font-size: 8.5px !important;
+  margin-left: auto !important;
+}
+
+/* ══════ METALLIC ROUND BUTTONS (SHIFT, ALPHA, MENU, ON) ══════ */
+.ck.round {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  margin: 0 auto !important;
+  background: radial-gradient(circle at 40% 30%, #e4e4e7 0%, #a1a1aa 50%, #52525b 100%) !important;
+  border: 1px solid #71717a !important;
+  color: #18181b !important;
+  font-weight: 800 !important;
+  font-size: 8.5px !important;
+  box-shadow: 0 2.5px 0 #27272a, 0 3px 5px rgba(0,0,0,0.5), inset 0 1px 1.5px rgba(255,255,255,0.7) !important;
+  transition: all 0.08s ease !important;
+  cursor: pointer !important;
+}
+
+.ck.round:active {
+  /* transform removed */
+  box-shadow: 0 1px 0 #27272a, inset 0 1px 2px rgba(0,0,0,0.4) !important;
+}
+
+/* ══════ AUTHENTIC CASIO D-PAD (METALLIC DISK WITH CONCAVE CENTER) ══════ */
+.ck-pad {
+  position: relative !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 45% 35%, #71717a 0%, #3f3f46 50%, #27272a 100%) !important;
+  border: 1.5px solid #52525b !important;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,255,255,0.4) !important;
+  margin-bottom: calc(-1 * (var(--fn-h) + var(--lbl) + 4px)) !important;
+  z-index: 2 !important;
+}
+
+.ck-pad::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 50% 50%, #27272a 0%, #3f3f46 60%, #18181b 100%) !important;
+  border: 1px solid #52525b !important;
+  box-shadow: inset 0 2px 3px rgba(0,0,0,0.8), 0 1px 1px rgba(255,255,255,0.2) !important;
+  pointer-events: none !important;
+}
+
+.ck-arrow {
+  color: #e4e4e7 !important;
+  font-size: 10px !important;
+  text-shadow: 0 1px 2px #000000 !important;
+  z-index: 3 !important;
+}
+
+.ck-arrow:active {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ══════ UPPER FUNCTION KEYS (MATTE DARK CHARCOAL) ══════ */
+.ck-top .ck:not(.round) {
+  height: var(--fn-h) !important;
+  border-radius: 5px !important;
+  background: linear-gradient(180deg, #383842 0%, #222227 100%) !important;
+  border: 1px solid #43434c !important;
+  color: #f8fafc !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 0 #121215, 0 2.5px 4px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.18) !important;
+  transition: all 0.08s ease !important;
+}
+
+.ck-top .ck:not(.round):active {
+  /* transform removed */
+  box-shadow: 0 0.5px 0 #121215 !important;
+}
+
+/* ══════ LOWER KEYS (PORCELAIN WHITE NUMBERS & BLUE AC/DEL) ══════ */
+.ck-bottom {
+  margin-top: 5px !important;
+}
+
+.ck-bottom .ck.big {
+  height: var(--ck-h) !important;
+  border-radius: 7px !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%) !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2.5px 0 #94a3b8, 0 3px 5px rgba(0,0,0,0.25), inset 0 1px 0 #ffffff !important;
+  transition: all 0.08s ease !important;
+}
+
+.ck-bottom .ck.big:active {
+  /* transform removed */
+  box-shadow: 0 1px 0 #94a3b8 !important;
+}
+
+/* Iconic Sapphire Blue DEL & AC Keys */
+.ck-bottom .ck.big.del {
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%) !important;
+  border: 1px solid #1e40af !important;
+  color: #ffffff !important;
+  font-size: 13.5px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2.5px 0 #1e3a8a, 0 3px 5px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.35) !important;
+}
+
+.ck-bottom .ck.big.del:active {
+  /* transform removed */
+  box-shadow: 0 1px 0 #1e3a8a !important;
+}
+
+
+/* --- 8. MODERN CLEAN SCROLLBARS --- */
+::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+  border-radius: 10px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8 !important;
+}
+
+
+/* ==========================================================================
+   ✨ VOLUME TOOLBAR GROUPED CARDS & PILLS (.vol-group, .vol-break)
+   ========================================================================== */
+.selection-bar {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px 5px !important;
+  padding: 4px 7px !important;
+  max-width: min(1360px, calc(100vw - 20px)) !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.08) !important;
+  border-radius: 12px !important;
+}
+
+.vol-break {
+  width: 100% !important;
+  height: 0 !important;
+  margin: 1px 0 !important;
+  flex-basis: 100% !important;
+  display: block !important;
+}
+
+.vol-group {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  background: rgba(248, 250, 252, 0.95) !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  padding: 2px 4px !important;
+  white-space: nowrap !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+.vol-group-label {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #475569 !important;
+  padding: 0 2px !important;
+  letter-spacing: 0.01em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  user-select: none !important;
+}
+
+.vol-group button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  padding: 2px 6px !important;
+  min-height: 24px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  border-radius: 5px !important;
+  color: #334155 !important;
+  border: 1px solid transparent !important;
+  transition: all 0.12s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  background: transparent !important;
+  cursor: pointer !important;
+}
+
+.vol-group button:hover:not(:disabled) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06) !important;
+  /* transform removed */
+}
+
+.vol-group button.on {
+  background: #ffffff !important;
+  color: #1d4ed8 !important;
+  border-color: #93c5fd !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.16) !important;
+}
+
+.vol-group button:disabled {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+}
+
+.vol-sep {
+  width: 1px !important;
+  height: 14px !important;
+  background: #cbd5e1 !important;
+  margin: 0 2px !important;
+  align-self: center !important;
+}
+
+.vol-dpad {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 1px !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 5px !important;
+  padding: 1px !important;
+}
+
+.vol-dpad button {
+  padding: 1px 3px !important;
+  min-height: 20px !important;
+  min-width: 20px !important;
+  justify-content: center !important;
+  font-size: 10px !important;
+  border-radius: 4px !important;
+}
+
+.selection-bar > button {
+  padding: 2px 7px !important;
+  min-height: 24px !important;
+  font-size: 11px !important;
+  border-radius: 6px !important;
+  background: rgba(248, 250, 252, 0.95) !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #334155 !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.12s ease !important;
+}
+
+.selection-bar > button:hover:not(:disabled) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06) !important;
+  /* transform removed */
+}
+
+
+/* ==========================================================================
+   Volume Dialog Modal - Modern Aesthetic Styling
+   ========================================================================== */
+.dialog.volume-dialog-modal {
+  width: 860px !important;
+  max-width: calc(100vw - 32px) !important;
+  max-height: 92vh !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 60px -10px rgba(15, 23, 42, 0.28), 0 0 0 1px rgba(15, 23, 42, 0.08) !important;
+  overflow: hidden !important;
+}
+
+.dialog.volume-dialog-modal .dialog-head {
+  padding: 14px 22px !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  font-size: 16.5px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+
+.dialog.volume-dialog-modal .dialog-body {
+  padding: 16px 22px 14px !important;
+  max-height: calc(92vh - 120px) !important;
+  overflow-y: auto !important;
+}
+
+.dialog.volume-dialog-modal .dialog-actions {
+  padding: 12px 22px 16px !important;
+  background: #f8fafc !important;
+  border-top: 1px solid #e2e8f0 !important;
+  margin-bottom: 0 !important;
+  gap: 10px !important;
+}
+
+.dialog.volume-dialog-modal input:focus,
+.dialog.volume-dialog-modal select:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+.vol-form-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.vol-form-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+
+/* ==========================================================================
+   ROCK-SOLID BUTTON STABILITY: Zero jumping/shifting on hover or active
+   ========================================================================== */
+button, 
+.tb, 
+.tbar-btn, 
+.shape-tab-btn, 
+.selection-bar button, 
+.vol-group button, 
+.primary, 
+button.primary, 
+.dialog-actions button,
+.page-ctrl-btn,
+.sheet-add {
+  transform: none !important;
+  transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease, color 0.12s ease, filter 0.12s ease !important;
+}
+
+button:hover, 
+.tb:hover, 
+.tbar-btn:hover, 
+.shape-tab-btn:hover, 
+.selection-bar button:hover, 
+.vol-group button:hover, 
+.primary:hover, 
+button.primary:hover, 
+.dialog-actions button:hover,
+.page-ctrl-btn:hover,
+.sheet-add:hover {
+  transform: none !important;
+}
+
+button:active, 
+.tb:active, 
+.tbar-btn:active, 
+.shape-tab-btn:active, 
+.selection-bar button:active, 
+.vol-group button:active, 
+.primary:active, 
+button.primary:active, 
+.dialog-actions button:active,
+.page-ctrl-btn:active,
+.sheet-add:active {
+  transform: none !important;
+}
+
+
+/* --- 7. GRAPH DIALOG & RANGE GRID TYPOGRAPHY --- */
+.range-grid span {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  white-space: nowrap !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-style: normal !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #334155 !important;
+}
+
+.range-grid input {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-style: normal !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  border-radius: 8px !important;
+  border: 1px solid #cbd5e1 !important;
+  background: #ffffff !important;
+  padding: 6px 10px !important;
+  transition: all 0.15s ease !important;
+}
+
+.range-grid input:focus {
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15) !important;
+  outline: none !important;
+}
+
+
+
+/* --- 8. MODERN ROUNDED GREEN CHECKBOXES --- */
+input[type="checkbox"],
+.check input[type="checkbox"],
+.pp-check input[type="checkbox"],
+.dialog input[type="checkbox"] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  border-radius: 6px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  background-color: #ffffff !important;
+  cursor: pointer !important;
+  display: inline-grid !important;
+  place-content: center !important;
+  margin: 0 !important;
+  vertical-align: middle !important;
+  position: relative !important;
+  outline: none !important;
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  flex-shrink: 0 !important;
+}
+
+input[type="checkbox"]:hover,
+.check input[type="checkbox"]:hover {
+  border-color: #22c55e !important;
+  background-color: #f0fdf4 !important;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12) !important;
+}
+
+input[type="checkbox"]:checked,
+.check input[type="checkbox"]:checked {
+  background-color: #16a34a !important;
+  border-color: #16a34a !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5 8.5L6.5 11.5L12.5 4.5'/%3E%3C/svg%3E") !important;
+  background-size: 11px 11px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3) !important;
+}
+
+input[type="checkbox"]:focus-visible,
+.check input[type="checkbox"]:focus-visible {
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3) !important;
+  border-color: #16a34a !important;
+}
+
+label.check,
+label.pp-check,
+.check {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  font-size: 13px !important;
+  color: #334155 !important;
+  line-height: 1.4 !important;
+}
+
+label.check:hover,
+label.pp-check:hover,
+.check:hover {
+  color: #0f172a !important;
+}
+
+/* Shape option card checkboxes */
+.shape-opt-box {
+  border-radius: 6px !important;
+  border: 1.5px solid #16a34a !important;
+  background: #16a34a !important;
+  color: #ffffff !important;
+}
+
+.shape-opt-toggle:not(.checked) .shape-opt-box {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+.shape-opt-toggle.checked {
+  background: #f0fdf4 !important;
+  border-color: #86efac !important;
+  color: #15803d !important;
+  font-weight: 600 !important;
+}
+
+/* --- Gemini AI & Screen Snipper Styles --- */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes aiPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+}
+
+#nrn-screen-snipper {
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.vol-form-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.vol-form-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.vol-form-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.vol-form-scroll::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+
+/* =============================================================
+   📱 MOBILE RESPONSIVE & PHONE OPTIMIZATION — Full Phone Support
+   Targets: screens ≤ 768px (smartphones & small tablets), html.mobile
+   ============================================================= */
+
+@media (max-width: 768px), (pointer: coarse) and (max-width: 900px), html.mobile {
+  :root {
+    font-size: 14px !important;
+  }
+
+  html, body, #root, .app {
+    overflow: hidden !important;
+    height: 100% !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overscroll-behavior: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    touch-action: manipulation !important;
+  }
+
+  /* ── 1. Toolbar – Two-row layout with smooth horizontal finger scrolling ── */
+  .toolbar,
+  html.mobile .toolbar {
+    height: auto !important;
+    min-height: 94px !important;
+    padding: 2px 8px 4px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    row-gap: 2px !important;
+    gap: 4px !important;
+    position: relative !important;
+    z-index: 1000 !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.08) !important;
+  }
+
+  /* First row: main action buttons */
+  .toolbar > .tb-group:first-child,
+  html.mobile .toolbar > .tb-group:first-child {
+    display: flex !important;
+    flex: 1 1 auto !important;
+    height: 42px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    align-items: center !important;
+    gap: 3px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .toolbar > .tb-group:first-child::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .toolbar > .tb-group:first-child > * {
+    flex-shrink: 0 !important;
+  }
+
+  /* Document info / zoom */
+  .toolbar .tb-title,
+  html.mobile .toolbar .tb-title {
+    height: 42px !important;
+    flex: 0 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-left: auto !important;
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+    padding: 0 4px !important;
+  }
+
+  /* Second row: tools (pen, eraser, colors, shapes, 3D, math) */
+  .toolbar .tb-group.tools,
+  .toolbar.two-rows .tb-group.tools,
+  html.mobile .toolbar .tb-group.tools,
+  html:not(.mobile) .toolbar.two-rows .tb-group.tools {
+    order: 3 !important;
+    width: 100% !important;
+    height: 48px !important;
+    margin-left: 0 !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    border-top: 1px solid var(--line-subtle) !important;
+    padding: 4px 2px !important;
+    gap: 4px !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+  }
+
+  .toolbar .tb-group.tools::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .toolbar .tb-group.tools > * {
+    flex-shrink: 0 !important;
+  }
+
+  /* ── 2. Toolbar buttons – touch-ergonomic targets ── */
+  .tb {
+    min-width: 38px !important;
+    height: 38px !important;
+    padding: 0 6px !important;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+    touch-action: manipulation !important;
+    flex-shrink: 0 !important;
+  }
+
+  .tb svg {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .sep {
+    margin: 0 2px !important;
+    height: 18px !important;
+  }
+
+  /* ── 3. Palette & Swatches – compact and finger-friendly ── */
+  .tb-palette {
+    padding: 2px 4px !important;
+    gap: 3px !important;
+    border-radius: 16px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .swatch {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+    touch-action: manipulation !important;
+  }
+
+  .swatch span {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .swatch.on span {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 3.5px #2563eb !important;
+  }
+
+  /* ── 4. Left Pages Sidebar – overlay drawer mode on mobile ── */
+  .pages-panel {
+    position: fixed !important;
+    top: 96px !important;
+    bottom: 42px !important;
+    left: 0 !important;
+    width: 160px !important;
+    max-width: 80vw !important;
+    z-index: 1200 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: 4px 0 24px rgba(15, 23, 42, 0.22) !important;
+    border-right: 1px solid var(--line-subtle) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .pages-list {
+    padding: 10px 8px !important;
+    gap: 12px !important;
+  }
+
+  .page-thumb-img {
+    border-radius: 8px !important;
+  }
+
+  /* Board canvas occupies 100% full width */
+  .work {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  .board-wrap {
+    width: 100% !important;
+    max-width: 100vw !important;
+    flex: 1 1 100% !important;
+    height: 100% !important;
+  }
+
+  .board-scroller {
+    touch-action: pan-x pan-y !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .board {
+    touch-action: none !important;
+  }
+
+  /* ── 5. Bottom Sheet Tabs Bar ── */
+  .sheet-bar {
+    height: 42px !important;
+    min-height: 42px !important;
+    padding: 0 8px calc(env(safe-area-inset-bottom, 0px) + 2px) 8px !important;
+    gap: 4px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    background: rgba(248, 250, 252, 0.96) !important;
+    border-top: 1px solid var(--line-subtle) !important;
+    z-index: 1000 !important;
+  }
+
+  .sheet-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .sheet-tab {
+    height: 32px !important;
+    min-height: 32px !important;
+    padding: 0 12px !important;
+    font-size: 13px !important;
+    flex-shrink: 0 !important;
+    border-radius: 6px !important;
+  }
+
+  .sheet-add {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    flex-shrink: 0 !important;
+    border-radius: 6px !important;
+  }
+
+  /* ── 6. Modals & Dialogs – Adaptive phone sheets ── */
+  .dialog-backdrop {
+    padding: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .dialog {
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    max-height: 88dvh !important;
+    border-radius: 18px !important;
+    margin: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  .dialog.wide {
+    width: calc(100vw - 12px) !important;
+    max-width: calc(100vw - 12px) !important;
+  }
+
+  .dialog-body {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 12px !important;
+    gap: 8px !important;
+  }
+
+  .dialog-head {
+    padding: 12px 14px !important;
+    font-size: 15px !important;
+  }
+
+  .dialog-actions {
+    padding: 10px 14px !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* Prevent iOS Safari from zooming on input focus */
+  .dialog input,
+  .dialog select,
+  .dialog textarea,
+  .quick-api-input {
+    font-size: 16px !important;
+    min-height: 42px !important;
+  }
+
+  /* ── 7. Volume 3D Dialog – stack columns ── */
+  .vol-dialog-inner,
+  .dialog .vol-layout,
+  .dialog .vol-cols,
+  .dialog .vol-flex {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .vol-toolbar,
+  [class*="vol-sel-bar"],
+  [class*="volSelBar"] {
+    flex-wrap: wrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    gap: 4px !important;
+    padding: 4px 6px !important;
+  }
+
+  .vol-group {
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+  }
+
+  .vol-group button,
+  .vol-group label {
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+    min-height: 32px !important;
+  }
+
+  /* ── 8. Selection bar & Floating tools ── */
+  .selection-bar {
+    max-width: calc(100vw - 12px) !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 4px 6px !important;
+    gap: 4px !important;
+  }
+
+  .selection-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .selection-bar button {
+    padding: 6px 10px !important;
+    font-size: 12.5px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    min-height: 34px !important;
+  }
+
+  /* ── 9. Dropdown menus on mobile ── */
+  .dropdown-menu {
+    max-width: calc(100vw - 16px) !important;
+    max-height: 75dvh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    z-index: 99999 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 16px 48px rgba(15, 23, 42, 0.28) !important;
+  }
+
+  /* Shapes picker cards */
+  .shape-section-card {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  .shape-card-body {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+    gap: 4px !important;
+  }
+
+  /* ── 10. Calc / scientific calculator ── */
+  .calc {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    max-height: 88dvh !important;
+    border-radius: 20px 20px 0 0 !important;
+    padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+    transform: none !important;
+    overflow-y: auto !important;
+  }
+
+  /* ── 11. Zoom input ── */
+  .zoom-input input {
+    width: 60px !important;
+    font-size: 14px !important;
+    min-height: 32px !important;
+  }
+
+  /* ── 12. Graph / equation dialogs ── */
+  .graph-dialog {
+    flex-direction: column-reverse !important;
+    height: 90dvh !important;
+  }
+
+  .graph-side {
+    position: static !important;
+    width: 100% !important;
+    max-height: 45dvh !important;
+  }
+}
+
+/* ── Landscape phone (wide but short) ── */
+@media (max-width: 900px) and (max-height: 480px) {
+  .toolbar {
+    min-height: 46px !important;
+    height: 46px !important;
+    padding: 2px 8px !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+  }
+
+  .toolbar .tb-group.tools {
+    order: unset !important;
+    width: auto !important;
+    border-top: none !important;
+    overflow-x: visible !important;
+    flex-shrink: 0 !important;
+  }
+
+  .dialog {
+    max-height: 90dvh !important;
+  }
+
+  .calc {
+    max-height: 80dvh !important;
+  }
+}
+
+/* ── Touch-friendly tap highlights ── */
+@media (hover: none) and (pointer: coarse) {
+  .tb:hover:not(:disabled) {
+    background: transparent !important;
+    border-color: transparent !important;
+    color: #334155 !important;
+  }
+
+  .tb.on:hover {
+    background: #eff6ff !important;
+    color: #2563eb !important;
+  }
+
+  .swatch:hover span {
+    transform: none !important;
+  }
+
+  .tb, .selection-bar button, .vol-group button,
+  .sheet-btn, .sheet-add, .page-ctrl-btn {
+    touch-action: manipulation !important;
+  }
+
+  /* Active touch feedback */
+  .tb:active:not(:disabled),
+  .sheet-tab:active,
+  .sheet-add:active,
+  .selection-bar button:active {
+    opacity: 0.75 !important;
+    transform: scale(0.96) !important;
+  }
+}
+

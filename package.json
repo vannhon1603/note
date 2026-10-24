@@ -1,0 +1,66 @@
+{
+  "name": "noterenderer-clone",
+  "version": "1.0.0",
+  "description": "Reverse engineered and cloned NoteRenderer - Ink notebook with graphs, equations and dynamic geometry",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "electron": "electron .",
+    "build": "echo Pre-built static site ready",
+    "web": "live-server dist --port=5173",
+    "dev": "live-server dist --port=5173",
+    "preview": "serve dist -l 5173",
+    "dist": "electron-builder --win --x64",
+    "build:exe": "electron-builder --win nsis --x64"
+  },
+  "build": {
+    "appId": "com.noterenderer.ai",
+    "productName": "NoteRenderer AI",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "!dist/assets/*.bak*",
+      "!dist/assets/**/*.bak*",
+      "electron/**/*",
+      "resources/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "resources/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "NoteRenderer AI"
+    }
+  },
+  "keywords": [
+    "noterenderer",
+    "math",
+    "ink",
+    "equations",
+    "geometry",
+    "electron",
+    "rea"
+  ],
+  "author": "Antigravity Pair Programmer",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.4.11",
+    "electron-builder": "^26.15.3",
+    "live-server": "^1.2.2",
+    "serve": "^14.2.6"
+  }
+}
