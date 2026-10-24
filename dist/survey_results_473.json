@@ -1,0 +1,6156 @@
+[
+  {
+    "id": "GV-001",
+    "role": "Giáo viên",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-002",
+    "role": "Giáo viên",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-003",
+    "role": "Giáo viên",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-004",
+    "role": "Giáo viên",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-005",
+    "role": "Giáo viên",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-006",
+    "role": "Giáo viên",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-007",
+    "role": "Giáo viên",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-008",
+    "role": "Giáo viên",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-009",
+    "role": "Giáo viên",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-010",
+    "role": "Giáo viên",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-011",
+    "role": "Giáo viên",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-012",
+    "role": "Giáo viên",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-013",
+    "role": "Giáo viên",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-014",
+    "role": "Giáo viên",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-015",
+    "role": "Giáo viên",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-016",
+    "role": "Giáo viên",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-017",
+    "role": "Giáo viên",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-018",
+    "role": "Giáo viên",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-019",
+    "role": "Giáo viên",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "GV-020",
+    "role": "Giáo viên",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": null,
+    "scoreAfter": null,
+    "scoreDiff": null
+  },
+  {
+    "id": "HS-001",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 8,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-002",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 6.8,
+    "scoreDiff": 0.1
+  },
+  {
+    "id": "HS-003",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 8.4,
+    "scoreDiff": 2.1
+  },
+  {
+    "id": "HS-004",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.3,
+    "scoreAfter": 5.8,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-005",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4,
+    "scoreAfter": 5.6,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-006",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.5,
+    "scoreAfter": 6.9,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-007",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 8.5,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-008",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.7,
+    "scoreAfter": 8.6,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-009",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 7.9,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-010",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 8,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-011",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 6.2,
+    "scoreDiff": 0.3
+  },
+  {
+    "id": "HS-012",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 7.4,
+    "scoreDiff": 0.6
+  },
+  {
+    "id": "HS-013",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.7,
+    "scoreAfter": 9.1,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-014",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.5,
+    "scoreAfter": 7.2,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-015",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 9.4,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-016",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 8.6,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-017",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 6.1,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-018",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 7.9,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-019",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8.8,
+    "scoreAfter": 10,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-020",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 5.6,
+    "scoreDiff": 0.4
+  },
+  {
+    "id": "HS-021",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.8,
+    "scoreAfter": 9.7,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-022",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 6.8,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-023",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 7.2,
+    "scoreDiff": 0.4
+  },
+  {
+    "id": "HS-024",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 7.5,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-025",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 6,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-026",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 7.3,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-027",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 7,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-028",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.7,
+    "scoreAfter": 8.5,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-029",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.8,
+    "scoreAfter": 8.3,
+    "scoreDiff": 2.5
+  },
+  {
+    "id": "HS-030",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 7.7,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-031",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 7.3,
+    "scoreDiff": 0.4
+  },
+  {
+    "id": "HS-032",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.5,
+    "scoreAfter": 6.7,
+    "scoreDiff": 0.2
+  },
+  {
+    "id": "HS-033",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 2,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.5,
+    "scoreAfter": 6.2,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-034",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 7,
+    "scoreDiff": 0.6
+  },
+  {
+    "id": "HS-035",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.3,
+    "scoreAfter": 6.9,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-036",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 7.5,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-037",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7.3,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-038",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 7.4,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-039",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 7.2,
+    "scoreAfter": 9.7,
+    "scoreDiff": 2.5
+  },
+  {
+    "id": "HS-040",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7.7,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-041",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 4.3,
+    "scoreAfter": 5.1,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-042",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8,
+    "scoreAfter": 9.7,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-043",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.6,
+    "scoreAfter": 5.7,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-044",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.5,
+    "scoreAfter": 6.4,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-045",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.7,
+    "scoreAfter": 5.5,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-046",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 7.2,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-047",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 9.7,
+    "scoreDiff": 2.3
+  },
+  {
+    "id": "HS-048",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 9.1,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-049",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 6.8,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-050",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.2,
+    "scoreAfter": 8.8,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-051",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.8,
+    "scoreAfter": 7.6,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-052",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 7.2,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-053",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.8,
+    "scoreAfter": 7.1,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-054",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 7.3,
+    "scoreAfter": 8.7,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-055",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 8.2,
+    "scoreAfter": 9.6,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-056",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 7.9,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-057",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 8,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-058",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 8.3,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-059",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 9.3,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-060",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 8,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-061",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.9,
+    "scoreAfter": 10,
+    "scoreDiff": 2.1
+  },
+  {
+    "id": "HS-062",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 4.5,
+    "scoreAfter": 4.8,
+    "scoreDiff": 0.3
+  },
+  {
+    "id": "HS-063",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8,
+    "scoreAfter": 9.3,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-064",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.5,
+    "scoreAfter": 7.8,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-065",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 7.3,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-066",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.8,
+    "scoreAfter": 9.2,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-067",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 6.6,
+    "scoreDiff": 0.2
+  },
+  {
+    "id": "HS-068",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.1,
+    "scoreAfter": 8.5,
+    "scoreDiff": 2.4
+  },
+  {
+    "id": "HS-069",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8.1,
+    "scoreAfter": 9.1,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-070",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 1,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 8.1,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-071",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 7.3,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-072",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.6,
+    "scoreAfter": 5.1,
+    "scoreDiff": 0.5
+  },
+  {
+    "id": "HS-073",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-074",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 7.4,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-075",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.2,
+    "scoreAfter": 8.7,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-076",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7.3,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-077",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.4,
+    "scoreAfter": 6.7,
+    "scoreDiff": 2.3
+  },
+  {
+    "id": "HS-078",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.4,
+    "scoreAfter": 5.2,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-079",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 8.2,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-080",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 8.1,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-081",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.8,
+    "scoreAfter": 9.2,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-082",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.9,
+    "scoreAfter": 9.8,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-083",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 8.5,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-084",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 2,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 8.1,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-085",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 7.9,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-086",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.3,
+    "scoreAfter": 6.3,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-087",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 8.5,
+    "scoreDiff": 2.5
+  },
+  {
+    "id": "HS-088",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 7.2,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-089",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7.8,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-090",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 2,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.5,
+    "scoreAfter": 6.4,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-091",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 8,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-092",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5,
+    "scoreAfter": 7.1,
+    "scoreDiff": 2.1
+  },
+  {
+    "id": "HS-093",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.1,
+    "scoreAfter": 7.2,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-094",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 1,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.5,
+    "scoreAfter": 6.7,
+    "scoreDiff": 0.2
+  },
+  {
+    "id": "HS-095",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.5,
+    "scoreAfter": 5.8,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-096",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 2,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 6.5,
+    "scoreDiff": 0.5
+  },
+  {
+    "id": "HS-097",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 7.9,
+    "scoreDiff": 0.4
+  },
+  {
+    "id": "HS-098",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 8.4,
+    "scoreDiff": 2.1
+  },
+  {
+    "id": "HS-099",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.7,
+    "scoreAfter": 9.6,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-100",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 7.4,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-101",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 7.5,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-102",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 7.8,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-103",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.6,
+    "scoreAfter": 5,
+    "scoreDiff": 0.4
+  },
+  {
+    "id": "HS-104",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.1,
+    "scoreAfter": 7.6,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-105",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4,
+    "scoreAfter": 5.6,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-106",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.9,
+    "scoreAfter": 6.4,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-107",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 8.1,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-108",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.3,
+    "scoreAfter": 8.1,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-109",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 6.5,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-110",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 7.5,
+    "scoreDiff": 0.6
+  },
+  {
+    "id": "HS-111",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.2,
+    "scoreAfter": 8.6,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-112",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 7.6,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-113",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 8.9,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-114",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.1,
+    "scoreAfter": 6.1,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-115",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.4,
+    "scoreAfter": 7,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-116",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 8.1,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-117",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.3,
+    "scoreAfter": 7,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-118",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 9.1,
+    "scoreDiff": 2.2
+  },
+  {
+    "id": "HS-119",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 2,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 8.6,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-120",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.4,
+    "scoreAfter": 7.3,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-121",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 8.8,
+    "scoreAfter": 10,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-122",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 8.2,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-123",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 7.9,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-124",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 7.9,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-125",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.5,
+    "scoreAfter": 6,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-126",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 2,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.5,
+    "scoreAfter": 6.6,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-127",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 6.2,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-128",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.7,
+    "scoreAfter": 8,
+    "scoreDiff": 0.3
+  },
+  {
+    "id": "HS-129",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 7.9,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-130",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 8.9,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-131",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.6,
+    "scoreAfter": 6.4,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-132",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 8.3,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-133",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 7.7,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-134",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.8,
+    "scoreAfter": 9.3,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-135",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.9,
+    "scoreAfter": 5.3,
+    "scoreDiff": 0.4
+  },
+  {
+    "id": "HS-136",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 7.5,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-137",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 8.4,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-138",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 9.4,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-139",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 8.4,
+    "scoreAfter": 10,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-140",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8.5,
+    "scoreAfter": 9.6,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-141",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.6,
+    "scoreAfter": 6.4,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-142",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 9,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-143",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 1,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 8.8,
+    "scoreAfter": 9.8,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-144",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.6,
+    "scoreAfter": 5.8,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-145",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 8.1,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-146",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.1,
+    "scoreAfter": 7.1,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-147",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 7,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-148",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 8.7,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-149",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.7,
+    "scoreAfter": 5.7,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-150",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.1,
+    "scoreAfter": 8.3,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-151",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.8,
+    "scoreAfter": 6.1,
+    "scoreDiff": 0.3
+  },
+  {
+    "id": "HS-152",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 8.1,
+    "scoreAfter": 9.8,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-153",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 7.5,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-154",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 9.5,
+    "scoreDiff": 2.1
+  },
+  {
+    "id": "HS-155",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.5,
+    "scoreAfter": 7,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-156",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 6.9,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-157",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.5,
+    "scoreAfter": 6.3,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-158",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 8,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-159",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.9,
+    "scoreAfter": 5.4,
+    "scoreDiff": 0.5
+  },
+  {
+    "id": "HS-160",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 6.6,
+    "scoreDiff": 0.6
+  },
+  {
+    "id": "HS-161",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.6,
+    "scoreAfter": 10,
+    "scoreDiff": 2.4
+  },
+  {
+    "id": "HS-162",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 8,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-163",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 6.5,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-164",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 8.2,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-165",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.6,
+    "scoreAfter": 5.5,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-166",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 7.1,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-167",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 9.5,
+    "scoreDiff": 2.1
+  },
+  {
+    "id": "HS-168",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 8.7,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-169",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 8.2,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-170",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 7.6,
+    "scoreAfter": 9.3,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-171",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 8.8,
+    "scoreDiff": 2.4
+  },
+  {
+    "id": "HS-172",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 8.2,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-173",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.1,
+    "scoreAfter": 6.5,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-174",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 6.3,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-175",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 8.8,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-176",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 1,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.2,
+    "scoreAfter": 7.3,
+    "scoreDiff": 0.1
+  },
+  {
+    "id": "HS-177",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 7.8,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-178",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 7.9,
+    "scoreAfter": 8.8,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-179",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.7,
+    "scoreAfter": 8.8,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-180",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.8,
+    "scoreAfter": 7.8,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-181",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 6.2,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-182",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 7.4,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-183",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 7.7,
+    "scoreDiff": 2.5
+  },
+  {
+    "id": "HS-184",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5,
+    "scoreAfter": 6.1,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-185",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 7.5,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-186",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 7.9,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-187",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7.4,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-188",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 7.2,
+    "scoreAfter": 8.4,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-189",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 4.9,
+    "scoreAfter": 6.7,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-190",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 7,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-191",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.1,
+    "scoreAfter": 8.4,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-192",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 7.3,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-193",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 9.1,
+    "scoreDiff": 2.1
+  },
+  {
+    "id": "HS-194",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 7.2,
+    "scoreDiff": 0.6
+  },
+  {
+    "id": "HS-195",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 8.7,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-196",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.5,
+    "scoreAfter": 5.5,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-197",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 8,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-198",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.5,
+    "scoreAfter": 7.2,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-199",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.1,
+    "scoreAfter": 6.4,
+    "scoreDiff": 0.3
+  },
+  {
+    "id": "HS-200",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.3,
+    "scoreAfter": 5.8,
+    "scoreDiff": 0.5
+  },
+  {
+    "id": "HS-201",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 8.4,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-202",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.9,
+    "scoreAfter": 5.9,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-203",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 6.1,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-204",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8,
+    "scoreAfter": 9.8,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-205",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 6.6,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-206",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 2,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.1,
+    "scoreAfter": 5.4,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-207",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.5,
+    "scoreAfter": 7.1,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-208",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 9.2,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-209",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 7.8,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-210",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8.2,
+    "scoreAfter": 10,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-211",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 8,
+    "scoreAfter": 9.6,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-212",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 8.6,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-213",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 6,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-214",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.1,
+    "scoreAfter": 5.7,
+    "scoreDiff": 0.6
+  },
+  {
+    "id": "HS-215",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 7.8,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-216",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8.8,
+    "scoreAfter": 9,
+    "scoreDiff": 0.2
+  },
+  {
+    "id": "HS-217",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 5.5,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-218",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.8,
+    "scoreAfter": 7.5,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-219",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 7.4,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-220",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 7.4,
+    "scoreDiff": 0.4
+  },
+  {
+    "id": "HS-221",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 2,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 6.6,
+    "scoreDiff": 0.6
+  },
+  {
+    "id": "HS-222",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.3,
+    "scoreAfter": 6.9,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-223",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 5,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-224",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8.5,
+    "scoreAfter": 9.4,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-225",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 7.9,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-226",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 9,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-227",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 7.2,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-228",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5,
+    "scoreAfter": 6.7,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-229",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 7.5,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-230",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 8.8,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-231",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 7.2,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-232",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.3,
+    "scoreAfter": 8.8,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-233",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 7.4,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-234",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 8.3,
+    "scoreDiff": 2.1
+  },
+  {
+    "id": "HS-235",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 4.2,
+    "scoreAfter": 4.5,
+    "scoreDiff": 0.3
+  },
+  {
+    "id": "HS-236",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 8.1,
+    "scoreDiff": 2.2
+  },
+  {
+    "id": "HS-237",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.1,
+    "scoreAfter": 8.1,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-238",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.8,
+    "scoreAfter": 5.6,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-239",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 8.4,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-240",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7.3,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-241",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 8.3,
+    "scoreAfter": 9.5,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-242",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.6,
+    "scoreAfter": 7.7,
+    "scoreDiff": 0.1
+  },
+  {
+    "id": "HS-243",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 7.8,
+    "scoreAfter": 8.9,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-244",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.5,
+    "scoreAfter": 7.3,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-245",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.5,
+    "scoreAfter": 8.3,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-246",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 8.5,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-247",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 7.4,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-248",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 7.8,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-249",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 4.5,
+    "scoreAfter": 4.5,
+    "scoreDiff": 0
+  },
+  {
+    "id": "HS-250",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 7.6,
+    "scoreAfter": 7.4,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-251",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.8,
+    "scoreAfter": 7,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-252",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 7.1,
+    "scoreDiff": 0.3
+  },
+  {
+    "id": "HS-253",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 4.9,
+    "scoreAfter": 4.9,
+    "scoreDiff": 0
+  },
+  {
+    "id": "HS-254",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 7.7,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-255",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.3,
+    "scoreAfter": 6,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-256",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8.8,
+    "scoreAfter": 10,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-257",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 4,
+    "scoreAfter": 5.7,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-258",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.8,
+    "scoreAfter": 6.7,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-259",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 8.9,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-260",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.3,
+    "scoreAfter": 6.3,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-261",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7.9,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-262",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 8,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-263",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5,
+    "scoreAfter": 7,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-264",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 7.7,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-265",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 9.6,
+    "scoreDiff": 2.6
+  },
+  {
+    "id": "HS-266",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 8.3,
+    "scoreAfter": 9.9,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-267",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.2,
+    "scoreAfter": 9.4,
+    "scoreDiff": 2.2
+  },
+  {
+    "id": "HS-268",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7.2,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-269",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 6.7,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-270",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.3,
+    "scoreAfter": 7.1,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-271",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 8.8,
+    "scoreAfter": 8.5,
+    "scoreDiff": -0.3
+  },
+  {
+    "id": "HS-272",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 7.5,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-273",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 8.1,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-274",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 6.9,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-275",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.1,
+    "scoreAfter": 7,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-276",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.4,
+    "scoreAfter": 5.5,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-277",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 7.4,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-278",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 4.9,
+    "scoreAfter": 5.6,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-279",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 7.5,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-280",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 8.5,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-281",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 7.7,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-282",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7.1,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-283",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 6.1,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-284",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 8.9,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-285",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 7.1,
+    "scoreAfter": 7.4,
+    "scoreDiff": 0.3
+  },
+  {
+    "id": "HS-286",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.9,
+    "scoreAfter": 8.9,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-287",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 7.7,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-288",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 7.7,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-289",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8.7,
+    "scoreAfter": 9.6,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-290",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 8,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-291",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 7.9,
+    "scoreDiff": 2.2
+  },
+  {
+    "id": "HS-292",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 7.9,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-293",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4,
+    "scoreAfter": 5.2,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-294",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.5,
+    "scoreAfter": 7.7,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-295",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 8.6,
+    "scoreDiff": 2.2
+  },
+  {
+    "id": "HS-296",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 8.4,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-297",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8,
+    "scoreAfter": 10,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-298",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 8.8,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-299",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 8.2,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-300",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8.2,
+    "scoreAfter": 10,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-301",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 7.2,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-302",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.8,
+    "scoreAfter": 8.5,
+    "scoreDiff": 2.7
+  },
+  {
+    "id": "HS-303",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 2,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 6.1,
+    "scoreDiff": 0.2
+  },
+  {
+    "id": "HS-304",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 7.4,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-305",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 6.1,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-306",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 7.1,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-307",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 2,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 5.4,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-308",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 8.3,
+    "scoreAfter": 9.8,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-309",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 8.4,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-310",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 8.5,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-311",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.5,
+    "scoreAfter": 6.9,
+    "scoreDiff": 0.4
+  },
+  {
+    "id": "HS-312",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 2,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.1,
+    "scoreAfter": 6.4,
+    "scoreDiff": 0.3
+  },
+  {
+    "id": "HS-313",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5,
+    "scoreAfter": 5.1,
+    "scoreDiff": 0.1
+  },
+  {
+    "id": "HS-314",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.9,
+    "scoreAfter": 9.4,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-315",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 7,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-316",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 7.2,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-317",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 8.6,
+    "scoreDiff": 2.3
+  },
+  {
+    "id": "HS-318",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 7.7,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-319",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 8,
+    "scoreAfter": 8.6,
+    "scoreDiff": 0.6
+  },
+  {
+    "id": "HS-320",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 8.8,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-321",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 6.8,
+    "scoreDiff": 0
+  },
+  {
+    "id": "HS-322",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 4.7,
+    "scoreAfter": 6.3,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-323",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.5,
+    "scoreAfter": 7.4,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-324",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.4,
+    "scoreAfter": 6.4,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-325",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8.6,
+    "scoreAfter": 10,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-326",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 6.7,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-327",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 6.5,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-328",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 8.2,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-329",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8,
+    "scoreAfter": 9.8,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-330",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 7.9,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-331",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 6.9,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-332",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 7.2,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-333",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.5,
+    "scoreAfter": 5.9,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-334",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 1,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4,
+    "scoreAfter": 5.8,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-335",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 8.1,
+    "scoreAfter": 9.1,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-336",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 6.2,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-337",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 7.5,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-338",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 8.8,
+    "scoreAfter": 9.4,
+    "scoreDiff": 0.6
+  },
+  {
+    "id": "HS-339",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 6.5,
+    "scoreAfter": 8.6,
+    "scoreDiff": 2.1
+  },
+  {
+    "id": "HS-340",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.3,
+    "scoreAfter": 8.3,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-341",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.6,
+    "scoreAfter": 8.3,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-342",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 6.3,
+    "scoreDiff": 0.6
+  },
+  {
+    "id": "HS-343",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 8.5,
+    "scoreAfter": 10,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-344",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-345",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 7.4,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-346",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 5.6,
+    "scoreDiff": 0.4
+  },
+  {
+    "id": "HS-347",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 7.6,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-348",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.5,
+    "scoreAfter": 6.2,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-349",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.7,
+    "scoreAfter": 9.6,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-350",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 7.1,
+    "scoreAfter": 8.8,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-351",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7.2,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-352",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.3,
+    "scoreAfter": 6.7,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-353",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.6,
+    "scoreAfter": 9.4,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-354",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 8.8,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-355",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 6.5,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-356",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 7,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-357",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.8,
+    "scoreAfter": 7.3,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-358",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 7.6,
+    "scoreAfter": 8.9,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-359",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 6.9,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-360",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.1,
+    "scoreAfter": 6.6,
+    "scoreDiff": 0.5
+  },
+  {
+    "id": "HS-361",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 6.9,
+    "scoreDiff": 0.3
+  },
+  {
+    "id": "HS-362",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 7.8,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-363",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 8.7,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-364",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.1,
+    "scoreAfter": 8.5,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-365",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 6.8,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-366",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 7.8,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-367",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7.9,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-368",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 7.2,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-369",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 1,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.9,
+    "scoreAfter": 8.7,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-370",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8.5,
+    "scoreAfter": 9.2,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-371",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 7.8,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-372",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 7.7,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-373",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.1,
+    "scoreAfter": 7.7,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-374",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 4.8,
+    "scoreAfter": 6.9,
+    "scoreDiff": 2.1
+  },
+  {
+    "id": "HS-375",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 7.5,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-376",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.7,
+    "scoreAfter": 8.5,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-377",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 7.4,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-378",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 8.6,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-379",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5,
+    "scoreAfter": 7.2,
+    "scoreDiff": 2.2
+  },
+  {
+    "id": "HS-380",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.2,
+    "scoreAfter": 8.9,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-381",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 6.3,
+    "scoreDiff": 0.3
+  },
+  {
+    "id": "HS-382",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.3,
+    "scoreAfter": 7.1,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-383",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.9,
+    "scoreAfter": 5.7,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-384",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.9,
+    "scoreAfter": 8.9,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-385",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 7.7,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-386",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 7.8,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-387",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.1,
+    "scoreAfter": 7.1,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-388",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 6.1,
+    "scoreDiff": 0.5
+  },
+  {
+    "id": "HS-389",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 7.4,
+    "scoreDiff": 0.5
+  },
+  {
+    "id": "HS-390",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 8.2,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-391",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 4.5,
+    "scoreAfter": 4.5,
+    "scoreDiff": 0
+  },
+  {
+    "id": "HS-392",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 7.8,
+    "scoreAfter": 8.6,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-393",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.3,
+    "scoreAfter": 8.8,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-394",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.3,
+    "scoreAfter": 9.3,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-395",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 7.7,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-396",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 7.7,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-397",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 6.6,
+    "scoreDiff": 0.4
+  },
+  {
+    "id": "HS-398",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 7.9,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-399",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 7.7,
+    "scoreAfter": 9,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-400",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 8.5,
+    "scoreDiff": 2.5
+  },
+  {
+    "id": "HS-401",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 2,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 6.6,
+    "scoreDiff": 0.6
+  },
+  {
+    "id": "HS-402",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 9.3,
+    "scoreDiff": 2.7
+  },
+  {
+    "id": "HS-403",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 7.2,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-404",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 5.8,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-405",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 8.6,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-406",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 7.2,
+    "scoreAfter": 7.9,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-407",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8.1,
+    "scoreAfter": 8.7,
+    "scoreDiff": 0.6
+  },
+  {
+    "id": "HS-408",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 6.8,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-409",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 7.2,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-410",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 7.7,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-411",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 7.6,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-412",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 6,
+    "scoreAfter": 7.1,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-413",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 7,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-414",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 2,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 5.8,
+    "scoreAfter": 5.7,
+    "scoreDiff": -0.1
+  },
+  {
+    "id": "HS-415",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 1,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.3,
+    "scoreAfter": 5.8,
+    "scoreDiff": 0.5
+  },
+  {
+    "id": "HS-416",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 8.6,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-417",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 6.5,
+    "scoreDiff": 0.2
+  },
+  {
+    "id": "HS-418",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 7.3,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-419",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 7.3,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-420",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 3,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 7.7,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-421",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 7.3,
+    "scoreAfter": 8.2,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-422",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.5,
+    "scoreAfter": 8.1,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-423",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.4,
+    "scoreAfter": 7.3,
+    "scoreDiff": 0.9
+  },
+  {
+    "id": "HS-424",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 9.2,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-425",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 7.4,
+    "scoreDiff": 1.1
+  },
+  {
+    "id": "HS-426",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 7.9,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-427",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 7.5,
+    "scoreAfter": 10,
+    "scoreDiff": 2.5
+  },
+  {
+    "id": "HS-428",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 8.2,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-429",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8,
+    "scoreAfter": 8.7,
+    "scoreDiff": 0.7
+  },
+  {
+    "id": "HS-430",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 8.1,
+    "scoreDiff": 2.5
+  },
+  {
+    "id": "HS-431",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 2,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 8.2,
+    "scoreAfter": 9.9,
+    "scoreDiff": 1.7
+  },
+  {
+    "id": "HS-432",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 4.5,
+    "scoreAfter": 6.3,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-433",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.9,
+    "scoreAfter": 9.8,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-434",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7,
+    "scoreAfter": 8.9,
+    "scoreDiff": 1.9
+  },
+  {
+    "id": "HS-435",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 2,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.6,
+    "scoreAfter": 6.1,
+    "scoreDiff": 0.5
+  },
+  {
+    "id": "HS-436",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 5,
+    "scoreDiff": -0.2
+  },
+  {
+    "id": "HS-437",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.3,
+    "scoreAfter": 7.4,
+    "scoreDiff": 2.1
+  },
+  {
+    "id": "HS-438",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 8.4,
+    "scoreAfter": 10,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-439",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.4,
+    "scoreAfter": 6.9,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-440",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.2,
+    "scoreAfter": 7,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-441",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 5.7,
+    "scoreAfter": 7.1,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-442",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.3,
+    "scoreAfter": 7.9,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-443",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác"
+    ],
+    "scoreBefore": 7.4,
+    "scoreAfter": 8.4,
+    "scoreDiff": 1
+  },
+  {
+    "id": "HS-444",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.7,
+    "scoreAfter": 7.5,
+    "scoreDiff": 0.8
+  },
+  {
+    "id": "HS-445",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 8,
+    "scoreDiff": 1.4
+  },
+  {
+    "id": "HS-446",
+    "role": "Học sinh",
+    "usageTime": "Tu 3 den 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.8,
+    "scoreAfter": 8.6,
+    "scoreDiff": 1.8
+  },
+  {
+    "id": "HS-447",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.6,
+    "scoreAfter": 8.6,
+    "scoreDiff": 2
+  },
+  {
+    "id": "HS-448",
+    "role": "Học sinh",
+    "usageTime": "Tren 6 thang",
+    "satisfaction": 3,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.6,
+    "scoreAfter": 8.9,
+    "scoreDiff": 1.3
+  },
+  {
+    "id": "HS-449",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.9,
+    "scoreAfter": 8.4,
+    "scoreDiff": 1.5
+  },
+  {
+    "id": "HS-450",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 6.5,
+    "scoreDiff": 0.3
+  },
+  {
+    "id": "HS-451",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 6.5,
+    "scoreAfter": 8.1,
+    "scoreDiff": 1.6
+  },
+  {
+    "id": "HS-452",
+    "role": "Học sinh",
+    "usageTime": "Tu 1 den 3 thang",
+    "satisfaction": 5,
+    "features": [
+      "Ghi chép kiến thức",
+      "Dùng AI để hướng dẫn giải toán thể tích"
+    ],
+    "scoreBefore": 7.6,
+    "scoreAfter": 8.8,
+    "scoreDiff": 1.2
+  },
+  {
+    "id": "HS-453",
+    "role": "Học sinh",
+    "usageTime": "Duoi 1 thang",
+    "satisfaction": 4,
+    "features": [
+      "Vẽ hình không gian 3D tương tác",
+      "Ghi chép kiến thức"
+    ],
+    "scoreBefore": 6.2,
+    "scoreAfter": 6.8,
+    "scoreDiff": 0.6
+  }
+]

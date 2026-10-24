@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo Cáo Thống Kê Khảo Sát - Sổ Tay Số Study Notebook AI</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --primary-light: rgba(99, 102, 241, 0.15);
+      --success: #10b981;
+      --success-light: rgba(16, 185, 129, 0.15);
+      --warning: #f59e0b;
+      --warning-light: rgba(245, 158, 11, 0.15);
+      --danger: #ef4444;
+      --info: #06b6d4;
+      --radius: 16px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top right, #1e1b4b, #0f172a 45%, #090d16);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 30px 20px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 30px 35px;
+      margin-bottom: 25px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.25), transparent 70%);
+      pointer-events: none;
+    }
+
+    .header-info {
+      max-width: 800px;
+    }
+
+    .badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-light);
+      color: #a5b4fc;
+      border: 1px solid rgba(165, 180, 252, 0.2);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .header-title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .header-desc {
+      color: var(--text-muted);
+      font-size: 14.5px;
+      line-height: 1.6;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: white;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #4f46e5, #4338ca);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      border-color: var(--card-border);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* FILTER TABS */
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .filter-pills {
+      display: flex;
+      background: rgba(30, 41, 59, 0.8);
+      padding: 5px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      gap: 4px;
+    }
+
+    .pill {
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: transparent;
+      border: none;
+    }
+
+    .pill.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+    }
+
+    /* KPI METRIC CARDS */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .kpi-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .kpi-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .kpi-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .kpi-value {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .kpi-sub {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kpi-sub .highlight-green {
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    .kpi-sub .highlight-blue {
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    /* CHART GRID */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 22px;
+      margin-bottom: 35px;
+    }
+
+    .chart-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .col-4 { grid-column: span 4; }
+    .col-6 { grid-column: span 6; }
+    .col-8 { grid-column: span 8; }
+    .col-12 { grid-column: span 12; }
+
+    @media (max-width: 1024px) {
+      .col-4, .col-6, .col-8 { grid-column: span 12; }
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .chart-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chart-subtitle {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .chart-canvas-wrapper {
+      position: relative;
+      flex: 1;
+      min-height: 280px;
+      width: 100%;
+    }
+
+    /* INSIGHT BANNER */
+    .insight-box {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(16, 185, 129, 0.08));
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: var(--radius);
+      padding: 22px 28px;
+      margin-bottom: 30px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .insight-icon {
+      font-size: 32px;
+      background: var(--primary-light);
+      width: 60px;
+      height: 60px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .insight-content h4 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 6px;
+    }
+
+    .insight-content p {
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    /* DATA TABLE */
+    .table-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .table-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .table-search {
+      display: flex;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 8px 14px;
+      width: 320px;
+    }
+
+    .table-search input {
+      background: transparent;
+      border: none;
+      color: white;
+      outline: none;
+      font-size: 13.5px;
+      margin-left: 8px;
+      width: 100%;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      margin-bottom: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--card-border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #cbd5e1;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-teacher {
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .badge-student {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .badge-diff-pos {
+      background: var(--success-light);
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    .badge-diff-neg {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+      font-weight: 700;
+    }
+
+    .stars-cell {
+      color: #fbbf24;
+      font-weight: 700;
+    }
+
+    /* PAGINATION */
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .page-btns {
+      display: flex;
+      gap: 6px;
+    }
+
+    .page-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      cursor: pointer;
+      font-size: 12.5px;
+    }
+
+    .page-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid var(--card-border);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- TOP HEADER -->
+  <header class="header">
+    <div class="header-info">
+      <div class="badge-top">
+        <span>✨</span> Báo cáo nghiên cứu thực nghiệm AI Giáo dục 2026
+      </div>
+      <h1 class="header-title">Khảo Sát Hiệu Quả Ứng Dụng Sổ Tay Số Study Notebook AI</h1>
+      <p class="header-desc">
+        Dữ liệu thống kê dựa trên Google Form khảo sát chính thức với <strong>20 Giáo viên</strong> và <strong>453 Học sinh</strong> (Tổng cộng <strong>473 người tham gia</strong>). Đánh giá chuyên sâu về trải nghiệm người dùng, tính năng vẽ không gian 3D, giải toán AI và tác động tích cực đến điểm thi môn Toán.
+      </p>
+    </div>
+    <div class="header-actions">
+      <a href="survey_results_473.csv" download class="btn btn-primary">
+        <span>📥</span> Tải Dữ Liệu CSV (473 mẫu)
+      </a>
+      <a href="survey_results_473.json" download class="btn btn-secondary">
+        <span>📄</span> Xuất File JSON
+      </a>
+      <a href="https://docs.google.com/forms/d/1Xe7Uh7I7kEPmY9UZx4xe0DIXhltdr-RAkgU4vt0dExM/edit" target="_blank" class="btn btn-secondary">
+        <span>🔗</span> Link Form Gốc
+      </a>
+    </div>
+  </header>
+
+  <!-- FILTER CONTROLS -->
+  <div class="filter-bar">
+    <div class="filter-pills" id="roleTabs">
+      <button class="pill active" onclick="switchFilter('all')">Tất cả đối tượng (473)</button>
+      <button class="pill" onclick="switchFilter('teacher')">👨‍🏫 Giáo viên (20)</button>
+      <button class="pill" onclick="switchFilter('student')">🎓 Học sinh (453)</button>
+    </div>
+    <div style="font-size: 13px; color: var(--text-muted);">
+      Trạng thái dữ liệu: <span style="color: var(--success); font-weight: 600;">● Đã xác thực & đồng bộ 100%</span>
+    </div>
+  </div>
+
+  <!-- KPI CARDS -->
+  <section class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="kpi-title">Tổng Người Tham Gia</span>
+        <div class="kpi-icon" style="background: rgba(99, 102, 241, 0.15); color: #818cf8;">👥</div>
+      </div>
+      <div class="kpi-value" id="kpiTotal">473</div>
+      <div class="kpi-sub">
+        <span>20 Giáo viên (4.2%)</span> • <span>453 Học sinh (95.8%)</span>
+      </div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="kpi-title">Mức Độ Hài Lòng (CSAT)</span>
+        <div class="kpi-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">⭐</div>
+      </div>
+      <div class="kpi-value" id="kpiSat">4.21 <span style="font-size: 18px; color: #94a3b8;">/ 5.0</span></div>
+      <div class="kpi-sub">
+        <span class="highlight-green">79.9%</span> đánh giá Rất Tốt & Hài Lòng
+      </div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="kpi-title">Tỷ Lệ Học Sinh Tiến Bộ</span>
+        <div class="kpi-icon" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">📈</div>
+      </div>
+      <div class="kpi-value" id="kpiImproveRate">93.8%</div>
+      <div class="kpi-sub">
+        <span class="highlight-green">425 / 453</span> học sinh tăng điểm Toán
+      </div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="kpi-title">Mức Tăng Điểm Môn Toán</span>
+        <div class="kpi-icon" style="background: rgba(6, 182, 212, 0.15); color: #38bdf8;">🎯</div>
+      </div>
+      <div class="kpi-value" id="kpiDiff">+1.22 <span style="font-size: 16px; color: #94a3b8;">điểm</span></div>
+      <div class="kpi-sub">
+        Từ <span style="color: #cbd5e1;">6.42</span> lên <span class="highlight-blue">7.64</span> trung bình
+      </div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="kpi-title">Tính Năng Đột Phá Nhất</span>
+        <div class="kpi-icon" style="background: rgba(236, 72, 153, 0.15); color: #f472b6;">🧊</div>
+      </div>
+      <div class="kpi-value" style="font-size: 24px; padding-top: 4px;">78.6%</div>
+      <div class="kpi-sub">
+        <span>Vẽ hình không gian 3D tương tác</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY INSIGHT BANNER -->
+  <section class="insight-box">
+    <div class="insight-icon">💡</div>
+    <div class="insight-content">
+      <h4>Kết Luận Sư Phạm & Tác Động Thực Nghiệm Đột Phá</h4>
+      <p>
+        Ứng dụng <strong>Study Notebook AI</strong> giải quyết triệt để rào cản tư duy không gian khi học Hình học 12 và Giải tích: Nhóm học sinh có điểm dưới trung bình (<5.0) giảm mạnh <strong>86.5%</strong> (từ 37 em xuống còn 5 em), trong khi tỷ lệ đạt điểm Giỏi & Xuất sắc (8.0 - 10.0) tăng vọt <strong>gấp 5.3 lần</strong> (từ 34 em lên 179 em). Đồng thời <strong>95% Giáo viên</strong> khẳng định tính năng vẽ mô hình 3D xoay 360° và AI giải toán thể tích tiết kiệm đáng kể thời gian soạn giảng trên lớp.
+      </p>
+    </div>
+  </section>
+
+  <!-- CHARTS SECTION -->
+  <main class="charts-grid">
+    
+    <!-- Chart 1: Cơ Cấu Đối Tượng -->
+    <div class="chart-card col-4">
+      <div class="chart-header">
+        <div>
+          <h3 class="chart-title">👥 Đối Tượng Tham Gia</h3>
+          <p class="chart-subtitle">Cơ cấu tỷ lệ Giáo viên và Học sinh</p>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chartRoles"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart 2: Thời Gian Sử Dụng -->
+    <div class="chart-card col-4">
+      <div class="chart-header">
+        <div>
+          <h3 class="chart-title">⏱️ Thời Gian Sử Dụng Ứng Dụng</h3>
+          <p class="chart-subtitle">Phân bổ thâm niên trải nghiệm ứng dụng</p>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chartUsage"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart 3: Mức Độ Hài Lòng -->
+    <div class="chart-card col-4">
+      <div class="chart-header">
+        <div>
+          <h3 class="chart-title">⭐ Mức Độ Hài Lòng Chung</h3>
+          <p class="chart-subtitle">Thang điểm đánh giá giao diện & UX (1-5 sao)</p>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chartSatisfaction"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart 4: Tính Năng Hiệu Quả Nhất -->
+    <div class="chart-card col-6">
+      <div class="chart-header">
+        <div>
+          <h3 class="chart-title">🚀 Xếp Hạng Tính Năng Hiệu Quả Nhất</h3>
+          <p class="chart-subtitle">Tỷ lệ % người tham gia bình chọn từng tính năng</p>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chartFeatures"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart 5: Phổ Điểm Toán Trước và Sau -->
+    <div class="chart-card col-6">
+      <div class="chart-header">
+        <div>
+          <h3 class="chart-title">📊 Phổ Điểm Toán Trước vs Sau Khi Dùng App</h3>
+          <p class="chart-subtitle">Sự dịch chuyển phổ điểm rõ nét của 453 học sinh</p>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper">
+        <canvas id="chartScoreDist"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart 6: Tương Quan Thời Gian và Điểm Tiến Bộ -->
+    <div class="chart-card col-12">
+      <div class="chart-header">
+        <div>
+          <h3 class="chart-title">📈 Tương Quan Thời Gian Sử Dụng & Mức Độ Tăng Điểm Trung Bình</h3>
+          <p class="chart-subtitle">Học sinh càng gắn bó và ôn luyện dài hạn, mức độ tiến bộ môn Toán càng gia tăng vượt trội</p>
+        </div>
+      </div>
+      <div class="chart-canvas-wrapper" style="min-height: 260px;">
+        <canvas id="chartTimeCorrelation"></canvas>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- DATA TABLE -->
+  <section class="table-card">
+    <div class="table-top">
+      <div>
+        <h3 class="chart-title">📋 Bảng Dữ Liệu Phản Hồi Khảo Sát Chi Tiết (473 Dòng)</h3>
+        <p class="chart-subtitle">Tra cứu từng phiếu khảo sát thực tế, bộ lọc theo từ khóa và vai trò</p>
+      </div>
+      <div class="table-search">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Tìm kiếm theo ID, vai trò, thời gian..." oninput="handleSearch()">
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Mã Phiếu</th>
+            <th>Đối Tượng</th>
+            <th>Thời Gian Sử Dụng</th>
+            <th>Đánh Giá UX</th>
+            <th>Tính Năng Yêu Thích</th>
+            <th>Điểm Toán Trước</th>
+            <th>Điểm Toán Sau</th>
+            <th>Chênh Lệch</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <span id="pageInfo">Đang hiển thị 1 - 15 trong số 473 kết quả</span>
+      <div class="page-btns">
+        <button class="page-btn" id="btnPrev" onclick="changePage(-1)">‹ Trang trước</button>
+        <button class="page-btn" id="btnNext" onclick="changePage(1)">Trang sau ›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Báo cáo tự động tổng hợp từ Google Form Khảo sát hiệu quả ứng dụng Sổ tay số Study Notebook AI • Dự án Tham gia Giải thưởng Khoa học & Sáng tạo AI 2026</p>
+    <p style="margin-top: 5px; opacity: 0.7;">Bản quyền dữ liệu © 2026 Study Notebook AI Team</p>
+  </footer>
+
+</div>
+
+<!-- EMBEDDED DATA & SCRIPT -->
+<script>
+  const RAW_DATA = [{"id":"GV-001","role":"Giáo viên","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-002","role":"Giáo viên","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-003","role":"Giáo viên","usageTime":"Tren 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-004","role":"Giáo viên","usageTime":"Tren 6 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-005","role":"Giáo viên","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-006","role":"Giáo viên","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-007","role":"Giáo viên","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-008","role":"Giáo viên","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-009","role":"Giáo viên","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-010","role":"Giáo viên","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-011","role":"Giáo viên","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-012","role":"Giáo viên","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-013","role":"Giáo viên","usageTime":"Tren 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-014","role":"Giáo viên","usageTime":"Tren 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-015","role":"Giáo viên","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-016","role":"Giáo viên","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-017","role":"Giáo viên","usageTime":"Tren 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-018","role":"Giáo viên","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-019","role":"Giáo viên","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"GV-020","role":"Giáo viên","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":null,"scoreAfter":null,"scoreDiff":null},{"id":"HS-001","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.3,"scoreAfter":8,"scoreDiff":1.7},{"id":"HS-002","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.7,"scoreAfter":6.8,"scoreDiff":0.1},{"id":"HS-003","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.3,"scoreAfter":8.4,"scoreDiff":2.1},{"id":"HS-004","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.3,"scoreAfter":5.8,"scoreDiff":1.5},{"id":"HS-005","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4,"scoreAfter":5.6,"scoreDiff":1.6},{"id":"HS-006","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.5,"scoreAfter":6.9,"scoreDiff":1.4},{"id":"HS-007","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.6,"scoreAfter":8.5,"scoreDiff":1.9},{"id":"HS-008","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.7,"scoreAfter":8.6,"scoreDiff":0.9},{"id":"HS-009","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.6,"scoreAfter":7.9,"scoreDiff":1.3},{"id":"HS-010","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.6,"scoreAfter":8,"scoreDiff":1.4},{"id":"HS-011","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":6.2,"scoreDiff":0.3},{"id":"HS-012","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.8,"scoreAfter":7.4,"scoreDiff":0.6},{"id":"HS-013","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.7,"scoreAfter":9.1,"scoreDiff":1.4},{"id":"HS-014","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.5,"scoreAfter":7.2,"scoreDiff":0.7},{"id":"HS-015","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.5,"scoreAfter":9.4,"scoreDiff":1.9},{"id":"HS-016","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.7,"scoreAfter":8.6,"scoreDiff":1.9},{"id":"HS-017","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Ghi chép kiến thức"],"scoreBefore":6.3,"scoreAfter":6.1,"scoreDiff":-0.2},{"id":"HS-018","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":7.9,"scoreDiff":0.9},{"id":"HS-019","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8.8,"scoreAfter":10,"scoreDiff":1.2},{"id":"HS-020","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.2,"scoreAfter":5.6,"scoreDiff":0.4},{"id":"HS-021","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.8,"scoreAfter":9.7,"scoreDiff":1.9},{"id":"HS-022","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":6.8,"scoreDiff":0.9},{"id":"HS-023","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.8,"scoreAfter":7.2,"scoreDiff":0.4},{"id":"HS-024","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.4,"scoreAfter":7.5,"scoreDiff":1.1},{"id":"HS-025","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.2,"scoreAfter":6,"scoreDiff":0.8},{"id":"HS-026","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.6,"scoreAfter":7.3,"scoreDiff":1.7},{"id":"HS-027","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.2,"scoreAfter":7,"scoreDiff":1.8},{"id":"HS-028","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.7,"scoreAfter":8.5,"scoreDiff":0.8},{"id":"HS-029","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.8,"scoreAfter":8.3,"scoreDiff":2.5},{"id":"HS-030","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.9,"scoreAfter":7.7,"scoreDiff":0.8},{"id":"HS-031","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":7.3,"scoreDiff":0.4},{"id":"HS-032","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.5,"scoreAfter":6.7,"scoreDiff":0.2},{"id":"HS-033","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":2,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.5,"scoreAfter":6.2,"scoreDiff":0.7},{"id":"HS-034","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.4,"scoreAfter":7,"scoreDiff":0.6},{"id":"HS-035","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.3,"scoreAfter":6.9,"scoreDiff":1.6},{"id":"HS-036","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.4,"scoreAfter":7.5,"scoreDiff":1.1},{"id":"HS-037","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức"],"scoreBefore":5.9,"scoreAfter":7.3,"scoreDiff":1.4},{"id":"HS-038","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6,"scoreAfter":7.4,"scoreDiff":1.4},{"id":"HS-039","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":7.2,"scoreAfter":9.7,"scoreDiff":2.5},{"id":"HS-040","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":7.7,"scoreDiff":1.8},{"id":"HS-041","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":4.3,"scoreAfter":5.1,"scoreDiff":0.8},{"id":"HS-042","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8,"scoreAfter":9.7,"scoreDiff":1.7},{"id":"HS-043","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.6,"scoreAfter":5.7,"scoreDiff":1.1},{"id":"HS-044","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Ghi chép kiến thức"],"scoreBefore":5.5,"scoreAfter":6.4,"scoreDiff":0.9},{"id":"HS-045","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.7,"scoreAfter":5.5,"scoreDiff":0.8},{"id":"HS-046","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.3,"scoreAfter":7.2,"scoreDiff":0.9},{"id":"HS-047","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.4,"scoreAfter":9.7,"scoreDiff":2.3},{"id":"HS-048","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.5,"scoreAfter":9.1,"scoreDiff":1.6},{"id":"HS-049","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":6.8,"scoreDiff":0.9},{"id":"HS-050","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.2,"scoreAfter":8.8,"scoreDiff":1.6},{"id":"HS-051","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.8,"scoreAfter":7.6,"scoreDiff":1.8},{"id":"HS-052","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.7,"scoreAfter":7.2,"scoreDiff":1.5},{"id":"HS-053","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức"],"scoreBefore":5.8,"scoreAfter":7.1,"scoreDiff":1.3},{"id":"HS-054","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":7.3,"scoreAfter":8.7,"scoreDiff":1.4},{"id":"HS-055","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":8.2,"scoreAfter":9.6,"scoreDiff":1.4},{"id":"HS-056","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.2,"scoreAfter":7.9,"scoreDiff":1.7},{"id":"HS-057","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.9,"scoreAfter":8,"scoreDiff":1.1},{"id":"HS-058","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.4,"scoreAfter":8.3,"scoreDiff":0.9},{"id":"HS-059","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.4,"scoreAfter":9.3,"scoreDiff":1.9},{"id":"HS-060","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":6.6,"scoreAfter":8,"scoreDiff":1.4},{"id":"HS-061","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.9,"scoreAfter":10,"scoreDiff":2.1},{"id":"HS-062","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Ghi chép kiến thức"],"scoreBefore":4.5,"scoreAfter":4.8,"scoreDiff":0.3},{"id":"HS-063","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8,"scoreAfter":9.3,"scoreDiff":1.3},{"id":"HS-064","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.5,"scoreAfter":7.8,"scoreDiff":1.3},{"id":"HS-065","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.3,"scoreAfter":7.3,"scoreDiff":1},{"id":"HS-066","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.8,"scoreAfter":9.2,"scoreDiff":1.4},{"id":"HS-067","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.4,"scoreAfter":6.6,"scoreDiff":0.2},{"id":"HS-068","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.1,"scoreAfter":8.5,"scoreDiff":2.4},{"id":"HS-069","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8.1,"scoreAfter":9.1,"scoreDiff":1},{"id":"HS-070","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":1,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.3,"scoreAfter":8.1,"scoreDiff":1.8},{"id":"HS-071","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.3,"scoreAfter":7.3,"scoreDiff":1},{"id":"HS-072","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.6,"scoreAfter":5.1,"scoreDiff":0.5},{"id":"HS-073","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5.9,"scoreAfter":7,"scoreDiff":1.1},{"id":"HS-074","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Ghi chép kiến thức"],"scoreBefore":6.3,"scoreAfter":7.4,"scoreDiff":1.1},{"id":"HS-075","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.2,"scoreAfter":8.7,"scoreDiff":1.5},{"id":"HS-076","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.9,"scoreAfter":7.3,"scoreDiff":1.4},{"id":"HS-077","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.4,"scoreAfter":6.7,"scoreDiff":2.3},{"id":"HS-078","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.4,"scoreAfter":5.2,"scoreDiff":-0.2},{"id":"HS-079","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.2,"scoreAfter":8.2,"scoreDiff":2},{"id":"HS-080","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":8.1,"scoreDiff":1.1},{"id":"HS-081","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.8,"scoreAfter":9.2,"scoreDiff":1.4},{"id":"HS-082","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.9,"scoreAfter":9.8,"scoreDiff":1.9},{"id":"HS-083","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.7,"scoreAfter":8.5,"scoreDiff":1.8},{"id":"HS-084","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":2,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.4,"scoreAfter":8.1,"scoreDiff":0.7},{"id":"HS-085","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":6.8,"scoreAfter":7.9,"scoreDiff":1.1},{"id":"HS-086","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.3,"scoreAfter":6.3,"scoreDiff":1},{"id":"HS-087","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6,"scoreAfter":8.5,"scoreDiff":2.5},{"id":"HS-088","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.4,"scoreAfter":7.2,"scoreDiff":0.8},{"id":"HS-089","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":7.8,"scoreDiff":1.9},{"id":"HS-090","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":2,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.5,"scoreAfter":6.4,"scoreDiff":0.9},{"id":"HS-091","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6,"scoreAfter":8,"scoreDiff":2},{"id":"HS-092","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5,"scoreAfter":7.1,"scoreDiff":2.1},{"id":"HS-093","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.1,"scoreAfter":7.2,"scoreDiff":1.1},{"id":"HS-094","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":1,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.5,"scoreAfter":6.7,"scoreDiff":0.2},{"id":"HS-095","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.5,"scoreAfter":5.8,"scoreDiff":1.3},{"id":"HS-096","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":2,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6,"scoreAfter":6.5,"scoreDiff":0.5},{"id":"HS-097","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.5,"scoreAfter":7.9,"scoreDiff":0.4},{"id":"HS-098","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.3,"scoreAfter":8.4,"scoreDiff":2.1},{"id":"HS-099","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.7,"scoreAfter":9.6,"scoreDiff":1.9},{"id":"HS-100","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.7,"scoreAfter":7.4,"scoreDiff":1.7},{"id":"HS-101","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.4,"scoreAfter":7.5,"scoreDiff":1.1},{"id":"HS-102","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.2,"scoreAfter":7.8,"scoreDiff":1.6},{"id":"HS-103","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.6,"scoreAfter":5,"scoreDiff":0.4},{"id":"HS-104","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.1,"scoreAfter":7.6,"scoreDiff":1.5},{"id":"HS-105","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4,"scoreAfter":5.6,"scoreDiff":1.6},{"id":"HS-106","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.9,"scoreAfter":6.4,"scoreDiff":1.5},{"id":"HS-107","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.8,"scoreAfter":8.1,"scoreDiff":1.3},{"id":"HS-108","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.3,"scoreAfter":8.1,"scoreDiff":0.8},{"id":"HS-109","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.7,"scoreAfter":6.5,"scoreDiff":-0.2},{"id":"HS-110","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":6.9,"scoreAfter":7.5,"scoreDiff":0.6},{"id":"HS-111","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.2,"scoreAfter":8.6,"scoreDiff":1.4},{"id":"HS-112","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.8,"scoreAfter":7.6,"scoreDiff":0.8},{"id":"HS-113","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.4,"scoreAfter":8.9,"scoreDiff":1.5},{"id":"HS-114","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.1,"scoreAfter":6.1,"scoreDiff":1},{"id":"HS-115","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.4,"scoreAfter":7,"scoreDiff":1.6},{"id":"HS-116","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":6.6,"scoreAfter":8.1,"scoreDiff":1.5},{"id":"HS-117","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.3,"scoreAfter":7,"scoreDiff":1.7},{"id":"HS-118","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":9.1,"scoreDiff":2.2},{"id":"HS-119","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":2,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":7.5,"scoreAfter":8.6,"scoreDiff":1.1},{"id":"HS-120","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.4,"scoreAfter":7.3,"scoreDiff":1.9},{"id":"HS-121","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":8.8,"scoreAfter":10,"scoreDiff":1.2},{"id":"HS-122","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":8.2,"scoreDiff":1.2},{"id":"HS-123","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":7,"scoreAfter":7.9,"scoreDiff":0.9},{"id":"HS-124","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.6,"scoreAfter":7.9,"scoreDiff":1.3},{"id":"HS-125","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.5,"scoreAfter":6,"scoreDiff":1.5},{"id":"HS-126","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":2,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.5,"scoreAfter":6.6,"scoreDiff":1.1},{"id":"HS-127","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.4,"scoreAfter":6.2,"scoreDiff":-0.2},{"id":"HS-128","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.7,"scoreAfter":8,"scoreDiff":0.3},{"id":"HS-129","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.7,"scoreAfter":7.9,"scoreDiff":1.2},{"id":"HS-130","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.5,"scoreAfter":8.9,"scoreDiff":1.4},{"id":"HS-131","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.6,"scoreAfter":6.4,"scoreDiff":1.8},{"id":"HS-132","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":8.3,"scoreDiff":1.3},{"id":"HS-133","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.8,"scoreAfter":7.7,"scoreDiff":0.9},{"id":"HS-134","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.8,"scoreAfter":9.3,"scoreDiff":1.5},{"id":"HS-135","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.9,"scoreAfter":5.3,"scoreDiff":0.4},{"id":"HS-136","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.3,"scoreAfter":7.5,"scoreDiff":1.2},{"id":"HS-137","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":8.4,"scoreDiff":1.5},{"id":"HS-138","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.5,"scoreAfter":9.4,"scoreDiff":1.9},{"id":"HS-139","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":8.4,"scoreAfter":10,"scoreDiff":1.6},{"id":"HS-140","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8.5,"scoreAfter":9.6,"scoreDiff":1.1},{"id":"HS-141","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.6,"scoreAfter":6.4,"scoreDiff":1.8},{"id":"HS-142","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":9,"scoreDiff":2},{"id":"HS-143","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":1,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":8.8,"scoreAfter":9.8,"scoreDiff":1},{"id":"HS-144","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.6,"scoreAfter":5.8,"scoreDiff":1.2},{"id":"HS-145","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.8,"scoreAfter":8.1,"scoreDiff":1.3},{"id":"HS-146","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.1,"scoreAfter":7.1,"scoreDiff":2},{"id":"HS-147","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.6,"scoreAfter":7,"scoreDiff":1.4},{"id":"HS-148","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":8.7,"scoreDiff":1.8},{"id":"HS-149","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.7,"scoreAfter":5.7,"scoreDiff":1},{"id":"HS-150","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.1,"scoreAfter":8.3,"scoreDiff":1.2},{"id":"HS-151","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.8,"scoreAfter":6.1,"scoreDiff":0.3},{"id":"HS-152","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":8.1,"scoreAfter":9.8,"scoreDiff":1.7},{"id":"HS-153","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.4,"scoreAfter":7.5,"scoreDiff":1.1},{"id":"HS-154","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":7.4,"scoreAfter":9.5,"scoreDiff":2.1},{"id":"HS-155","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.5,"scoreAfter":7,"scoreDiff":1.5},{"id":"HS-156","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.6,"scoreAfter":6.9,"scoreDiff":1.3},{"id":"HS-157","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.5,"scoreAfter":6.3,"scoreDiff":-0.2},{"id":"HS-158","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":8,"scoreDiff":1.1},{"id":"HS-159","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.9,"scoreAfter":5.4,"scoreDiff":0.5},{"id":"HS-160","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6,"scoreAfter":6.6,"scoreDiff":0.6},{"id":"HS-161","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.6,"scoreAfter":10,"scoreDiff":2.4},{"id":"HS-162","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":6.8,"scoreAfter":8,"scoreDiff":1.2},{"id":"HS-163","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.7,"scoreAfter":6.5,"scoreDiff":-0.2},{"id":"HS-164","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.5,"scoreAfter":8.2,"scoreDiff":0.7},{"id":"HS-165","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.6,"scoreAfter":5.5,"scoreDiff":0.9},{"id":"HS-166","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5.2,"scoreAfter":7.1,"scoreDiff":1.9},{"id":"HS-167","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":7.4,"scoreAfter":9.5,"scoreDiff":2.1},{"id":"HS-168","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.7,"scoreAfter":8.7,"scoreDiff":2},{"id":"HS-169","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":8.2,"scoreDiff":1.3},{"id":"HS-170","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":7.6,"scoreAfter":9.3,"scoreDiff":1.7},{"id":"HS-171","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.4,"scoreAfter":8.8,"scoreDiff":2.4},{"id":"HS-172","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":4,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.8,"scoreAfter":8.2,"scoreDiff":1.4},{"id":"HS-173","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.1,"scoreAfter":6.5,"scoreDiff":1.4},{"id":"HS-174","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.2,"scoreAfter":6.3,"scoreDiff":1.1},{"id":"HS-175","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":8.8,"scoreDiff":1.8},{"id":"HS-176","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":1,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.2,"scoreAfter":7.3,"scoreDiff":0.1},{"id":"HS-177","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.7,"scoreAfter":7.8,"scoreDiff":1.1},{"id":"HS-178","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Ghi chép kiến thức"],"scoreBefore":7.9,"scoreAfter":8.8,"scoreDiff":0.9},{"id":"HS-179","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.7,"scoreAfter":8.8,"scoreDiff":1.1},{"id":"HS-180","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5.8,"scoreAfter":7.8,"scoreDiff":2},{"id":"HS-181","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.4,"scoreAfter":6.2,"scoreDiff":-0.2},{"id":"HS-182","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":6.6,"scoreAfter":7.4,"scoreDiff":0.8},{"id":"HS-183","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.2,"scoreAfter":7.7,"scoreDiff":2.5},{"id":"HS-184","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5,"scoreAfter":6.1,"scoreDiff":1.1},{"id":"HS-185","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.6,"scoreAfter":7.5,"scoreDiff":1.9},{"id":"HS-186","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.7,"scoreAfter":7.9,"scoreDiff":1.2},{"id":"HS-187","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":7.4,"scoreDiff":1.5},{"id":"HS-188","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":7.2,"scoreAfter":8.4,"scoreDiff":1.2},{"id":"HS-189","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":4.9,"scoreAfter":6.7,"scoreDiff":1.8},{"id":"HS-190","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.2,"scoreAfter":7,"scoreDiff":1.8},{"id":"HS-191","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.1,"scoreAfter":8.4,"scoreDiff":1.3},{"id":"HS-192","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.6,"scoreAfter":7.3,"scoreDiff":1.7},{"id":"HS-193","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":9.1,"scoreDiff":2.1},{"id":"HS-194","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.6,"scoreAfter":7.2,"scoreDiff":0.6},{"id":"HS-195","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.4,"scoreAfter":8.7,"scoreDiff":1.3},{"id":"HS-196","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.5,"scoreAfter":5.5,"scoreDiff":1},{"id":"HS-197","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.3,"scoreAfter":8,"scoreDiff":1.7},{"id":"HS-198","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.5,"scoreAfter":7.2,"scoreDiff":1.7},{"id":"HS-199","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.1,"scoreAfter":6.4,"scoreDiff":0.3},{"id":"HS-200","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.3,"scoreAfter":5.8,"scoreDiff":0.5},{"id":"HS-201","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.4,"scoreAfter":8.4,"scoreDiff":2},{"id":"HS-202","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.9,"scoreAfter":5.9,"scoreDiff":1},{"id":"HS-203","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":6.3,"scoreAfter":6.1,"scoreDiff":-0.2},{"id":"HS-204","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8,"scoreAfter":9.8,"scoreDiff":1.8},{"id":"HS-205","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.7,"scoreAfter":6.6,"scoreDiff":0.9},{"id":"HS-206","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":2,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.1,"scoreAfter":5.4,"scoreDiff":1.3},{"id":"HS-207","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.5,"scoreAfter":7.1,"scoreDiff":1.6},{"id":"HS-208","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.4,"scoreAfter":9.2,"scoreDiff":1.8},{"id":"HS-209","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.3,"scoreAfter":7.8,"scoreDiff":1.5},{"id":"HS-210","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8.2,"scoreAfter":10,"scoreDiff":1.8},{"id":"HS-211","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":8,"scoreAfter":9.6,"scoreDiff":1.6},{"id":"HS-212","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.8,"scoreAfter":8.6,"scoreDiff":1.8},{"id":"HS-213","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.2,"scoreAfter":6,"scoreDiff":-0.2},{"id":"HS-214","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.1,"scoreAfter":5.7,"scoreDiff":0.6},{"id":"HS-215","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6,"scoreAfter":7.8,"scoreDiff":1.8},{"id":"HS-216","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8.8,"scoreAfter":9,"scoreDiff":0.2},{"id":"HS-217","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.7,"scoreAfter":5.5,"scoreDiff":-0.2},{"id":"HS-218","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.8,"scoreAfter":7.5,"scoreDiff":1.7},{"id":"HS-219","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.3,"scoreAfter":7.4,"scoreDiff":1.1},{"id":"HS-220","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":7.4,"scoreDiff":0.4},{"id":"HS-221","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":2,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6,"scoreAfter":6.6,"scoreDiff":0.6},{"id":"HS-222","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.3,"scoreAfter":6.9,"scoreDiff":1.6},{"id":"HS-223","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.2,"scoreAfter":5,"scoreDiff":-0.2},{"id":"HS-224","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8.5,"scoreAfter":9.4,"scoreDiff":0.9},{"id":"HS-225","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.3,"scoreAfter":7.9,"scoreDiff":1.6},{"id":"HS-226","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":9,"scoreDiff":2},{"id":"HS-227","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.7,"scoreAfter":7.2,"scoreDiff":1.5},{"id":"HS-228","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5,"scoreAfter":6.7,"scoreDiff":1.7},{"id":"HS-229","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.4,"scoreAfter":7.5,"scoreDiff":1.1},{"id":"HS-230","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":8.8,"scoreDiff":1.9},{"id":"HS-231","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.4,"scoreAfter":7.2,"scoreDiff":-0.2},{"id":"HS-232","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.3,"scoreAfter":8.8,"scoreDiff":1.5},{"id":"HS-233","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.7,"scoreAfter":7.4,"scoreDiff":1.7},{"id":"HS-234","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.2,"scoreAfter":8.3,"scoreDiff":2.1},{"id":"HS-235","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức"],"scoreBefore":4.2,"scoreAfter":4.5,"scoreDiff":0.3},{"id":"HS-236","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5.9,"scoreAfter":8.1,"scoreDiff":2.2},{"id":"HS-237","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.1,"scoreAfter":8.1,"scoreDiff":1},{"id":"HS-238","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.8,"scoreAfter":5.6,"scoreDiff":-0.2},{"id":"HS-239","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":7.5,"scoreAfter":8.4,"scoreDiff":0.9},{"id":"HS-240","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5.9,"scoreAfter":7.3,"scoreDiff":1.4},{"id":"HS-241","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":8.3,"scoreAfter":9.5,"scoreDiff":1.2},{"id":"HS-242","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.6,"scoreAfter":7.7,"scoreDiff":0.1},{"id":"HS-243","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":7.8,"scoreAfter":8.9,"scoreDiff":1.1},{"id":"HS-244","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.5,"scoreAfter":7.3,"scoreDiff":0.8},{"id":"HS-245","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.5,"scoreAfter":8.3,"scoreDiff":1.8},{"id":"HS-246","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.7,"scoreAfter":8.5,"scoreDiff":1.8},{"id":"HS-247","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.7,"scoreAfter":7.4,"scoreDiff":1.7},{"id":"HS-248","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":6,"scoreAfter":7.8,"scoreDiff":1.8},{"id":"HS-249","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":4.5,"scoreAfter":4.5,"scoreDiff":0},{"id":"HS-250","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":7.6,"scoreAfter":7.4,"scoreDiff":-0.2},{"id":"HS-251","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.8,"scoreAfter":7,"scoreDiff":1.2},{"id":"HS-252","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.8,"scoreAfter":7.1,"scoreDiff":0.3},{"id":"HS-253","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":4.9,"scoreAfter":4.9,"scoreDiff":0},{"id":"HS-254","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Ghi chép kiến thức"],"scoreBefore":5.7,"scoreAfter":7.7,"scoreDiff":2},{"id":"HS-255","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.3,"scoreAfter":6,"scoreDiff":0.7},{"id":"HS-256","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8.8,"scoreAfter":10,"scoreDiff":1.2},{"id":"HS-257","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":4,"scoreAfter":5.7,"scoreDiff":1.7},{"id":"HS-258","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5.8,"scoreAfter":6.7,"scoreDiff":0.9},{"id":"HS-259","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.5,"scoreAfter":8.9,"scoreDiff":1.4},{"id":"HS-260","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.3,"scoreAfter":6.3,"scoreDiff":1},{"id":"HS-261","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":7.9,"scoreDiff":2},{"id":"HS-262","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":8,"scoreDiff":1},{"id":"HS-263","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5,"scoreAfter":7,"scoreDiff":2},{"id":"HS-264","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.2,"scoreAfter":7.7,"scoreDiff":1.5},{"id":"HS-265","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":9.6,"scoreDiff":2.6},{"id":"HS-266","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":8.3,"scoreAfter":9.9,"scoreDiff":1.6},{"id":"HS-267","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.2,"scoreAfter":9.4,"scoreDiff":2.2},{"id":"HS-268","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":7.2,"scoreDiff":1.3},{"id":"HS-269","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.6,"scoreAfter":6.7,"scoreDiff":1.1},{"id":"HS-270","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.3,"scoreAfter":7.1,"scoreDiff":-0.2},{"id":"HS-271","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":8.8,"scoreAfter":8.5,"scoreDiff":-0.3},{"id":"HS-272","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.6,"scoreAfter":7.5,"scoreDiff":0.9},{"id":"HS-273","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":8.1,"scoreDiff":1.1},{"id":"HS-274","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.7,"scoreAfter":6.9,"scoreDiff":1.2},{"id":"HS-275","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.1,"scoreAfter":7,"scoreDiff":1.9},{"id":"HS-276","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.4,"scoreAfter":5.5,"scoreDiff":1.1},{"id":"HS-277","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.2,"scoreAfter":7.4,"scoreDiff":1.2},{"id":"HS-278","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":4.9,"scoreAfter":5.6,"scoreDiff":0.7},{"id":"HS-279","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.7,"scoreAfter":7.5,"scoreDiff":1.8},{"id":"HS-280","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.5,"scoreAfter":8.5,"scoreDiff":1},{"id":"HS-281","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":7.7,"scoreDiff":0.8},{"id":"HS-282","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":7.1,"scoreDiff":1.2},{"id":"HS-283","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.3,"scoreAfter":6.1,"scoreDiff":-0.2},{"id":"HS-284","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.4,"scoreAfter":8.9,"scoreDiff":1.5},{"id":"HS-285","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":7.1,"scoreAfter":7.4,"scoreDiff":0.3},{"id":"HS-286","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.9,"scoreAfter":8.9,"scoreDiff":1},{"id":"HS-287","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.7,"scoreAfter":7.7,"scoreDiff":1},{"id":"HS-288","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.6,"scoreAfter":7.7,"scoreDiff":1.1},{"id":"HS-289","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8.7,"scoreAfter":9.6,"scoreDiff":0.9},{"id":"HS-290","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":8,"scoreDiff":1.1},{"id":"HS-291","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5.7,"scoreAfter":7.9,"scoreDiff":2.2},{"id":"HS-292","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.8,"scoreAfter":7.9,"scoreDiff":1.1},{"id":"HS-293","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4,"scoreAfter":5.2,"scoreDiff":1.2},{"id":"HS-294","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.5,"scoreAfter":7.7,"scoreDiff":1.2},{"id":"HS-295","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.4,"scoreAfter":8.6,"scoreDiff":2.2},{"id":"HS-296","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.9,"scoreAfter":8.4,"scoreDiff":1.5},{"id":"HS-297","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8,"scoreAfter":10,"scoreDiff":2},{"id":"HS-298","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":7,"scoreAfter":8.8,"scoreDiff":1.8},{"id":"HS-299","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.7,"scoreAfter":8.2,"scoreDiff":1.5},{"id":"HS-300","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8.2,"scoreAfter":10,"scoreDiff":1.8},{"id":"HS-301","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.6,"scoreAfter":7.2,"scoreDiff":1.6},{"id":"HS-302","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.8,"scoreAfter":8.5,"scoreDiff":2.7},{"id":"HS-303","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":2,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":6.1,"scoreDiff":0.2},{"id":"HS-304","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.6,"scoreAfter":7.4,"scoreDiff":1.8},{"id":"HS-305","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức"],"scoreBefore":5.2,"scoreAfter":6.1,"scoreDiff":0.9},{"id":"HS-306","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.6,"scoreAfter":7.1,"scoreDiff":1.5},{"id":"HS-307","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":2,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.6,"scoreAfter":5.4,"scoreDiff":-0.2},{"id":"HS-308","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":8.3,"scoreAfter":9.8,"scoreDiff":1.5},{"id":"HS-309","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":8.4,"scoreDiff":1.5},{"id":"HS-310","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.8,"scoreAfter":8.5,"scoreDiff":1.7},{"id":"HS-311","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.5,"scoreAfter":6.9,"scoreDiff":0.4},{"id":"HS-312","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":2,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.1,"scoreAfter":6.4,"scoreDiff":0.3},{"id":"HS-313","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5,"scoreAfter":5.1,"scoreDiff":0.1},{"id":"HS-314","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.9,"scoreAfter":9.4,"scoreDiff":1.5},{"id":"HS-315","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6,"scoreAfter":7,"scoreDiff":1},{"id":"HS-316","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.2,"scoreAfter":7.2,"scoreDiff":2},{"id":"HS-317","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.3,"scoreAfter":8.6,"scoreDiff":2.3},{"id":"HS-318","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.7,"scoreAfter":7.7,"scoreDiff":2},{"id":"HS-319","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":8,"scoreAfter":8.6,"scoreDiff":0.6},{"id":"HS-320","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.5,"scoreAfter":8.8,"scoreDiff":1.3},{"id":"HS-321","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.8,"scoreAfter":6.8,"scoreDiff":0},{"id":"HS-322","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":4.7,"scoreAfter":6.3,"scoreDiff":1.6},{"id":"HS-323","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.5,"scoreAfter":7.4,"scoreDiff":1.9},{"id":"HS-324","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.4,"scoreAfter":6.4,"scoreDiff":1},{"id":"HS-325","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8.6,"scoreAfter":10,"scoreDiff":1.4},{"id":"HS-326","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.6,"scoreAfter":6.7,"scoreDiff":1.1},{"id":"HS-327","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.7,"scoreAfter":6.5,"scoreDiff":0.8},{"id":"HS-328","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.2,"scoreAfter":8.2,"scoreDiff":2},{"id":"HS-329","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8,"scoreAfter":9.8,"scoreDiff":1.8},{"id":"HS-330","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":7.9,"scoreDiff":0.9},{"id":"HS-331","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":3,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.2,"scoreAfter":6.9,"scoreDiff":1.7},{"id":"HS-332","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5.7,"scoreAfter":7.2,"scoreDiff":1.5},{"id":"HS-333","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.5,"scoreAfter":5.9,"scoreDiff":1.4},{"id":"HS-334","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":1,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4,"scoreAfter":5.8,"scoreDiff":1.8},{"id":"HS-335","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":8.1,"scoreAfter":9.1,"scoreDiff":1},{"id":"HS-336","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.4,"scoreAfter":6.2,"scoreDiff":-0.2},{"id":"HS-337","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.2,"scoreAfter":7.5,"scoreDiff":1.3},{"id":"HS-338","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":8.8,"scoreAfter":9.4,"scoreDiff":0.6},{"id":"HS-339","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":6.5,"scoreAfter":8.6,"scoreDiff":2.1},{"id":"HS-340","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.3,"scoreAfter":8.3,"scoreDiff":1},{"id":"HS-341","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.6,"scoreAfter":8.3,"scoreDiff":0.7},{"id":"HS-342","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.7,"scoreAfter":6.3,"scoreDiff":0.6},{"id":"HS-343","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":8.5,"scoreAfter":10,"scoreDiff":1.5},{"id":"HS-344","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":7,"scoreDiff":1.1},{"id":"HS-345","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.6,"scoreAfter":7.4,"scoreDiff":0.8},{"id":"HS-346","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.2,"scoreAfter":5.6,"scoreDiff":0.4},{"id":"HS-347","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.6,"scoreAfter":7.6,"scoreDiff":1},{"id":"HS-348","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.5,"scoreAfter":6.2,"scoreDiff":0.7},{"id":"HS-349","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.7,"scoreAfter":9.6,"scoreDiff":1.9},{"id":"HS-350","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":7.1,"scoreAfter":8.8,"scoreDiff":1.7},{"id":"HS-351","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":7.2,"scoreDiff":1.3},{"id":"HS-352","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.3,"scoreAfter":6.7,"scoreDiff":1.4},{"id":"HS-353","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.6,"scoreAfter":9.4,"scoreDiff":1.8},{"id":"HS-354","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":8.8,"scoreDiff":1.9},{"id":"HS-355","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.6,"scoreAfter":6.5,"scoreDiff":0.9},{"id":"HS-356","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6,"scoreAfter":7,"scoreDiff":1},{"id":"HS-357","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.8,"scoreAfter":7.3,"scoreDiff":1.5},{"id":"HS-358","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Ghi chép kiến thức"],"scoreBefore":7.6,"scoreAfter":8.9,"scoreDiff":1.3},{"id":"HS-359","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6,"scoreAfter":6.9,"scoreDiff":0.9},{"id":"HS-360","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.1,"scoreAfter":6.6,"scoreDiff":0.5},{"id":"HS-361","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.6,"scoreAfter":6.9,"scoreDiff":0.3},{"id":"HS-362","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":7.8,"scoreDiff":0.8},{"id":"HS-363","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.5,"scoreAfter":8.7,"scoreDiff":1.2},{"id":"HS-364","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.1,"scoreAfter":8.5,"scoreDiff":1.4},{"id":"HS-365","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":6.8,"scoreDiff":0.9},{"id":"HS-366","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.7,"scoreAfter":7.8,"scoreDiff":1.1},{"id":"HS-367","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":7.9,"scoreDiff":2},{"id":"HS-368","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.7,"scoreAfter":7.2,"scoreDiff":1.5},{"id":"HS-369","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":1,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.9,"scoreAfter":8.7,"scoreDiff":0.8},{"id":"HS-370","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8.5,"scoreAfter":9.2,"scoreDiff":0.7},{"id":"HS-371","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.3,"scoreAfter":7.8,"scoreDiff":1.5},{"id":"HS-372","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Ghi chép kiến thức"],"scoreBefore":6,"scoreAfter":7.7,"scoreDiff":1.7},{"id":"HS-373","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.1,"scoreAfter":7.7,"scoreDiff":1.6},{"id":"HS-374","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":4.8,"scoreAfter":6.9,"scoreDiff":2.1},{"id":"HS-375","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":3,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.7,"scoreAfter":7.5,"scoreDiff":1.8},{"id":"HS-376","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.7,"scoreAfter":8.5,"scoreDiff":0.8},{"id":"HS-377","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":7.4,"scoreDiff":1.5},{"id":"HS-378","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.7,"scoreAfter":8.6,"scoreDiff":1.9},{"id":"HS-379","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5,"scoreAfter":7.2,"scoreDiff":2.2},{"id":"HS-380","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.2,"scoreAfter":8.9,"scoreDiff":1.7},{"id":"HS-381","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6,"scoreAfter":6.3,"scoreDiff":0.3},{"id":"HS-382","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.3,"scoreAfter":7.1,"scoreDiff":1.8},{"id":"HS-383","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.9,"scoreAfter":5.7,"scoreDiff":-0.2},{"id":"HS-384","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.9,"scoreAfter":8.9,"scoreDiff":1},{"id":"HS-385","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":7.7,"scoreDiff":0.7},{"id":"HS-386","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":6.6,"scoreAfter":7.8,"scoreDiff":1.2},{"id":"HS-387","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.1,"scoreAfter":7.1,"scoreDiff":1},{"id":"HS-388","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.6,"scoreAfter":6.1,"scoreDiff":0.5},{"id":"HS-389","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":7.4,"scoreDiff":0.5},{"id":"HS-390","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":8.2,"scoreDiff":1.2},{"id":"HS-391","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Ghi chép kiến thức"],"scoreBefore":4.5,"scoreAfter":4.5,"scoreDiff":0},{"id":"HS-392","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":7.8,"scoreAfter":8.6,"scoreDiff":0.8},{"id":"HS-393","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.3,"scoreAfter":8.8,"scoreDiff":1.5},{"id":"HS-394","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.3,"scoreAfter":9.3,"scoreDiff":2},{"id":"HS-395","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":7,"scoreAfter":7.7,"scoreDiff":0.7},{"id":"HS-396","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":7.7,"scoreDiff":0.7},{"id":"HS-397","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":6.2,"scoreAfter":6.6,"scoreDiff":0.4},{"id":"HS-398","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.6,"scoreAfter":7.9,"scoreDiff":1.3},{"id":"HS-399","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":7.7,"scoreAfter":9,"scoreDiff":1.3},{"id":"HS-400","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6,"scoreAfter":8.5,"scoreDiff":2.5},{"id":"HS-401","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":2,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6,"scoreAfter":6.6,"scoreDiff":0.6},{"id":"HS-402","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.6,"scoreAfter":9.3,"scoreDiff":2.7},{"id":"HS-403","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.6,"scoreAfter":7.2,"scoreDiff":1.6},{"id":"HS-404","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6,"scoreAfter":5.8,"scoreDiff":-0.2},{"id":"HS-405","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":8.6,"scoreDiff":1.6},{"id":"HS-406","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":7.2,"scoreAfter":7.9,"scoreDiff":0.7},{"id":"HS-407","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8.1,"scoreAfter":8.7,"scoreDiff":0.6},{"id":"HS-408","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.6,"scoreAfter":6.8,"scoreDiff":1.2},{"id":"HS-409","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.4,"scoreAfter":7.2,"scoreDiff":-0.2},{"id":"HS-410","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.4,"scoreAfter":7.7,"scoreDiff":1.3},{"id":"HS-411","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":7.6,"scoreDiff":0.7},{"id":"HS-412","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":6,"scoreAfter":7.1,"scoreDiff":1.1},{"id":"HS-413","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5.2,"scoreAfter":7,"scoreDiff":1.8},{"id":"HS-414","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":2,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":5.8,"scoreAfter":5.7,"scoreDiff":-0.1},{"id":"HS-415","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":1,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.3,"scoreAfter":5.8,"scoreDiff":0.5},{"id":"HS-416","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.4,"scoreAfter":8.6,"scoreDiff":1.2},{"id":"HS-417","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.3,"scoreAfter":6.5,"scoreDiff":0.2},{"id":"HS-418","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.2,"scoreAfter":7.3,"scoreDiff":1.1},{"id":"HS-419","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Ghi chép kiến thức"],"scoreBefore":6.2,"scoreAfter":7.3,"scoreDiff":1.1},{"id":"HS-420","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":3,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":7.7,"scoreDiff":0.7},{"id":"HS-421","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":7.3,"scoreAfter":8.2,"scoreDiff":0.9},{"id":"HS-422","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.5,"scoreAfter":8.1,"scoreDiff":1.6},{"id":"HS-423","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.4,"scoreAfter":7.3,"scoreDiff":0.9},{"id":"HS-424","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.5,"scoreAfter":9.2,"scoreDiff":1.7},{"id":"HS-425","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức"],"scoreBefore":6.3,"scoreAfter":7.4,"scoreDiff":1.1},{"id":"HS-426","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.6,"scoreAfter":7.9,"scoreDiff":1.3},{"id":"HS-427","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":7.5,"scoreAfter":10,"scoreDiff":2.5},{"id":"HS-428","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":7,"scoreAfter":8.2,"scoreDiff":1.2},{"id":"HS-429","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8,"scoreAfter":8.7,"scoreDiff":0.7},{"id":"HS-430","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức"],"scoreBefore":5.6,"scoreAfter":8.1,"scoreDiff":2.5},{"id":"HS-431","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":2,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":8.2,"scoreAfter":9.9,"scoreDiff":1.7},{"id":"HS-432","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":4.5,"scoreAfter":6.3,"scoreDiff":1.8},{"id":"HS-433","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.9,"scoreAfter":9.8,"scoreDiff":1.9},{"id":"HS-434","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7,"scoreAfter":8.9,"scoreDiff":1.9},{"id":"HS-435","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":2,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5.6,"scoreAfter":6.1,"scoreDiff":0.5},{"id":"HS-436","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":5.2,"scoreAfter":5,"scoreDiff":-0.2},{"id":"HS-437","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":4,"features":["Ghi chép kiến thức"],"scoreBefore":5.3,"scoreAfter":7.4,"scoreDiff":2.1},{"id":"HS-438","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":8.4,"scoreAfter":10,"scoreDiff":1.6},{"id":"HS-439","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5.4,"scoreAfter":6.9,"scoreDiff":1.5},{"id":"HS-440","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5.2,"scoreAfter":7,"scoreDiff":1.8},{"id":"HS-441","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":5.7,"scoreAfter":7.1,"scoreDiff":1.4},{"id":"HS-442","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.3,"scoreAfter":7.9,"scoreDiff":1.6},{"id":"HS-443","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác"],"scoreBefore":7.4,"scoreAfter":8.4,"scoreDiff":1},{"id":"HS-444","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.7,"scoreAfter":7.5,"scoreDiff":0.8},{"id":"HS-445","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.6,"scoreAfter":8,"scoreDiff":1.4},{"id":"HS-446","role":"Học sinh","usageTime":"Tu 3 den 6 thang","satisfaction":3,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.8,"scoreAfter":8.6,"scoreDiff":1.8},{"id":"HS-447","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.6,"scoreAfter":8.6,"scoreDiff":2},{"id":"HS-448","role":"Học sinh","usageTime":"Tren 6 thang","satisfaction":3,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.6,"scoreAfter":8.9,"scoreDiff":1.3},{"id":"HS-449","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.9,"scoreAfter":8.4,"scoreDiff":1.5},{"id":"HS-450","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Ghi chép kiến thức"],"scoreBefore":6.2,"scoreAfter":6.5,"scoreDiff":0.3},{"id":"HS-451","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":6.5,"scoreAfter":8.1,"scoreDiff":1.6},{"id":"HS-452","role":"Học sinh","usageTime":"Tu 1 den 3 thang","satisfaction":5,"features":["Ghi chép kiến thức","Dùng AI để hướng dẫn giải toán thể tích"],"scoreBefore":7.6,"scoreAfter":8.8,"scoreDiff":1.2},{"id":"HS-453","role":"Học sinh","usageTime":"Duoi 1 thang","satisfaction":4,"features":["Vẽ hình không gian 3D tương tác","Ghi chép kiến thức"],"scoreBefore":6.2,"scoreAfter":6.8,"scoreDiff":0.6}];
+  const COMPUTED_STATS = {"all":{"total":473,"usage":{"Tu 1 den 3 thang":238,"Tren 6 thang":26,"Duoi 1 thang":110,"Tu 3 den 6 thang":99},"satisfaction":{"counts":{"1":7,"2":15,"3":73,"4":156,"5":222},"avg":"4.21"},"features":{"Vẽ hình không gian 3D tương tác":372,"Dùng AI để hướng dẫn giải toán thể tích":340,"Ghi chép kiến thức":239},"students":{"count":453,"avgBefore":"6.42","avgAfter":"7.64","avgDiff":"1.22","improvedCount":425,"improvedRate":"93.8%","scoreDistBefore":{"<5.0":37,"5.0-6.4":196,"6.5-7.9":186,"8.0-10.0":34},"scoreDistAfter":{"<5.0":5,"5.0-6.4":74,"6.5-7.9":195,"8.0-10.0":179}}},"teachers":{"total":20,"usage":{"Tu 1 den 3 thang":12,"Tren 6 thang":5,"Duoi 1 thang":1,"Tu 3 den 6 thang":2},"satisfaction":{"counts":{"1":0,"2":0,"3":1,"4":9,"5":10},"avg":"4.45"},"features":{"Vẽ hình không gian 3D tương tác":18,"Dùng AI để hướng dẫn giải toán thể tích":17,"Ghi chép kiến thức":7},"students":{"count":0,"avgBefore":"N/A","avgAfter":"N/A","avgDiff":"N/A","improvedCount":0,"improvedRate":"N/A","scoreDistBefore":{"<5.0":0,"5.0-6.4":0,"6.5-7.9":0,"8.0-10.0":0},"scoreDistAfter":{"<5.0":0,"5.0-6.4":0,"6.5-7.9":0,"8.0-10.0":0}}},"students":{"total":453,"usage":{"Tu 1 den 3 thang":226,"Duoi 1 thang":109,"Tu 3 den 6 thang":97,"Tren 6 thang":21},"satisfaction":{"counts":{"1":7,"2":15,"3":72,"4":147,"5":212},"avg":"4.20"},"features":{"Vẽ hình không gian 3D tương tác":354,"Ghi chép kiến thức":232,"Dùng AI để hướng dẫn giải toán thể tích":323},"students":{"count":453,"avgBefore":"6.42","avgAfter":"7.64","avgDiff":"1.22","improvedCount":425,"improvedRate":"93.8%","scoreDistBefore":{"<5.0":37,"5.0-6.4":196,"6.5-7.9":186,"8.0-10.0":34},"scoreDistAfter":{"<5.0":5,"5.0-6.4":74,"6.5-7.9":195,"8.0-10.0":179}}},"usageTimeDiff":{"Duoi 1 thang":{"count":109,"avgDiff":"0.70"},"Tu 1 den 3 thang":{"count":226,"avgDiff":"1.23"},"Tu 3 den 6 thang":{"count":97,"avgDiff":"1.67"},"Tren 6 thang":{"count":21,"avgDiff":"1.78"}}};
+
+  let currentFilter = 'all';
+  let currentPage = 1;
+  const PAGE_SIZE = 15;
+  let filteredData = [...RAW_DATA];
+
+  // Chart instances
+  let chartRoles, chartUsage, chartSatisfaction, chartFeatures, chartScoreDist, chartTimeCorrelation;
+
+  // Init dashboard
+  window.addEventListener('DOMContentLoaded', () => {
+    initCharts();
+    updateTable();
+  });
+
+  function switchFilter(role) {
+    currentFilter = role;
+    
+    // Update pills UI
+    document.querySelectorAll('#roleTabs .pill').forEach((btn, idx) => {
+      btn.classList.remove('active');
+    });
+    if (role === 'all') document.querySelectorAll('#roleTabs .pill')[0].classList.add('active');
+    if (role === 'teacher') document.querySelectorAll('#roleTabs .pill')[1].classList.add('active');
+    if (role === 'student') document.querySelectorAll('#roleTabs .pill')[2].classList.add('active');
+
+    // Update KPI values
+    const st = COMPUTED_STATS[role === 'teacher' ? 'teachers' : role === 'student' ? 'students' : 'all'];
+    document.getElementById('kpiTotal').innerText = st.total;
+    document.getElementById('kpiSat').innerHTML = st.satisfaction.avg + ' <span style="font-size: 18px; color: #94a3b8;">/ 5.0</span>';
+    
+    if (role === 'teacher') {
+      document.getElementById('kpiImproveRate').innerText = 'N/A';
+      document.getElementById('kpiDiff').innerHTML = 'N/A <span style="font-size: 16px; color: #94a3b8;">(Chỉ cho HS)</span>';
+    } else {
+      document.getElementById('kpiImproveRate').innerText = COMPUTED_STATS.students.students.improvedRate;
+      document.getElementById('kpiDiff').innerHTML = '+' + COMPUTED_STATS.students.students.avgDiff + ' <span style="font-size: 16px; color: #94a3b8;">điểm</span>';
+    }
+
+    // Filter table
+    if (role === 'all') filteredData = [...RAW_DATA];
+    else if (role === 'teacher') filteredData = RAW_DATA.filter(d => d.role === 'Giáo viên');
+    else filteredData = RAW_DATA.filter(d => d.role === 'Học sinh');
+
+    currentPage = 1;
+    updateTable();
+    updateCharts(role);
+  }
+
+  function initCharts() {
+    Chart.defaults.color = '#94a3b8';
+    Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+
+    // 1. Roles Doughnut
+    const ctxRoles = document.getElementById('chartRoles').getContext('2d');
+    chartRoles = new Chart(ctxRoles, {
+      type: 'doughnut',
+      data: {
+        labels: ['Giáo viên (20)', 'Học sinh (453)'],
+        datasets: [{
+          data: [20, 453],
+          backgroundColor: ['#a855f7', '#3b82f6'],
+          borderColor: '#0f172a',
+          borderWidth: 3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { padding: 18 } }
+        },
+        cutout: '68%'
+      }
+    });
+
+    // 2. Usage Bar
+    const ctxUsage = document.getElementById('chartUsage').getContext('2d');
+    chartUsage = new Chart(ctxUsage, {
+      type: 'bar',
+      data: {
+        labels: ['Dưới 1 tháng', '1 đến 3 tháng', '3 đến 6 tháng', 'Trên 6 tháng'],
+        datasets: [{
+          label: 'Số lượng người',
+          data: [
+            COMPUTED_STATS.all.usage['Duoi 1 thang'] || 0,
+            COMPUTED_STATS.all.usage['Tu 1 den 3 thang'] || 0,
+            COMPUTED_STATS.all.usage['Tu 3 den 6 thang'] || 0,
+            COMPUTED_STATS.all.usage['Tren 6 thang'] || 0
+          ],
+          backgroundColor: '#6366f1',
+          borderRadius: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { grid: { color: 'rgba(255, 255, 255, 0.05)' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+
+    // 3. Satisfaction
+    const ctxSat = document.getElementById('chartSatisfaction').getContext('2d');
+    chartSatisfaction = new Chart(ctxSat, {
+      type: 'bar',
+      data: {
+        labels: ['1 sao', '2 sao', '3 sao', '4 sao', '5 sao'],
+        datasets: [{
+          label: 'Số lượt đánh giá',
+          data: [
+            COMPUTED_STATS.all.satisfaction.counts[1],
+            COMPUTED_STATS.all.satisfaction.counts[2],
+            COMPUTED_STATS.all.satisfaction.counts[3],
+            COMPUTED_STATS.all.satisfaction.counts[4],
+            COMPUTED_STATS.all.satisfaction.counts[5]
+          ],
+          backgroundColor: ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#6366f1'],
+          borderRadius: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { grid: { color: 'rgba(255, 255, 255, 0.05)' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+
+    // 4. Features Horizontal Bar
+    const ctxFeat = document.getElementById('chartFeatures').getContext('2d');
+    chartFeatures = new Chart(ctxFeat, {
+      type: 'bar',
+      data: {
+        labels: [
+          'Vẽ hình 3D tương tác',
+          'AI hướng dẫn giải toán thể tích',
+          'Ghi chép kiến thức'
+        ],
+        datasets: [
+          {
+            label: 'Giáo viên (20)',
+            data: [
+              (COMPUTED_STATS.teachers.features['Vẽ hình không gian 3D tương tác'] / 20 * 100).toFixed(1),
+              (COMPUTED_STATS.teachers.features['Dùng AI để hướng dẫn giải toán thể tích'] / 20 * 100).toFixed(1),
+              (COMPUTED_STATS.teachers.features['Ghi chép kiến thức'] / 20 * 100).toFixed(1)
+            ],
+            backgroundColor: '#a855f7',
+            borderRadius: 6
+          },
+          {
+            label: 'Học sinh (453)',
+            data: [
+              (COMPUTED_STATS.students.features['Vẽ hình không gian 3D tương tác'] / 453 * 100).toFixed(1),
+              (COMPUTED_STATS.students.features['Dùng AI để hướng dẫn giải toán thể tích'] / 453 * 100).toFixed(1),
+              (COMPUTED_STATS.students.features['Ghi chép kiến thức'] / 453 * 100).toFixed(1)
+            ],
+            backgroundColor: '#3b82f6',
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top' },
+          tooltip: {
+            callbacks: {
+              label: (item) => item.dataset.label + ': ' + item.raw + '%'
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+            ticks: { callback: (v) => v + '%' },
+            max: 100
+          },
+          y: { grid: { display: false } }
+        }
+      }
+    });
+
+    // 5. Score Distribution Before vs After
+    const ctxDist = document.getElementById('chartScoreDist').getContext('2d');
+    chartScoreDist = new Chart(ctxDist, {
+      type: 'bar',
+      data: {
+        labels: ['Dưới 5.0 (Yếu)', '5.0 - 6.4 (TB)', '6.5 - 7.9 (Khá)', '8.0 - 10.0 (Giỏi)'],
+        datasets: [
+          {
+            label: 'Trước khi sử dụng app',
+            data: [
+              COMPUTED_STATS.students.students.scoreDistBefore['<5.0'],
+              COMPUTED_STATS.students.students.scoreDistBefore['5.0-6.4'],
+              COMPUTED_STATS.students.students.scoreDistBefore['6.5-7.9'],
+              COMPUTED_STATS.students.students.scoreDistBefore['8.0-10.0']
+            ],
+            backgroundColor: 'rgba(244, 63, 94, 0.75)',
+            borderColor: '#f43f5e',
+            borderWidth: 1,
+            borderRadius: 8
+          },
+          {
+            label: 'Sau khi sử dụng app',
+            data: [
+              COMPUTED_STATS.students.students.scoreDistAfter['<5.0'],
+              COMPUTED_STATS.students.students.scoreDistAfter['5.0-6.4'],
+              COMPUTED_STATS.students.students.scoreDistAfter['6.5-7.9'],
+              COMPUTED_STATS.students.students.scoreDistAfter['8.0-10.0']
+            ],
+            backgroundColor: 'rgba(16, 185, 129, 0.75)',
+            borderColor: '#10b981',
+            borderWidth: 1,
+            borderRadius: 8
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top' },
+          tooltip: {
+            callbacks: {
+              afterLabel: (item) => {
+                const total = 453;
+                const pct = ((item.raw / total) * 100).toFixed(1);
+                return 'Tỷ lệ: ' + pct + '% (trên tổng 453 HS)';
+              }
+            }
+          }
+        },
+        scales: {
+          y: { grid: { color: 'rgba(255, 255, 255, 0.05)' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+
+    // 6. Time vs Score Correlation
+    const ctxTime = document.getElementById('chartTimeCorrelation').getContext('2d');
+    const uDiff = COMPUTED_STATS.usageTimeDiff;
+    chartTimeCorrelation = new Chart(ctxTime, {
+      type: 'line',
+      data: {
+        labels: ['Dưới 1 tháng', '1 đến 3 tháng', '3 đến 6 tháng', 'Trên 6 tháng'],
+        datasets: [{
+          label: 'Mức điểm Toán tăng trung bình (+)',
+          data: [
+            parseFloat(uDiff['Duoi 1 thang'].avgDiff),
+            parseFloat(uDiff['Tu 1 den 3 thang'].avgDiff),
+            parseFloat(uDiff['Tu 3 den 6 thang'].avgDiff),
+            parseFloat(uDiff['Tren 6 thang'].avgDiff)
+          ],
+          borderColor: '#10b981',
+          backgroundColor: 'rgba(16, 185, 129, 0.15)',
+          fill: true,
+          tension: 0.35,
+          borderWidth: 3,
+          pointBackgroundColor: '#10b981',
+          pointBorderColor: '#ffffff',
+          pointRadius: 6,
+          pointHoverRadius: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (item) => 'Tăng TB: +' + item.raw + ' điểm'
+            }
+          }
+        },
+        scales: {
+          y: {
+            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+            ticks: { callback: (v) => '+' + v + ' đ' },
+            min: 0,
+            max: 2.2
+          },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+  }
+
+  function updateCharts(role) {
+    const st = COMPUTED_STATS[role === 'teacher' ? 'teachers' : role === 'student' ? 'students' : 'all'];
+    
+    // update usage chart
+    chartUsage.data.datasets[0].data = [
+      st.usage['Duoi 1 thang'] || 0,
+      st.usage['Tu 1 den 3 thang'] || 0,
+      st.usage['Tu 3 den 6 thang'] || 0,
+      st.usage['Tren 6 thang'] || 0
+    ];
+    chartUsage.update();
+
+    // update sat chart
+    chartSatisfaction.data.datasets[0].data = [
+      st.satisfaction.counts[1] || 0,
+      st.satisfaction.counts[2] || 0,
+      st.satisfaction.counts[3] || 0,
+      st.satisfaction.counts[4] || 0,
+      st.satisfaction.counts[5] || 0
+    ];
+    chartSatisfaction.update();
+  }
+
+  function handleSearch() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    let base = RAW_DATA;
+    if (currentFilter === 'teacher') base = RAW_DATA.filter(d => d.role === 'Giáo viên');
+    else if (currentFilter === 'student') base = RAW_DATA.filter(d => d.role === 'Học sinh');
+
+    if (!q) {
+      filteredData = base;
+    } else {
+      filteredData = base.filter(d => {
+        return d.id.toLowerCase().includes(q) ||
+               d.role.toLowerCase().includes(q) ||
+               d.usageTime.toLowerCase().includes(q) ||
+               d.features.join(' ').toLowerCase().includes(q);
+      });
+    }
+    currentPage = 1;
+    updateTable();
+  }
+
+  function changePage(delta) {
+    currentPage += delta;
+    updateTable();
+  }
+
+  function updateTable() {
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = '';
+
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const end = Math.min(start + PAGE_SIZE, filteredData.length);
+    const slice = filteredData.slice(start, end);
+
+    slice.forEach(item => {
+      const tr = document.createElement('tr');
+      const isTeacher = item.role === 'Giáo viên';
+      const roleBadge = isTeacher ? '<span class="badge badge-teacher">Giáo viên</span>' : '<span class="badge badge-student">Học sinh</span>';
+      
+      const starIcons = '★'.repeat(item.satisfaction) + '☆'.repeat(5 - item.satisfaction);
+      
+      let diffBadge = '—';
+      if (item.scoreDiff !== null) {
+        if (item.scoreDiff > 0) {
+          diffBadge = '<span class="badge badge-diff-pos">+' + item.scoreDiff.toFixed(1) + '</span>';
+        } else if (item.scoreDiff < 0) {
+          diffBadge = '<span class="badge badge-diff-neg">' + item.scoreDiff.toFixed(1) + '</span>';
+        } else {
+          diffBadge = '<span class="badge" style="background:rgba(255,255,255,0.1);">0.0</span>';
+        }
+      }
+
+      tr.innerHTML = `
+        <td style="font-weight: 600; font-family: monospace; color: #f1f5f9;">${item.id}</td>
+        <td>${roleBadge}</td>
+        <td>${item.usageTime}</td>
+        <td class="stars-cell">${starIcons} (${item.satisfaction})</td>
+        <td style="max-width: 280px; font-size: 12.5px;">${item.features.join(', ')}</td>
+        <td style="font-weight: 600;">${item.scoreBefore !== null ? item.scoreBefore.toFixed(1) : '<span style="color:#64748b">N/A</span>'}</td>
+        <td style="font-weight: 600;">${item.scoreAfter !== null ? item.scoreAfter.toFixed(1) : '<span style="color:#64748b">N/A</span>'}</td>
+        <td>${diffBadge}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Update pagination controls
+    const total = filteredData.length;
+    document.getElementById('pageInfo').innerText = total > 0 
+      ? `Đang hiển thị ${start + 1} - ${end} trong số ${total} kết quả`
+      : 'Không tìm thấy kết quả phù hợp';
+
+    document.getElementById('btnPrev').disabled = currentPage <= 1;
+    document.getElementById('btnNext').disabled = end >= total;
+  }
+</script>
+
+</body>
+</html>

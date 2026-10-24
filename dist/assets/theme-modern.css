@@ -1409,7 +1409,7 @@ label.pp-check:hover,
    Targets: screens ≤ 768px (smartphones & small tablets), html.mobile
    ============================================================= */
 
-@media (max-width: 768px), (pointer: coarse) and (max-width: 900px), html.mobile {
+@media (max-width: 768px), (pointer: coarse) and (max-width: 900px) {
   :root {
     font-size: 14px !important;
   }
@@ -1627,11 +1627,16 @@ label.pp-check:hover,
   }
 
   .board-scroller {
-    touch-action: pan-x pan-y !important;
+    touch-action: none !important;
     -webkit-overflow-scrolling: touch !important;
     overscroll-behavior: contain !important;
     width: 100% !important;
     height: 100% !important;
+  }
+
+  html.pan-mode .board-scroller,
+  .board-scroller.pan-mode {
+    touch-action: pan-x pan-y !important;
   }
 
   .board {

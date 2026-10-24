@@ -1,0 +1,474 @@
+﻿Mã phản hồi,Bạn là học sinh hay giáo viên,Thời gian sử dụng ứng dụng,Mức độ hài lòng chung (1-5),Tính năng hiệu quả nhất,Điểm TB Toán trước khi dùng,Điểm TB Toán sau khi dùng,Mức độ chênh lệch điểm
+GV-001,Giáo viên,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-002,Giáo viên,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-003,Giáo viên,Tren 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-004,Giáo viên,Tren 6 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-005,Giáo viên,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-006,Giáo viên,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-007,Giáo viên,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",N/A,N/A,N/A
+GV-008,Giáo viên,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",N/A,N/A,N/A
+GV-009,Giáo viên,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-010,Giáo viên,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-011,Giáo viên,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-012,Giáo viên,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-013,Giáo viên,Tren 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-014,Giáo viên,Tren 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-015,Giáo viên,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-016,Giáo viên,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-017,Giáo viên,Tren 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-018,Giáo viên,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác",N/A,N/A,N/A
+GV-019,Giáo viên,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+GV-020,Giáo viên,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",N/A,N/A,N/A
+HS-001,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.3,8.0,+1.7
+HS-002,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.7,6.8,+0.1
+HS-003,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.3,8.4,+2.1
+HS-004,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",4.3,5.8,+1.5
+HS-005,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",4.0,5.6,+1.6
+HS-006,Học sinh,Tu 1 den 3 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.5,6.9,+1.4
+HS-007,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",6.6,8.5,+1.9
+HS-008,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.7,8.6,+0.9
+HS-009,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.6,7.9,+1.3
+HS-010,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.6,8.0,+1.4
+HS-011,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.9,6.2,+0.3
+HS-012,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.8,7.4,+0.6
+HS-013,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.7,9.1,+1.4
+HS-014,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.5,7.2,+0.7
+HS-015,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.5,9.4,+1.9
+HS-016,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.7,8.6,+1.9
+HS-017,Học sinh,Duoi 1 thang,4,"Ghi chép kiến thức",6.3,6.1,-0.2
+HS-018,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.0,7.9,+0.9
+HS-019,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",8.8,10.0,+1.2
+HS-020,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.2,5.6,+0.4
+HS-021,Học sinh,Tu 3 den 6 thang,3,"Dùng AI để hướng dẫn giải toán thể tích",7.8,9.7,+1.9
+HS-022,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.9,6.8,+0.9
+HS-023,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.8,7.2,+0.4
+HS-024,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.4,7.5,+1.1
+HS-025,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.2,6.0,+0.8
+HS-026,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.6,7.3,+1.7
+HS-027,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.2,7.0,+1.8
+HS-028,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.7,8.5,+0.8
+HS-029,Học sinh,Tren 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.8,8.3,+2.5
+HS-030,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.9,7.7,+0.8
+HS-031,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.9,7.3,+0.4
+HS-032,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.5,6.7,+0.2
+HS-033,Học sinh,Tu 1 den 3 thang,2,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.5,6.2,+0.7
+HS-034,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.4,7.0,+0.6
+HS-035,Học sinh,Tu 3 den 6 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",5.3,6.9,+1.6
+HS-036,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.4,7.5,+1.1
+HS-037,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức",5.9,7.3,+1.4
+HS-038,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.0,7.4,+1.4
+HS-039,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",7.2,9.7,+2.5
+HS-040,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.9,7.7,+1.8
+HS-041,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác",4.3,5.1,+0.8
+HS-042,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",8.0,9.7,+1.7
+HS-043,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",4.6,5.7,+1.1
+HS-044,Học sinh,Duoi 1 thang,4,"Ghi chép kiến thức",5.5,6.4,+0.9
+HS-045,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",4.7,5.5,+0.8
+HS-046,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.3,7.2,+0.9
+HS-047,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.4,9.7,+2.3
+HS-048,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",7.5,9.1,+1.6
+HS-049,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.9,6.8,+0.9
+HS-050,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.2,8.8,+1.6
+HS-051,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.8,7.6,+1.8
+HS-052,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.7,7.2,+1.5
+HS-053,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức",5.8,7.1,+1.3
+HS-054,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",7.3,8.7,+1.4
+HS-055,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác",8.2,9.6,+1.4
+HS-056,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.2,7.9,+1.7
+HS-057,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.9,8.0,+1.1
+HS-058,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.4,8.3,+0.9
+HS-059,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.4,9.3,+1.9
+HS-060,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác",6.6,8.0,+1.4
+HS-061,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.9,10.0,+2.1
+HS-062,Học sinh,Duoi 1 thang,3,"Ghi chép kiến thức",4.5,4.8,+0.3
+HS-063,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",8.0,9.3,+1.3
+HS-064,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.5,7.8,+1.3
+HS-065,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.3,7.3,+1.0
+HS-066,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.8,9.2,+1.4
+HS-067,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.4,6.6,+0.2
+HS-068,Học sinh,Tren 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.1,8.5,+2.4
+HS-069,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",8.1,9.1,+1.0
+HS-070,Học sinh,Tu 1 den 3 thang,1,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.3,8.1,+1.8
+HS-071,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.3,7.3,+1.0
+HS-072,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",4.6,5.1,+0.5
+HS-073,Học sinh,Tren 6 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.9,7.0,+1.1
+HS-074,Học sinh,Duoi 1 thang,5,"Ghi chép kiến thức",6.3,7.4,+1.1
+HS-075,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.2,8.7,+1.5
+HS-076,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác",5.9,7.3,+1.4
+HS-077,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",4.4,6.7,+2.3
+HS-078,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.4,5.2,-0.2
+HS-079,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.2,8.2,+2.0
+HS-080,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.0,8.1,+1.1
+HS-081,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.8,9.2,+1.4
+HS-082,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.9,9.8,+1.9
+HS-083,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.7,8.5,+1.8
+HS-084,Học sinh,Tu 1 den 3 thang,2,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.4,8.1,+0.7
+HS-085,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác",6.8,7.9,+1.1
+HS-086,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác",5.3,6.3,+1.0
+HS-087,Học sinh,Tren 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.0,8.5,+2.5
+HS-088,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.4,7.2,+0.8
+HS-089,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.9,7.8,+1.9
+HS-090,Học sinh,Tu 1 den 3 thang,2,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.5,6.4,+0.9
+HS-091,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",6.0,8.0,+2.0
+HS-092,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.0,7.1,+2.1
+HS-093,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.1,7.2,+1.1
+HS-094,Học sinh,Duoi 1 thang,1,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.5,6.7,+0.2
+HS-095,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.5,5.8,+1.3
+HS-096,Học sinh,Duoi 1 thang,2,"Dùng AI để hướng dẫn giải toán thể tích",6.0,6.5,+0.5
+HS-097,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.5,7.9,+0.4
+HS-098,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.3,8.4,+2.1
+HS-099,Học sinh,Tu 3 den 6 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.7,9.6,+1.9
+HS-100,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.7,7.4,+1.7
+HS-101,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.4,7.5,+1.1
+HS-102,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.2,7.8,+1.6
+HS-103,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",4.6,5.0,+0.4
+HS-104,Học sinh,Tu 3 den 6 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.1,7.6,+1.5
+HS-105,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.0,5.6,+1.6
+HS-106,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.9,6.4,+1.5
+HS-107,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.8,8.1,+1.3
+HS-108,Học sinh,Tu 1 den 3 thang,4,"Dùng AI để hướng dẫn giải toán thể tích",7.3,8.1,+0.8
+HS-109,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.7,6.5,-0.2
+HS-110,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác",6.9,7.5,+0.6
+HS-111,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.2,8.6,+1.4
+HS-112,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.8,7.6,+0.8
+HS-113,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.4,8.9,+1.5
+HS-114,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.1,6.1,+1.0
+HS-115,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.4,7.0,+1.6
+HS-116,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác",6.6,8.1,+1.5
+HS-117,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.3,7.0,+1.7
+HS-118,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.9,9.1,+2.2
+HS-119,Học sinh,Tu 1 den 3 thang,2,"Vẽ hình không gian 3D tương tác",7.5,8.6,+1.1
+HS-120,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác",5.4,7.3,+1.9
+HS-121,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác",8.8,10.0,+1.2
+HS-122,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.0,8.2,+1.2
+HS-123,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",7.0,7.9,+0.9
+HS-124,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",6.6,7.9,+1.3
+HS-125,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.5,6.0,+1.5
+HS-126,Học sinh,Tu 3 den 6 thang,2,"Vẽ hình không gian 3D tương tác",5.5,6.6,+1.1
+HS-127,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.4,6.2,-0.2
+HS-128,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.7,8.0,+0.3
+HS-129,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.7,7.9,+1.2
+HS-130,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.5,8.9,+1.4
+HS-131,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.6,6.4,+1.8
+HS-132,Học sinh,Duoi 1 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.0,8.3,+1.3
+HS-133,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.8,7.7,+0.9
+HS-134,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.8,9.3,+1.5
+HS-135,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.9,5.3,+0.4
+HS-136,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.3,7.5,+1.2
+HS-137,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.9,8.4,+1.5
+HS-138,Học sinh,Tu 3 den 6 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.5,9.4,+1.9
+HS-139,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác",8.4,10.0,+1.6
+HS-140,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",8.5,9.6,+1.1
+HS-141,Học sinh,Tu 3 den 6 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.6,6.4,+1.8
+HS-142,Học sinh,Tu 3 den 6 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.0,9.0,+2.0
+HS-143,Học sinh,Tu 3 den 6 thang,1,"Vẽ hình không gian 3D tương tác",8.8,9.8,+1.0
+HS-144,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.6,5.8,+1.2
+HS-145,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.8,8.1,+1.3
+HS-146,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.1,7.1,+2.0
+HS-147,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác",5.6,7.0,+1.4
+HS-148,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.9,8.7,+1.8
+HS-149,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.7,5.7,+1.0
+HS-150,Học sinh,Tu 1 den 3 thang,3,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.1,8.3,+1.2
+HS-151,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.8,6.1,+0.3
+HS-152,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác",8.1,9.8,+1.7
+HS-153,Học sinh,Duoi 1 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",6.4,7.5,+1.1
+HS-154,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",7.4,9.5,+2.1
+HS-155,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác",5.5,7.0,+1.5
+HS-156,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.6,6.9,+1.3
+HS-157,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.5,6.3,-0.2
+HS-158,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.9,8.0,+1.1
+HS-159,Học sinh,Duoi 1 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.9,5.4,+0.5
+HS-160,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.0,6.6,+0.6
+HS-161,Học sinh,Tren 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.6,10.0,+2.4
+HS-162,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác",6.8,8.0,+1.2
+HS-163,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.7,6.5,-0.2
+HS-164,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.5,8.2,+0.7
+HS-165,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",4.6,5.5,+0.9
+HS-166,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.2,7.1,+1.9
+HS-167,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",7.4,9.5,+2.1
+HS-168,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.7,8.7,+2.0
+HS-169,Học sinh,Tu 1 den 3 thang,3,"Dùng AI để hướng dẫn giải toán thể tích",6.9,8.2,+1.3
+HS-170,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác",7.6,9.3,+1.7
+HS-171,Học sinh,Tu 3 den 6 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",6.4,8.8,+2.4
+HS-172,Học sinh,Tren 6 thang,4,"Dùng AI để hướng dẫn giải toán thể tích",6.8,8.2,+1.4
+HS-173,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.1,6.5,+1.4
+HS-174,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.2,6.3,+1.1
+HS-175,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.0,8.8,+1.8
+HS-176,Học sinh,Duoi 1 thang,1,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.2,7.3,+0.1
+HS-177,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.7,7.8,+1.1
+HS-178,Học sinh,Tu 3 den 6 thang,3,"Ghi chép kiến thức",7.9,8.8,+0.9
+HS-179,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.7,8.8,+1.1
+HS-180,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.8,7.8,+2.0
+HS-181,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.4,6.2,-0.2
+HS-182,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác",6.6,7.4,+0.8
+HS-183,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.2,7.7,+2.5
+HS-184,Học sinh,Tu 1 den 3 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.0,6.1,+1.1
+HS-185,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác",5.6,7.5,+1.9
+HS-186,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.7,7.9,+1.2
+HS-187,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.9,7.4,+1.5
+HS-188,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác",7.2,8.4,+1.2
+HS-189,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác",4.9,6.7,+1.8
+HS-190,Học sinh,Tren 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.2,7.0,+1.8
+HS-191,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.1,8.4,+1.3
+HS-192,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.6,7.3,+1.7
+HS-193,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.0,9.1,+2.1
+HS-194,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.6,7.2,+0.6
+HS-195,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.4,8.7,+1.3
+HS-196,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",4.5,5.5,+1.0
+HS-197,Học sinh,Tu 1 den 3 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.3,8.0,+1.7
+HS-198,Học sinh,Tren 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.5,7.2,+1.7
+HS-199,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.1,6.4,+0.3
+HS-200,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác",5.3,5.8,+0.5
+HS-201,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.4,8.4,+2.0
+HS-202,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",4.9,5.9,+1.0
+HS-203,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác",6.3,6.1,-0.2
+HS-204,Học sinh,Tu 1 den 3 thang,3,"Dùng AI để hướng dẫn giải toán thể tích",8.0,9.8,+1.8
+HS-205,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.7,6.6,+0.9
+HS-206,Học sinh,Tu 1 den 3 thang,2,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.1,5.4,+1.3
+HS-207,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",5.5,7.1,+1.6
+HS-208,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.4,9.2,+1.8
+HS-209,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.3,7.8,+1.5
+HS-210,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",8.2,10.0,+1.8
+HS-211,Học sinh,Tren 6 thang,3,"Vẽ hình không gian 3D tương tác",8.0,9.6,+1.6
+HS-212,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.8,8.6,+1.8
+HS-213,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.2,6.0,-0.2
+HS-214,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.1,5.7,+0.6
+HS-215,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",6.0,7.8,+1.8
+HS-216,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",8.8,9.0,+0.2
+HS-217,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.7,5.5,-0.2
+HS-218,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.8,7.5,+1.7
+HS-219,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.3,7.4,+1.1
+HS-220,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",7.0,7.4,+0.4
+HS-221,Học sinh,Tu 1 den 3 thang,2,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.0,6.6,+0.6
+HS-222,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.3,6.9,+1.6
+HS-223,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.2,5.0,-0.2
+HS-224,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",8.5,9.4,+0.9
+HS-225,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.3,7.9,+1.6
+HS-226,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.0,9.0,+2.0
+HS-227,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác",5.7,7.2,+1.5
+HS-228,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.0,6.7,+1.7
+HS-229,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.4,7.5,+1.1
+HS-230,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.9,8.8,+1.9
+HS-231,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.4,7.2,-0.2
+HS-232,Học sinh,Tu 3 den 6 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.3,8.8,+1.5
+HS-233,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.7,7.4,+1.7
+HS-234,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.2,8.3,+2.1
+HS-235,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức",4.2,4.5,+0.3
+HS-236,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.9,8.1,+2.2
+HS-237,Học sinh,Duoi 1 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.1,8.1,+1.0
+HS-238,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.8,5.6,-0.2
+HS-239,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",7.5,8.4,+0.9
+HS-240,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.9,7.3,+1.4
+HS-241,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",8.3,9.5,+1.2
+HS-242,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",7.6,7.7,+0.1
+HS-243,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác",7.8,8.9,+1.1
+HS-244,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.5,7.3,+0.8
+HS-245,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.5,8.3,+1.8
+HS-246,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.7,8.5,+1.8
+HS-247,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.7,7.4,+1.7
+HS-248,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác",6.0,7.8,+1.8
+HS-249,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",4.5,4.5,0.0
+HS-250,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác",7.6,7.4,-0.2
+HS-251,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.8,7.0,+1.2
+HS-252,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.8,7.1,+0.3
+HS-253,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác",4.9,4.9,0.0
+HS-254,Học sinh,Tu 1 den 3 thang,4,"Ghi chép kiến thức",5.7,7.7,+2.0
+HS-255,Học sinh,Tu 1 den 3 thang,4,"Dùng AI để hướng dẫn giải toán thể tích",5.3,6.0,+0.7
+HS-256,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",8.8,10.0,+1.2
+HS-257,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",4.0,5.7,+1.7
+HS-258,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.8,6.7,+0.9
+HS-259,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.5,8.9,+1.4
+HS-260,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.3,6.3,+1.0
+HS-261,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.9,7.9,+2.0
+HS-262,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.0,8.0,+1.0
+HS-263,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.0,7.0,+2.0
+HS-264,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.2,7.7,+1.5
+HS-265,Học sinh,Tren 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.0,9.6,+2.6
+HS-266,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",8.3,9.9,+1.6
+HS-267,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.2,9.4,+2.2
+HS-268,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.9,7.2,+1.3
+HS-269,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác",5.6,6.7,+1.1
+HS-270,Học sinh,Duoi 1 thang,4,"Dùng AI để hướng dẫn giải toán thể tích",7.3,7.1,-0.2
+HS-271,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác",8.8,8.5,-0.3
+HS-272,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.6,7.5,+0.9
+HS-273,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.0,8.1,+1.1
+HS-274,Học sinh,Duoi 1 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",5.7,6.9,+1.2
+HS-275,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.1,7.0,+1.9
+HS-276,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",4.4,5.5,+1.1
+HS-277,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.2,7.4,+1.2
+HS-278,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",4.9,5.6,+0.7
+HS-279,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.7,7.5,+1.8
+HS-280,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.5,8.5,+1.0
+HS-281,Học sinh,Tu 1 den 3 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.9,7.7,+0.8
+HS-282,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.9,7.1,+1.2
+HS-283,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.3,6.1,-0.2
+HS-284,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.4,8.9,+1.5
+HS-285,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác",7.1,7.4,+0.3
+HS-286,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.9,8.9,+1.0
+HS-287,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.7,7.7,+1.0
+HS-288,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.6,7.7,+1.1
+HS-289,Học sinh,Duoi 1 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",8.7,9.6,+0.9
+HS-290,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.9,8.0,+1.1
+HS-291,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.7,7.9,+2.2
+HS-292,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.8,7.9,+1.1
+HS-293,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.0,5.2,+1.2
+HS-294,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.5,7.7,+1.2
+HS-295,Học sinh,Tren 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.4,8.6,+2.2
+HS-296,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.9,8.4,+1.5
+HS-297,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",8.0,10.0,+2.0
+HS-298,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",7.0,8.8,+1.8
+HS-299,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.7,8.2,+1.5
+HS-300,Học sinh,Tu 3 den 6 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",8.2,10.0,+1.8
+HS-301,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác",5.6,7.2,+1.6
+HS-302,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác",5.8,8.5,+2.7
+HS-303,Học sinh,Tu 1 den 3 thang,2,"Dùng AI để hướng dẫn giải toán thể tích",5.9,6.1,+0.2
+HS-304,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",5.6,7.4,+1.8
+HS-305,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức",5.2,6.1,+0.9
+HS-306,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác",5.6,7.1,+1.5
+HS-307,Học sinh,Tu 1 den 3 thang,2,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.6,5.4,-0.2
+HS-308,Học sinh,Tu 3 den 6 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",8.3,9.8,+1.5
+HS-309,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.9,8.4,+1.5
+HS-310,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.8,8.5,+1.7
+HS-311,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.5,6.9,+0.4
+HS-312,Học sinh,Tu 1 den 3 thang,2,"Dùng AI để hướng dẫn giải toán thể tích",6.1,6.4,+0.3
+HS-313,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.0,5.1,+0.1
+HS-314,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.9,9.4,+1.5
+HS-315,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.0,7.0,+1.0
+HS-316,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.2,7.2,+2.0
+HS-317,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.3,8.6,+2.3
+HS-318,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác",5.7,7.7,+2.0
+HS-319,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",8.0,8.6,+0.6
+HS-320,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.5,8.8,+1.3
+HS-321,Học sinh,Duoi 1 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.8,6.8,0.0
+HS-322,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác",4.7,6.3,+1.6
+HS-323,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.5,7.4,+1.9
+HS-324,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.4,6.4,+1.0
+HS-325,Học sinh,Tren 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",8.6,10.0,+1.4
+HS-326,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.6,6.7,+1.1
+HS-327,Học sinh,Tu 1 den 3 thang,4,"Dùng AI để hướng dẫn giải toán thể tích",5.7,6.5,+0.8
+HS-328,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.2,8.2,+2.0
+HS-329,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",8.0,9.8,+1.8
+HS-330,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.0,7.9,+0.9
+HS-331,Học sinh,Tren 6 thang,3,"Dùng AI để hướng dẫn giải toán thể tích",5.2,6.9,+1.7
+HS-332,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.7,7.2,+1.5
+HS-333,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",4.5,5.9,+1.4
+HS-334,Học sinh,Tren 6 thang,1,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.0,5.8,+1.8
+HS-335,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác",8.1,9.1,+1.0
+HS-336,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.4,6.2,-0.2
+HS-337,Học sinh,Tu 1 den 3 thang,3,"Dùng AI để hướng dẫn giải toán thể tích",6.2,7.5,+1.3
+HS-338,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",8.8,9.4,+0.6
+HS-339,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác",6.5,8.6,+2.1
+HS-340,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.3,8.3,+1.0
+HS-341,Học sinh,Tu 1 den 3 thang,3,"Dùng AI để hướng dẫn giải toán thể tích",7.6,8.3,+0.7
+HS-342,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác",5.7,6.3,+0.6
+HS-343,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",8.5,10.0,+1.5
+HS-344,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.9,7.0,+1.1
+HS-345,Học sinh,Duoi 1 thang,4,"Dùng AI để hướng dẫn giải toán thể tích",6.6,7.4,+0.8
+HS-346,Học sinh,Duoi 1 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",5.2,5.6,+0.4
+HS-347,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.6,7.6,+1.0
+HS-348,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.5,6.2,+0.7
+HS-349,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.7,9.6,+1.9
+HS-350,Học sinh,Tren 6 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",7.1,8.8,+1.7
+HS-351,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.9,7.2,+1.3
+HS-352,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.3,6.7,+1.4
+HS-353,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.6,9.4,+1.8
+HS-354,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.9,8.8,+1.9
+HS-355,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",5.6,6.5,+0.9
+HS-356,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",6.0,7.0,+1.0
+HS-357,Học sinh,Duoi 1 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",5.8,7.3,+1.5
+HS-358,Học sinh,Tu 1 den 3 thang,4,"Ghi chép kiến thức",7.6,8.9,+1.3
+HS-359,Học sinh,Duoi 1 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.0,6.9,+0.9
+HS-360,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.1,6.6,+0.5
+HS-361,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.6,6.9,+0.3
+HS-362,Học sinh,Tu 1 den 3 thang,4,"Dùng AI để hướng dẫn giải toán thể tích",7.0,7.8,+0.8
+HS-363,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.5,8.7,+1.2
+HS-364,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.1,8.5,+1.4
+HS-365,Học sinh,Tu 1 den 3 thang,4,"Dùng AI để hướng dẫn giải toán thể tích",5.9,6.8,+0.9
+HS-366,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",6.7,7.8,+1.1
+HS-367,Học sinh,Tren 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.9,7.9,+2.0
+HS-368,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.7,7.2,+1.5
+HS-369,Học sinh,Tu 1 den 3 thang,1,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.9,8.7,+0.8
+HS-370,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",8.5,9.2,+0.7
+HS-371,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.3,7.8,+1.5
+HS-372,Học sinh,Tu 3 den 6 thang,5,"Ghi chép kiến thức",6.0,7.7,+1.7
+HS-373,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.1,7.7,+1.6
+HS-374,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác",4.8,6.9,+2.1
+HS-375,Học sinh,Tren 6 thang,3,"Dùng AI để hướng dẫn giải toán thể tích",5.7,7.5,+1.8
+HS-376,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.7,8.5,+0.8
+HS-377,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.9,7.4,+1.5
+HS-378,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.7,8.6,+1.9
+HS-379,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác",5.0,7.2,+2.2
+HS-380,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.2,8.9,+1.7
+HS-381,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.0,6.3,+0.3
+HS-382,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.3,7.1,+1.8
+HS-383,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",5.9,5.7,-0.2
+HS-384,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.9,8.9,+1.0
+HS-385,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.0,7.7,+0.7
+HS-386,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác",6.6,7.8,+1.2
+HS-387,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.1,7.1,+1.0
+HS-388,Học sinh,Duoi 1 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.6,6.1,+0.5
+HS-389,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.9,7.4,+0.5
+HS-390,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.0,8.2,+1.2
+HS-391,Học sinh,Duoi 1 thang,5,"Ghi chép kiến thức",4.5,4.5,0.0
+HS-392,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",7.8,8.6,+0.8
+HS-393,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.3,8.8,+1.5
+HS-394,Học sinh,Tren 6 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.3,9.3,+2.0
+HS-395,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác",7.0,7.7,+0.7
+HS-396,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.0,7.7,+0.7
+HS-397,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác",6.2,6.6,+0.4
+HS-398,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.6,7.9,+1.3
+HS-399,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",7.7,9.0,+1.3
+HS-400,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.0,8.5,+2.5
+HS-401,Học sinh,Tu 1 den 3 thang,2,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.0,6.6,+0.6
+HS-402,Học sinh,Tu 3 den 6 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.6,9.3,+2.7
+HS-403,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.6,7.2,+1.6
+HS-404,Học sinh,Tren 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.0,5.8,-0.2
+HS-405,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.0,8.6,+1.6
+HS-406,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",7.2,7.9,+0.7
+HS-407,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",8.1,8.7,+0.6
+HS-408,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.6,6.8,+1.2
+HS-409,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.4,7.2,-0.2
+HS-410,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.4,7.7,+1.3
+HS-411,Học sinh,Duoi 1 thang,4,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.9,7.6,+0.7
+HS-412,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác",6.0,7.1,+1.1
+HS-413,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.2,7.0,+1.8
+HS-414,Học sinh,Duoi 1 thang,2,"Vẽ hình không gian 3D tương tác",5.8,5.7,-0.1
+HS-415,Học sinh,Tu 1 den 3 thang,1,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.3,5.8,+0.5
+HS-416,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.4,8.6,+1.2
+HS-417,Học sinh,Duoi 1 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.3,6.5,+0.2
+HS-418,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.2,7.3,+1.1
+HS-419,Học sinh,Tu 1 den 3 thang,3,"Ghi chép kiến thức",6.2,7.3,+1.1
+HS-420,Học sinh,Duoi 1 thang,3,"Dùng AI để hướng dẫn giải toán thể tích",7.0,7.7,+0.7
+HS-421,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác",7.3,8.2,+0.9
+HS-422,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.5,8.1,+1.6
+HS-423,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.4,7.3,+0.9
+HS-424,Học sinh,Tren 6 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.5,9.2,+1.7
+HS-425,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức",6.3,7.4,+1.1
+HS-426,Học sinh,Tu 3 den 6 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.6,7.9,+1.3
+HS-427,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác",7.5,10.0,+2.5
+HS-428,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác",7.0,8.2,+1.2
+HS-429,Học sinh,Duoi 1 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",8.0,8.7,+0.7
+HS-430,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức",5.6,8.1,+2.5
+HS-431,Học sinh,Tu 3 den 6 thang,2,"Dùng AI để hướng dẫn giải toán thể tích",8.2,9.9,+1.7
+HS-432,Học sinh,Tu 1 den 3 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",4.5,6.3,+1.8
+HS-433,Học sinh,Tu 1 den 3 thang,5,"Dùng AI để hướng dẫn giải toán thể tích",7.9,9.8,+1.9
+HS-434,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.0,8.9,+1.9
+HS-435,Học sinh,Tu 1 den 3 thang,2,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.6,6.1,+0.5
+HS-436,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",5.2,5.0,-0.2
+HS-437,Học sinh,Tu 3 den 6 thang,4,"Ghi chép kiến thức",5.3,7.4,+2.1
+HS-438,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",8.4,10.0,+1.6
+HS-439,Học sinh,Tu 1 den 3 thang,3,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.4,6.9,+1.5
+HS-440,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.2,7.0,+1.8
+HS-441,Học sinh,Tu 3 den 6 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",5.7,7.1,+1.4
+HS-442,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.3,7.9,+1.6
+HS-443,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác",7.4,8.4,+1.0
+HS-444,Học sinh,Duoi 1 thang,5,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.7,7.5,+0.8
+HS-445,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.6,8.0,+1.4
+HS-446,Học sinh,Tu 3 den 6 thang,3,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.8,8.6,+1.8
+HS-447,Học sinh,Tu 1 den 3 thang,5,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.6,8.6,+2.0
+HS-448,Học sinh,Tren 6 thang,3,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",7.6,8.9,+1.3
+HS-449,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Dùng AI để hướng dẫn giải toán thể tích",6.9,8.4,+1.5
+HS-450,Học sinh,Duoi 1 thang,4,"Ghi chép kiến thức",6.2,6.5,+0.3
+HS-451,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",6.5,8.1,+1.6
+HS-452,Học sinh,Tu 1 den 3 thang,5,"Ghi chép kiến thức; Dùng AI để hướng dẫn giải toán thể tích",7.6,8.8,+1.2
+HS-453,Học sinh,Duoi 1 thang,4,"Vẽ hình không gian 3D tương tác; Ghi chép kiến thức",6.2,6.8,+0.6
