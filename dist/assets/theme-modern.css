@@ -1,3 +1,22 @@
+/* Global dropdown backdrop definition */
+.dropdown-backdrop {
+  position: fixed !important;
+  top: 48px !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 999990 !important;
+  background: transparent !important;
+  touch-action: manipulation !important;
+}
+.dropdown-menu button,
+.dropdown-menu [role="button"],
+.toolbar button {
+  touch-action: manipulation !important;
+  -webkit-tap-highlight-color: transparent !important;
+  cursor: pointer !important;
+}
+/* .dropdown-backdrop-global */
 /* ==========================================================================
    ✨ APPLE / LINEAR MODERN DESIGN SYSTEM FOR NOTERENDERER
    Refined Glassmorphism, Sophisticated Shadows, Crisp Micro-Interactions
@@ -2266,12 +2285,15 @@ label.pp-check:hover,
     box-shadow: 0 2px 8px rgba(217, 119, 6, 0.45) !important;
   }
 
-  /* ── Dropdown Backdrop for smooth tap dismissal on mobile ── */
+  /* ── Dropdown Backdrop for smooth tap dismissal on mobile (Unblocks Toolbar) ── */
   .dropdown-backdrop {
     position: fixed !important;
-    inset: 0 !important;
+    top: 48px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
     z-index: 999990 !important;
-    background: rgba(15, 23, 42, 0.28) !important;
+    background: rgba(15, 23, 42, 0.32) !important;
     backdrop-filter: blur(2px) !important;
     -webkit-backdrop-filter: blur(2px) !important;
     touch-action: manipulation !important;
