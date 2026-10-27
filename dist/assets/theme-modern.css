@@ -1,12 +1,14 @@
 /* Global dropdown backdrop definition */
 .dropdown-backdrop {
   position: fixed !important;
-  top: 48px !important;
+  top: calc(48px + env(safe-area-inset-top, 0px)) !important;
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
   z-index: 999990 !important;
-  background: transparent !important;
+  background: rgba(15, 23, 42, 0.22) !important;
+  -webkit-backdrop-filter: blur(2px) !important;
+  backdrop-filter: blur(2px) !important;
   touch-action: manipulation !important;
 }
 .dropdown-menu button,
@@ -2055,6 +2057,8 @@ label.pp-check:hover,
     -webkit-overflow-scrolling: touch !important;
     z-index: 999999 !important;
     border-radius: 16px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(226, 232, 240, 0.95) !important;
     box-shadow: 0 16px 48px rgba(15, 23, 42, 0.35) !important;
     margin: 0 auto !important;
     transform: none !important;

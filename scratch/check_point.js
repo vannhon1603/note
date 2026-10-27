@@ -1,63 +1,46 @@
 const http = require('http');
 
-async function elementAtPoint() {
-  const json = await new Promise((resolve) => {
-    http.get('http://localhost:9222/json', (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => resolve(JSON.parse(data)));
-    });
-  });
-
-  const page = json.find(p => p.id === 'A150AC8C276CADF071E9500E9996F2AF');
-  const ws = new WebSocket(page.webSocketDebuggerUrl);
-  let id = 1;
-  const callbacks = new Map();
-  ws.onmessage = (event) => {
-    const msg = JSON.parse(event.data);
-    if (msg.id && callbacks.has(msg.id)) {
-      const cb = callbacks.get(msg.id);
-      callbacks.delete(msg.id);
-      cb(msg);
-    }
-  };
-
-  const send = (method, params = {}) => new Promise((resolve) => {
-    const reqId = id++;
-    callbacks.set(reqId, resolve);
-    ws.send(JSON.stringify({ id: reqId, method, params }));
-  });
-
-  await new Promise(r => ws.onopen = r);
-
-  const res = await send('Runtime.evaluate', {
-    expression: `(() => {
-      const el = document.elementFromPoint(500, 220);
-      const span = Array.from(document.querySelectorAll('*')).find(e => 
-        e.children.length === 0 && e.textContent && e.textContent.includes('NOTERENDERER AI') &&
-        e.tagName !== 'SCRIPT'
-      );
-      let spanCenter = null;
-      if (span) {
-        const r = span.getBoundingClientRect();
-        spanCenter = { x: r.x + 100, y: r.y + r.height / 2, r, tag: span.tagName, text: span.textContent };
+async function sendCDP(wsUrl, method, params = {}) {
+  return new Promise((resolve, reject) => {
+    const ws = new WebSocket(wsUrl);
+    let id = 1;
+    ws.onopen = () => {
+      ws.send(JSON.stringify({ id: id++, method, params }));
+    };
+    ws.onmessage = (event) => {
+      const msg = JSON.parse(event.data);
+      if (msg.result !== undefined || msg.error !== undefined) {
+        ws.close();
+        resolve(msg.result || msg.error);
       }
-      return {
-        at500_220: el ? { tag: el.tagName, className: el.className, id: el.id, text: el.textContent.slice(0, 50) } : null,
-        spanCenter,
-        topElementAtSpanCenter: spanCenter ? (() => {
-          const topEl = document.elementFromPoint(spanCenter.x, spanCenter.y);
-          return topEl ? { tag: topEl.tagName, className: topEl.className } : null;
-        })() : null
-      };
-    })()`,
-    returnByValue: true
+    };
+    ws.onerror = reject;
   });
-
-  console.log('Inspection:', res.result.result.value);
-
-  ws.close();
-  process.exit(0);
 }
 
-elementAtPoint().catch(console.error);
+async function evalInPage(wsUrl, expression) {
+  return sendCDP(wsUrl, 'Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true });
+}
+
+(async () => {
+  const wsUrl = 'ws://127.0.0.1:9222/devtools/page/3EF8B589CBF8334D8969EA69A63BF9E6';
+
+  const res = await evalInPage(wsUrl, `
+    (() => {
+      const x = 29, y = 23.6;
+      const el = document.elementFromPoint(x, y);
+      const allEls = document.elementsFromPoint(x, y);
+
+      const btn = Array.from(document.querySelectorAll('.toolbar button')).find(b => b.title === 'Menu');
+      const r = btn.getBoundingClientRect();
+
+      return {
+        point: { x, y },
+        btnRect: { top: r.top, left: r.left, width: r.width, height: r.height, bottom: r.bottom, right: r.right },
+        topElement: el ? { tag: el.tagName, class: el.className, id: el.id } : null,
+        allElements: allEls.map(e => ({ tag: e.tagName, class: e.className, id: e.id, pointerEvents: window.getComputedStyle(e).pointerEvents }))
+      };
+    })()
+  `);
+  console.log('Inspection:', JSON.stringify(res.result.value, null, 2));
+})();
