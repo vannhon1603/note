@@ -30,9 +30,15 @@ lerna-debug.log*
 # Temporary files and backups
 *.tmp
 *.temp
+*.bak*
 *.bak
 *.swp
 *.swo
+_archive_backups/
+scratch/
+*.png
+*.webp
+*.csv
 
 # Environment variables
 .env

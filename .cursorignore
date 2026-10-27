@@ -1,0 +1,16 @@
+# Ignore heavy archive, backups, and temporary assets from AI context and indexing
+_archive_backups/
+scratch/
+node_modules/
+release/
+dist-electron/
+dist/assets/*.bak*
+dist/assets/**/*.bak*
+*.png
+*.webp
+*.jpg
+*.jpeg
+*.csv
+*.mp4
+*.exe
+HoSo_ThamGia_GiaiThuong_AI_2026/

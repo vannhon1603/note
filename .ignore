@@ -1,0 +1,9 @@
+_archive_backups/
+scratch/
+node_modules/
+release/
+dist/assets/*.bak*
+dist/assets/**/*.bak*
+*.png
+*.webp
+*.csv

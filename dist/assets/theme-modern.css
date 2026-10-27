@@ -40,74 +40,247 @@ body, .app {
   background: var(--bg-desk) !important;
 }
 
-/* --- 1. TOP MAIN TOOLBAR (Sleek Apple Floating Glass Bar) --- */
-.toolbar {
+/* --- 1. TOP MAIN TOOLBAR (Single-Row Streamlined Studio Bar) --- */
+.toolbar,
+.toolbar.two-rows {
   position: relative !important;
   z-index: 1000 !important;
-  min-height: 54px !important;
-  height: 54px;
-  padding: 0 12px !important;
-  background: rgba(255, 255, 255, 0.88) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  min-height: 48px !important;
+  height: 48px !important;
+  max-height: 48px !important;
+  padding: 3px 8px !important;
+  background: rgba(255, 255, 255, 0.98) !important;
   border-bottom: 1px solid var(--line-subtle) !important;
-  box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.05) !important;
+  box-shadow: 0 2px 10px -2px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.02) !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  row-gap: 0 !important;
   gap: 4px !important;
-  transition: min-height 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+  scrollbar-width: none !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* Responsive Two-Rows Mode (Auto-activated when browser width decreases) */
-.toolbar.two-rows {
-  height: auto !important;
-  min-height: 96px !important;
-  padding: 4px 12px 6px !important;
-  flex-wrap: wrap !important;
-  row-gap: 2px !important;
-  align-content: flex-start !important;
+.toolbar::-webkit-scrollbar {
+  display: none !important;
 }
 
+/* Left Action Wing */
+.toolbar .tb-group:first-child,
 .toolbar.two-rows .tb-group:first-child {
-  height: 42px !important;
+  order: 1 !important;
+  height: 38px !important;
   display: flex !important;
   align-items: center !important;
-  gap: 3px !important;
+  gap: 1.5px !important;
+  flex: 0 0 auto !important;
+  min-width: unset !important;
+  overflow: visible !important;
 }
 
+/* Center-Left Document Identity Badge */
+.tb-center-title {
+  order: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  height: 28px !important;
+  padding: 0 8px !important;
+  background: rgba(241, 245, 249, 0.85) !important;
+  border: 1px solid rgba(226, 232, 240, 0.95) !important;
+  border-radius: 14px !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  max-width: 120px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  user-select: none !important;
+  margin: 0 2px !important;
+  flex: 0 1 auto !important;
+}
+
+.tb-center-title:hover {
+  background: #ffffff !important;
+  border-color: #93c5fd !important;
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.12) !important;
+  color: var(--accent) !important;
+}
+
+.tb-center-title:active {
+  transform: translateY(0) !important;
+}
+
+.tb-notebook-badge {
+  font-size: 12px !important;
+  line-height: 1 !important;
+}
+
+.tb-notebook-name {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Center Canvas Studio Toolbar (Segmented Floating Island Capsules) */
+.toolbar .tb-group.tools,
+.toolbar.two-rows .tb-group.tools,
+html.mobile .toolbar .tb-group.tools {
+  order: 3 !important;
+  width: auto !important;
+  min-height: unset !important;
+  height: 38px !important;
+  margin: 0 auto !important;
+  border-top: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow: visible !important;
+  gap: 4px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+}
+
+/* Right Status & User Wing */
+.toolbar .tb-title,
 .toolbar.two-rows .tb-title {
-  height: 42px !important;
+  order: 4 !important;
+  height: 38px !important;
   margin-left: auto !important;
   flex: 0 0 auto !important;
   display: flex !important;
   align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 2px !important;
+  overflow: visible !important;
 }
 
-.toolbar.two-rows .tb-group.tools,
-html.mobile .toolbar .tb-group.tools,
-.toolbar.two-rows .tb-group.tools {
-  order: 3 !important;
-  width: 100% !important;
-  height: 46px !important;
-  margin-left: 0 !important;
-  border-top: 1px solid var(--line-subtle) !important;
-  padding-top: 4px !important;
-  padding-bottom: 2px !important;
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
-  scrollbar-width: none !important;
-  -webkit-overflow-scrolling: touch !important;
-  gap: 4px !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-}
-
-.toolbar.two-rows .tb-group.tools::-webkit-scrollbar {
+.toolbar .tb-group.tools::-webkit-scrollbar {
   display: none !important;
 }
 
-.toolbar.two-rows .tb-group.tools > * {
+/* Segmented Capsule Islands */
+.tb-capsule {
+  display: flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  background: #f8fafc !important;
+  border: 1px solid rgba(226, 232, 240, 0.92) !important;
+  border-radius: 12px !important;
+  padding: 2px 4px !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
   flex-shrink: 0 !important;
+  overflow: visible !important;
+}
+
+/* 1-Row Compact Toolbar Button Sizing */
+.toolbar .tb {
+  min-width: 26px !important;
+  height: 32px !important;
+  padding: 0 3.5px !important;
+  font-size: 13px !important;
+}
+
+.toolbar .tb-capsule .tb {
+  min-width: 26px !important;
+  height: 30px !important;
+  padding: 0 3px !important;
+}
+
+.toolbar .tb-title {
+  gap: 2px !important;
+}
+
+.toolbar .tb-title .tb {
+  min-width: 26px !important;
+  height: 28px !important;
+  padding: 0 4px !important;
+}
+
+.toolbar .tb-title .zoom-button {
+  padding: 2px 6px !important;
+  font-size: 11.5px !important;
+  height: 28px !important;
+  line-height: 24px !important;
+}
+
+.toolbar .tb-title .nrn-user-pill-btn {
+  padding: 2px 8px !important;
+  font-size: 11.5px !important;
+  height: 28px !important;
+  gap: 5px !important;
+}
+
+.toolbar .tb-title .dot {
+  margin: 0 1px !important;
+  font-size: 12px !important;
+  opacity: 0.35 !important;
+}
+
+.tb-capsule:hover {
+  border-color: #cbd5e1 !important;
+  background: #ffffff !important;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08) !important;
+}
+
+.tb-capsule-pen,
+.tb-capsule-palette,
+.tb-capsule-math,
+.tb-capsule-utility {
+  border-left: 1px solid rgba(226, 232, 240, 0.92) !important;
+}
+
+.toolbar .tb-group.tools > * {
+  flex-shrink: 0 !important;
+}
+
+/* Pen Selector Dialog Enhancement (Grid for all pen types) */
+.pp-kinds {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  justify-content: flex-start !important;
+  padding: 6px !important;
+  border-radius: 14px !important;
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  max-width: 320px !important;
+}
+
+.dropdown-menu .pp-kinds button {
+  flex: 0 0 calc(20% - 5px) !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 10px !important;
+  background: transparent !important;
+  border: 1.5px solid transparent !important;
+  transition: all 0.16s ease !important;
+}
+
+.dropdown-menu .pp-kinds button:hover {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06) !important;
+  transform: translateY(-1px) !important;
+}
+
+.dropdown-menu .pp-kinds button.on {
+  background: #ffffff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.22) !important;
 }
 
 .dropdown {
@@ -238,6 +411,7 @@ html.mobile .toolbar .tb-group.tools,
 
 /* Elegant checkmark inside active color swatch */
 .pen-colors-palette button.swatch.on span:before,
+.compact-palette-grid button.swatch.on span:before,
 .tb-palette[aria-label*="Màu"] button.swatch.on span:before,
 .tb-palette[aria-label*="colour"] button.swatch.on span:before,
 .tb-palette[aria-label*="Color"] button.swatch.on span:before {
@@ -472,6 +646,45 @@ html.mobile .toolbar .tb-group.tools,
   background: #e2e8f0 !important;
   margin: 0 4px !important;
   align-self: center !important;
+}
+
+/* 🔄 Auto-Rotate 360° Button & Animation */
+.auto-rotate-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  padding: 4px 10px !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.auto-rotate-btn:hover {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  border-color: #bfdbfe !important;
+}
+
+.auto-rotate-btn.on {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+  color: #ffffff !important;
+  border-color: #1d4ed8 !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35) !important;
+}
+
+.auto-rotate-btn .rotate-icon {
+  display: inline-block !important;
+  font-size: 13px !important;
+  transition: transform 0.2s ease !important;
+}
+
+.auto-rotate-btn .rotate-icon.spinning {
+  animation: spin360 2s linear infinite !important;
+}
+
+@keyframes spin360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* Custom Sleek Slider for Range Inputs */
@@ -1424,37 +1637,39 @@ label.pp-check:hover,
     touch-action: manipulation !important;
   }
 
-  /* ── 1. Toolbar – Two-row layout with smooth horizontal finger scrolling ── */
+  /* ── 1. Toolbar – Single-row layout with smooth horizontal finger scrolling ── */
   .toolbar,
   html.mobile .toolbar {
-    height: auto !important;
-    min-height: 94px !important;
-    padding: 2px 8px 4px !important;
+    height: 48px !important;
+    min-height: 46px !important;
+    max-height: 48px !important;
+    padding: 2px 8px !important;
     display: flex !important;
-    flex-wrap: wrap !important;
+    flex-wrap: nowrap !important;
     align-items: center !important;
     justify-content: space-between !important;
-    row-gap: 2px !important;
+    row-gap: 0 !important;
     gap: 4px !important;
     position: relative !important;
     z-index: 10000 !important;
-    background: rgba(255, 255, 255, 0.96) !important;
+    background: rgba(255, 255, 255, 0.98) !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
-    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.08) !important;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06) !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    scrollbar-width: none !important;
   }
 
-  /* First row: main action buttons */
+  /* First group: main action buttons */
   .toolbar > .tb-group:first-child,
   html.mobile .toolbar > .tb-group:first-child {
     display: flex !important;
-    flex: 1 1 auto !important;
-    height: 42px !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none !important;
+    flex: 0 0 auto !important;
+    height: 38px !important;
+    overflow: visible !important;
     align-items: center !important;
-    gap: 3px !important;
+    gap: 2px !important;
     flex-wrap: nowrap !important;
   }
 
@@ -1466,39 +1681,39 @@ label.pp-check:hover,
     flex-shrink: 0 !important;
   }
 
-  /* Document info / zoom */
-  .toolbar .tb-title,
-  html.mobile .toolbar .tb-title {
-    height: 42px !important;
-    flex: 0 0 auto !important;
-    display: flex !important;
-    align-items: center !important;
-    margin-left: auto !important;
-    font-size: 12.5px !important;
-    font-weight: 600 !important;
-    padding: 0 4px !important;
-  }
-
-  /* Second row: tools (pen, eraser, colors, shapes, 3D, math) */
+  /* Center group: tools */
   .toolbar .tb-group.tools,
   .toolbar.two-rows .tb-group.tools,
   html.mobile .toolbar .tb-group.tools,
   html:not(.mobile) .toolbar.two-rows .tb-group.tools {
     order: 3 !important;
-    width: 100% !important;
-    height: 48px !important;
-    margin-left: 0 !important;
+    width: auto !important;
+    height: 38px !important;
+    margin: 0 auto !important;
     display: flex !important;
     flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none !important;
-    border-top: 1px solid var(--line-subtle) !important;
-    padding: 4px 4px !important;
-    gap: 6px !important;
+    overflow: visible !important;
+    border-top: none !important;
+    padding: 0 !important;
+    gap: 4px !important;
     align-items: center !important;
-    justify-content: flex-start !important;
-    touch-action: pan-x !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+  }
+
+  /* Document info / zoom */
+  .toolbar .tb-title,
+  html.mobile .toolbar .tb-title {
+    order: 4 !important;
+    height: 38px !important;
+    flex: 0 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-left: auto !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    padding: 0 2px !important;
+    gap: 3px !important;
   }
 
   .toolbar .tb-group.tools::-webkit-scrollbar {
@@ -2059,4 +2274,495 @@ label.pp-check:hover,
   }
 }
 
+
+
+
+/* --- NRN BROWSER USER PILL & MODAL --- */
+.nrn-user-pill-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  height: 28px !important;
+  padding: 0 10px 0 8px !important;
+  margin: 0 4px !important;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(99, 102, 241, 0.12) 100%) !important;
+  border: 1px solid rgba(37, 99, 235, 0.25) !important;
+  border-radius: 999px !important;
+  color: #1e40af !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.08) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  outline: none !important;
+  user-select: none !important;
+}
+
+.nrn-user-pill-btn:hover {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(99, 102, 241, 0.2) 100%) !important;
+  border-color: rgba(37, 99, 235, 0.45) !important;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.18) !important;
+  transform: translateY(-0.5px) !important;
+}
+
+.nrn-user-pill-btn:active {
+  transform: translateY(0.5px) !important;
+}
+
+.nrn-user-dot {
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background-color: #10b981 !important;
+  box-shadow: 0 0 6px #10b981 !important;
+  display: inline-block !important;
+  animation: nrn-pulse-dot 2.5s infinite ease-in-out !important;
+}
+
+@keyframes nrn-pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+.nrn-user-icon {
+  font-size: 13px !important;
+  line-height: 1 !important;
+}
+
+.nrn-user-name {
+  max-width: 140px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Modal Overlay & Card */
+.nrn-user-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: nrn-fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nrn-user-modal-card {
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: nrn-scale-up 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: inherit;
+  color: #1e293b;
+}
+
+@keyframes nrn-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes nrn-scale-up {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.nrn-modal-header {
+  padding: 20px 24px 16px;
+  background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nrn-modal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nrn-modal-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: #ffffff;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.nrn-modal-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.nrn-modal-subtitle {
+  margin: 3px 0 0;
+  font-size: 12px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nrn-modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.nrn-modal-close-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.nrn-modal-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.nrn-info-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.nrn-info-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nrn-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.nrn-modal-input {
+  flex: 1;
+  height: 38px;
+  padding: 0 12px;
+  font-size: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+  background: #ffffff;
+  color: #0f172a;
+  transition: all 0.15s ease;
+}
+
+.nrn-modal-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.nrn-btn-primary {
+  height: 38px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.nrn-btn-primary:hover {
+  background: #1d4ed8;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.nrn-btn-secondary {
+  height: 38px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #ffffff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.nrn-btn-secondary:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.nrn-badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.nrn-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.nrn-badge.green {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.nrn-notice-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #1e40af;
+}
+
+.nrn-modal-footer {
+  padding: 16px 24px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   Compact Palette & Stroke Dropdowns (Color, Width, Highlighter)
+   ========================================================================== */
+.tb-capsule-palette {
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+}
+
+/* Indicators on toolbar buttons */
+.palette-btn-color-dot {
+  width: 17px !important;
+  height: 17px !important;
+  border-radius: 50% !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12) !important;
+  transition: transform 0.16s ease !important;
+  margin-right: 2px !important;
+}
+
+.palette-btn-width-dot {
+  background: #0f172a !important;
+  border-radius: 50% !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.16s ease !important;
+  margin-right: 2px !important;
+}
+
+.palette-btn-hl-dot {
+  width: 17px !important;
+  height: 17px !important;
+  border-radius: 50% !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.15) !important;
+  transition: transform 0.16s ease !important;
+  margin-right: 2px !important;
+}
+
+.tb:hover .palette-btn-color-dot,
+.tb:hover .palette-btn-hl-dot {
+  transform: scale(1.14) !important;
+}
+
+/* Compact Dropdown Menu Panels */
+.compact-palette-dropdown {
+  min-width: 210px !important;
+  max-width: 250px !important;
+  padding: 6px 8px !important;
+}
+
+.compact-palette-dropdown .menu-heading {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.6px !important;
+  color: #64748b !important;
+  padding: 4px 6px 8px !important;
+}
+
+.compact-palette-grid {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 7px !important;
+  padding: 2px 4px 8px !important;
+}
+
+.compact-palette-grid .swatch {
+  width: 28px !important;
+  height: 28px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+}
+
+.compact-palette-grid .swatch span {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50% !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.16s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.compact-palette-grid .swatch.on span {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4.2px #2563eb, 0 2px 8px rgba(37, 99, 235, 0.35) !important;
+  transform: scale(1.08) !important;
+}
+
+.compact-palette-grid .swatch:hover span {
+  transform: scale(1.15) !important;
+}
+
+/* Rainbow other color picker */
+.swatch-other-label {
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 50% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red) !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18), 0 1px 3px rgba(0, 0, 0, 0.12) !important;
+  overflow: hidden !important;
+  position: relative !important;
+  transition: transform 0.16s ease !important;
+}
+
+.swatch-other-label:hover {
+  transform: scale(1.15) !important;
+}
+
+.swatch-other-label input[type="color"] {
+  opacity: 0 !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  cursor: pointer !important;
+}
+
+.compact-dropdown-sublink {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  padding: 8px 10px !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  color: #475569 !important;
+  border-radius: 8px !important;
+  transition: all 0.15s ease !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  text-align: left !important;
+}
+
+.compact-dropdown-sublink:hover {
+  background: #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
+.width-item-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-width: 200px !important;
+  padding: 8px 12px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  font-size: 13px !important;
+  transition: all 0.15s ease !important;
+}
+
+.width-item-row:hover {
+  background: #f1f5f9 !important;
+}
+
+.width-item-row.checked {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  font-weight: 600 !important;
+}
+
+.width-slider-box {
+  padding: 10px 12px !important;
+  background: #f8fafc !important;
+  border-radius: 10px !important;
+  border: 1px solid #e2e8f0 !important;
+  margin-top: 4px !important;
+}
+
+.width-slider-box input[type="range"] {
+  width: 100% !important;
+  height: 5px !important;
+  margin: 6px 0 2px !important;
+  accent-color: #2563eb !important;
+  cursor: pointer !important;
+}
 

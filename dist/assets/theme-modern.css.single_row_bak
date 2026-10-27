@@ -1,0 +1,2722 @@
+/* ==========================================================================
+   ✨ APPLE / LINEAR MODERN DESIGN SYSTEM FOR NOTERENDERER
+   Refined Glassmorphism, Sophisticated Shadows, Crisp Micro-Interactions
+   ========================================================================== */
+
+:root {
+  --ink: #0f172a !important;
+  --muted: #64748b !important;
+  --accent: #2563eb !important;
+  --accent-dark: #1d4ed8 !important;
+  --accent-light: #eff6ff !important;
+  --accent-hover: #3b82f6 !important;
+  --accent-ring: rgba(37, 99, 235, 0.18) !important;
+  --line: #e2e8f0 !important;
+  --line-subtle: rgba(226, 232, 240, 0.8) !important;
+  --bg-desk: #f1f5f9 !important;
+  --bg-surface: rgba(255, 255, 255, 0.88) !important;
+  --bg-card: rgba(255, 255, 255, 0.98) !important;
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 14px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 32px -4px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 24px 64px -12px rgba(15, 23, 42, 0.22), 0 8px 24px -4px rgba(15, 23, 42, 0.08);
+  --radius-sm: 7px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+}
+
+/* --- Global Typography & Surface --- */
+body, .app {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  letter-spacing: -0.011em !important;
+  background: var(--bg-desk) !important;
+  color: var(--ink) !important;
+}
+
+.board-wrap, .board {
+  background: var(--bg-desk) !important;
+}
+
+/* --- 1. TOP MAIN TOOLBAR (Apple / GoodNotes 2-Tier Studio Bar) --- */
+.toolbar {
+  position: relative !important;
+  z-index: 1000 !important;
+  min-height: 94px !important;
+  height: auto !important;
+  padding: 5px 16px 7px !important;
+  background: rgba(255, 255, 255, 0.97) !important;
+  border-bottom: 1px solid var(--line-subtle) !important;
+  box-shadow: 0 4px 20px -3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.02) !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  row-gap: 5px !important;
+  overflow: visible !important;
+  transition: min-height 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Row 1 - Left Action Wing */
+.toolbar .tb-group:first-child,
+.toolbar.two-rows .tb-group:first-child {
+  order: 1 !important;
+  height: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  flex: 1 1 auto !important;
+  min-width: 280px !important;
+  overflow: visible !important;
+}
+
+/* Row 1 - Center Document Identity Badge (Apple Notes Style) */
+.tb-center-title {
+  order: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  height: 34px !important;
+  padding: 0 14px !important;
+  background: rgba(241, 245, 249, 0.85) !important;
+  border: 1px solid rgba(226, 232, 240, 0.95) !important;
+  border-radius: 18px !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  max-width: 340px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+  user-select: none !important;
+  margin: 0 auto !important;
+}
+
+.tb-center-title:hover {
+  background: #ffffff !important;
+  border-color: #93c5fd !important;
+  box-shadow: 0 3px 12px rgba(37, 99, 235, 0.12) !important;
+  color: var(--accent) !important;
+  transform: translateY(-1px) !important;
+}
+
+.tb-center-title:active {
+  transform: translateY(0) !important;
+}
+
+.tb-notebook-badge {
+  font-size: 15px !important;
+  line-height: 1 !important;
+}
+
+.tb-notebook-name {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Row 1 - Right Status & User Wing */
+.toolbar .tb-title,
+.toolbar.two-rows .tb-title {
+  order: 3 !important;
+  height: 38px !important;
+  margin-left: auto !important;
+  flex: 1 1 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 5px !important;
+  overflow: visible !important;
+}
+
+/* Row 2 - Canvas Studio Toolbar (Segmented Floating Island Capsules) */
+.toolbar .tb-group.tools,
+.toolbar.two-rows .tb-group.tools,
+html.mobile .toolbar .tb-group.tools {
+  order: 4 !important;
+  width: 100% !important;
+  min-height: 44px !important;
+  height: auto !important;
+  margin-left: 0 !important;
+  border-top: 1px solid rgba(226, 232, 240, 0.75) !important;
+  padding-top: 5px !important;
+  padding-bottom: 2px !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow: visible !important;
+  gap: 8px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.toolbar .tb-group.tools::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Segmented Capsule Islands */
+.tb-capsule {
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  background: #f8fafc !important;
+  border: 1px solid rgba(226, 232, 240, 0.92) !important;
+  border-radius: 12px !important;
+  padding: 2px 5px !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+}
+
+.tb-capsule:hover {
+  border-color: #cbd5e1 !important;
+  background: #ffffff !important;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08) !important;
+}
+
+.tb-capsule-pen {
+  border-left: 3px solid #3b82f6 !important;
+}
+
+.tb-capsule-palette {
+  border-left: 3px solid #8b5cf6 !important;
+}
+
+.tb-capsule-math {
+  border-left: 3px solid #06b6d4 !important;
+}
+
+.tb-capsule-utility {
+  border-left: 3px solid #10b981 !important;
+}
+
+.toolbar .tb-group.tools > * {
+  flex-shrink: 0 !important;
+}
+
+/* Pen Selector Dialog Enhancement (Grid for all pen types) */
+.pp-kinds {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  justify-content: flex-start !important;
+  padding: 6px !important;
+  border-radius: 14px !important;
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  max-width: 320px !important;
+}
+
+.dropdown-menu .pp-kinds button {
+  flex: 0 0 calc(20% - 5px) !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 10px !important;
+  background: transparent !important;
+  border: 1.5px solid transparent !important;
+  transition: all 0.16s ease !important;
+}
+
+.dropdown-menu .pp-kinds button:hover {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06) !important;
+  transform: translateY(-1px) !important;
+}
+
+.dropdown-menu .pp-kinds button.on {
+  background: #ffffff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.22) !important;
+}
+
+.dropdown {
+  position: relative !important;
+}
+
+.dropdown:has(.dropdown-menu),
+.dropdown.open {
+  position: relative !important;
+  z-index: 99999 !important;
+}
+
+.tb-group {
+  gap: 3px !important;
+}
+
+/* Toolbar Buttons */
+.tb {
+  min-width: 36px !important;
+  height: 36px !important;
+  padding: 0 8px !important;
+  border-radius: var(--radius-md) !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  color: #334155 !important;
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative;
+}
+
+.tb:hover:not(:disabled) {
+  background: rgba(241, 245, 249, 0.9) !important;
+  color: #0f172a !important;
+  /* transform removed */
+  border-color: rgba(226, 232, 240, 0.7) !important;
+}
+
+.tb:active:not(:disabled) {
+  /* transform removed */
+  background: #e2e8f0 !important;
+}
+
+.tb.on {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  border-color: #bfdbfe !important;
+  box-shadow: 0 0 0 1.5px rgba(37, 99, 235, 0.15), 0 2px 8px rgba(37, 99, 235, 0.12) !important;
+  font-weight: 600 !important;
+}
+
+.tb:disabled {
+  opacity: 0.38 !important;
+  cursor: not-allowed !important;
+}
+
+/* Separator */
+.sep {
+  width: 1px !important;
+  height: 22px !important;
+  background: var(--line) !important;
+  margin: 0 4px !important;
+  align-self: center !important;
+}
+
+/* Modern Redesigned Color & Width Swatches */
+.tb-palette {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 3px 6px !important;
+  background: rgba(241, 245, 249, 0.85) !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  border-radius: 20px !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+.swatch {
+  width: 26px !important;
+  height: 26px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  border: none !important;
+  background: transparent !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* Remove old conflicting underline bar */
+.swatch:after,
+.swatch.on:after {
+  display: none !important;
+  content: none !important;
+}
+
+.swatch span {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  border-radius: 50% !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.14), 0 1px 2px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.tb-palette button.swatch span {
+  width: 17px !important;
+  height: 17px !important;
+}
+
+.swatch:hover span {
+  transform: scale(1.16) !important;
+}
+
+/* Active Swatch: Crisp Apple/Figma style concentric ring */
+.swatch.on {
+  transform: none !important;
+  background: transparent !important;
+}
+
+.swatch.on span {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4.2px #2563eb, 0 2px 8px rgba(37, 99, 235, 0.35) !important;
+  transform: scale(1.08) !important;
+}
+
+/* Elegant checkmark inside active color swatch */
+.pen-colors-palette button.swatch.on span:before,
+.compact-palette-grid button.swatch.on span:before,
+.tb-palette[aria-label*="Màu"] button.swatch.on span:before,
+.tb-palette[aria-label*="colour"] button.swatch.on span:before,
+.tb-palette[aria-label*="Color"] button.swatch.on span:before {
+  content: "" !important;
+  display: block !important;
+  width: 4px !important;
+  height: 7.5px !important;
+  border: solid #ffffff !important;
+  border-width: 0 2.2px 2.2px 0 !important;
+  transform: rotate(45deg) translate(-0.5px, -1px) !important;
+  filter: drop-shadow(0 1px 1.2px rgba(0, 0, 0, 0.65)) !important;
+}
+
+/* --- 2. LEFT PAGES SIDEBAR (Refined Floating Thumbnails) --- */
+.pages-panel {
+  width: 156px !important;
+  background: #f8fafc !important;
+  border-right: 1px solid var(--line-subtle) !important;
+  box-shadow: 2px 0 16px rgba(15, 23, 42, 0.03) !important;
+  position: relative !important;
+  z-index: 20 !important;
+  overflow: visible !important;
+}
+
+/* Page context popup menu */
+.page-menu {
+  position: fixed !important;
+  z-index: 999999 !important;
+  min-width: 210px !important;
+  padding: 8px !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18), 0 2px 8px rgba(15, 23, 42, 0.08) !important;
+  white-space: nowrap !important;
+}
+
+.page-menu button {
+  white-space: nowrap !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  padding: 9px 14px !important;
+  border-radius: 8px !important;
+}
+
+.pages-list {
+  padding: 14px 12px !important;
+  gap: 14px !important;
+}
+
+.page-thumb {
+  gap: 6px !important;
+  color: #64748b !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.page-thumb:hover {
+  color: #0f172a !important;
+  /* transform removed */
+}
+
+.page-thumb-img {
+  border-radius: var(--radius-md) !important;
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  overflow: hidden !important;
+}
+
+.page-thumb:hover .page-thumb-img {
+  border-color: #cbd5e1 !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.page-thumb.on .page-thumb-img,
+.page-thumb.active .page-thumb-img {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.18), 0 8px 24px rgba(37, 99, 235, 0.2) !important;
+}
+
+.page-thumb.on,
+.page-thumb.active {
+  color: #2563eb !important;
+  font-weight: 700 !important;
+}
+
+/* Sidebar action buttons (up, down, delete) */
+.page-ctrl-btn, .page-ctrl button {
+  border-radius: var(--radius-sm) !important;
+  color: #64748b !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  transition: all 0.15s ease !important;
+}
+
+.page-ctrl-btn:hover, .page-ctrl button:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* --- 3. BOTTOM SHEET BAR (Modern Capsule Tabs) --- */
+.sheet-bar {
+  height: 40px !important;
+  padding: 0 12px !important;
+  background: rgba(248, 250, 252, 0.94) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-top: 1px solid var(--line-subtle) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+}
+
+.sheet-tab {
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 0 14px !important;
+  border-radius: var(--radius-sm) !important;
+  background: transparent !important;
+  color: #64748b !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  border: 1px solid transparent !important;
+  transition: all 0.16s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.sheet-tab:hover {
+  background: rgba(255, 255, 255, 0.8) !important;
+  color: #0f172a !important;
+}
+
+.sheet-tab.on {
+  background: #ffffff !important;
+  color: #2563eb !important;
+  font-weight: 600 !important;
+  border-color: var(--line) !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06) !important;
+}
+
+.sheet-add {
+  width: 28px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  border-radius: var(--radius-sm) !important;
+  color: #64748b !important;
+  border: 1px solid transparent !important;
+  transition: all 0.16s ease !important;
+}
+
+.sheet-add:hover {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  border-color: #bfdbfe !important;
+}
+
+/* --- 4. FLOATING CONTEXT ACTION BAR (.selection-bar, .turn-bar) --- */
+.selection-bar {
+  background: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(15, 23, 42, 0.06) !important;
+  padding: 5px 8px !important;
+  gap: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  z-index: 50 !important;
+}
+
+.selection-bar button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 5px 11px !important;
+  min-height: 28px !important;
+  border-radius: var(--radius-sm) !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  color: #334155 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.selection-bar button:hover:not(:disabled) {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: var(--line) !important;
+  /* transform removed */
+}
+
+.selection-bar button:active:not(:disabled) {
+  /* transform removed */
+}
+
+.selection-bar button.on {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  border-color: #bfdbfe !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.14) !important;
+}
+
+.selection-bar button:disabled {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+}
+
+.turn-bar {
+  align-items: center !important;
+}
+
+.turn-label {
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  color: #64748b !important;
+  padding: 0 5px !important;
+  letter-spacing: 0.01em !important;
+}
+
+.turn-sep {
+  width: 1px !important;
+  height: 18px !important;
+  background: #e2e8f0 !important;
+  margin: 0 4px !important;
+  align-self: center !important;
+}
+
+/* 🔄 Auto-Rotate 360° Button & Animation */
+.auto-rotate-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  padding: 4px 10px !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.auto-rotate-btn:hover {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  border-color: #bfdbfe !important;
+}
+
+.auto-rotate-btn.on {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+  color: #ffffff !important;
+  border-color: #1d4ed8 !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35) !important;
+}
+
+.auto-rotate-btn .rotate-icon {
+  display: inline-block !important;
+  font-size: 13px !important;
+  transition: transform 0.2s ease !important;
+}
+
+.auto-rotate-btn .rotate-icon.spinning {
+  animation: spin360 2s linear infinite !important;
+}
+
+@keyframes spin360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Custom Sleek Slider for Range Inputs */
+.turn-slider,
+input[type="range"] {
+  height: 5px !important;
+  border-radius: 4px !important;
+  background: #e2e8f0 !important;
+  accent-color: #2563eb !important;
+  outline: none !important;
+  cursor: pointer !important;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  width: 15px !important;
+  height: 15px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  border: 2px solid #2563eb !important;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3) !important;
+  cursor: grab !important;
+  transition: transform 0.15s ease !important;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2) !important;
+}
+
+/* --- 5. MODALS & DIALOGS (Apple-Style Frosted Card) --- */
+.dialog-backdrop {
+  background: rgba(15, 23, 42, 0.4) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  z-index: 10000 !important;
+}
+
+.dialog {
+  border-radius: var(--radius-xl) !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(28px) !important;
+  -webkit-backdrop-filter: blur(28px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: var(--shadow-xl), 0 0 0 1px rgba(15, 23, 42, 0.06) !important;
+  overflow: hidden !important;
+  animation: dialog-pop 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes dialog-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.dialog-head {
+  padding: 16px 22px !important;
+  font-size: 16.5px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  border-bottom: 1px solid var(--line-subtle) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.dialog-close {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  background: #f1f5f9 !important;
+  color: #64748b !important;
+  border: none !important;
+  font-size: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.16s ease !important;
+  cursor: pointer !important;
+}
+
+.dialog-close:hover {
+  background: #fee2e2 !important;
+  color: #ef4444 !important;
+  transform: rotate(90deg) !important;
+}
+
+.dialog-body {
+  padding: 18px 22px !important;
+}
+
+.dialog-actions {
+  padding: 14px 22px !important;
+  border-top: 1px solid var(--line-subtle) !important;
+  background: rgba(248, 250, 252, 0.6) !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+}
+
+/* Primary Button (Gradient Depth) */
+button.primary,
+.primary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid #1d4ed8 !important;
+  border-radius: var(--radius-md) !important;
+  padding: 8px 22px !important;
+  font-weight: 600 !important;
+  font-size: 13.5px !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer !important;
+}
+
+button.primary:hover,
+.primary:hover {
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.42) !important;
+  /* transform removed */
+  filter: brightness(1.05) !important;
+}
+
+button.primary:active,
+.primary:active {
+  /* transform removed */
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25) !important;
+}
+
+/* Default / Secondary Cancel Button */
+.dialog-actions button:not(.primary),
+button.cancel {
+  background: #f8fafc !important;
+  color: #475569 !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: var(--radius-md) !important;
+  padding: 8px 18px !important;
+  font-weight: 600 !important;
+  font-size: 13.5px !important;
+  transition: all 0.15s ease !important;
+  cursor: pointer !important;
+}
+
+.dialog-actions button:not(.primary):hover,
+button.cancel:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #94a3b8 !important;
+}
+
+/* Form Controls (Inputs, Selects) */
+input[type="text"],
+input[type="number"],
+input:not([type]),
+select {
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: var(--radius-sm) !important;
+  background: #ffffff !important;
+  padding: 7px 11px !important;
+  font-size: 13.5px !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.18s ease !important;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input:not([type]):focus,
+select:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.16) !important;
+  outline: none !important;
+}
+
+/* --- 6. POPUPS, MENUS & PANELS --- */
+.dropdown-menu,
+.settings-panel,
+.menu-panel,
+.lib-menu {
+  position: fixed !important;
+  z-index: 99999 !important;
+  border-radius: var(--radius-lg) !important;
+  background: #ffffff !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.18), 0 4px 14px rgba(15, 23, 42, 0.08) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.pen-panel {
+  position: static !important;
+  width: 300px !important;
+  max-width: calc(100vw - 32px) !important;
+  padding: 4px 6px 8px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  overflow: visible !important;
+}
+
+.dropdown-menu:has(.pen-panel) {
+  width: auto !important;
+  min-width: 312px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+
+/* ==========================================================================
+   ✨ CASIO fx-991EX CLASSWIZ AUTHENTIC DESIGN
+   ========================================================================== */
+.calc {
+  --ck-h: 27px !important;
+  --fn-h: 22px !important;
+  --lbl: 9px !important;
+  width: 318px !important;
+  max-width: calc(100vw - 16px) !important;
+  max-height: calc(100vh - 36px) !important;
+  top: 60px !important;
+  right: 20px !important;
+  overflow: visible !important;
+  scrollbar-width: none !important;
+  border-radius: 20px 20px 24px 24px !important;
+  padding: 8px 10px 14px !important;
+  gap: 5px !important;
+  
+  /* Authentic fx-991EX Carbon-Fiber Texture & Deep Charcoal Body */
+  background-color: #17171a !important;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 1px, transparent 1.2px),
+    radial-gradient(circle at 0% 0%, rgba(0, 0, 0, 0.45) 1px, transparent 1.2px),
+    linear-gradient(180deg, #25252b 0%, #151518 55%, #101013 100%) !important;
+  background-size: 4px 4px, 4px 4px, 100% 100% !important;
+  
+  /* Authentic Two-Tone Casing: Crisp white outer chassis rim with realistic 3D depth */
+  border: 1px solid #383842 !important;
+  box-shadow: 
+    0 0 0 1.5px #f8fafc,
+    0 0 0 3px #18181b,
+    0 24px 60px rgba(0, 0, 0, 0.75),
+    0 6px 16px rgba(0, 0, 0, 0.45) !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* ══════ BRAND HEADER (CASIO fx-991EX CLASSWIZ + SOLAR PANEL) ══════ */
+.calc-title {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: auto !important;
+  min-height: 38px !important;
+  padding: 2px 4px 5px !important;
+  cursor: grab !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  margin-bottom: 2px !important;
+}
+.calc-title:active {
+  cursor: grabbing !important;
+}
+
+.calc-brand {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1px !important;
+  user-select: none !important;
+}
+
+.calc-casio-logo {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  color: #ffffff !important;
+  line-height: 1 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+.calc-model-row {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 5px !important;
+  line-height: 1 !important;
+  margin-top: 2px !important;
+}
+
+.calc-model-name {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  color: #94a3b8 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.calc-classwiz-name {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 9.5px !important;
+  font-weight: 800 !important;
+  color: #f43f5e !important;
+  letter-spacing: 0.12em !important;
+  font-style: italic !important;
+  text-transform: uppercase !important;
+}
+
+/* Solar Cell Panel */
+.calc-solar-panel {
+  position: relative !important;
+  width: 76px !important;
+  height: 28px !important;
+  border-radius: 4px !important;
+  background: linear-gradient(180deg, #18080d 0%, #321019 50%, #1f0a10 100%) !important;
+  border: 1px solid #140608 !important;
+  box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.85), 0 1px 1px rgba(255, 255, 255, 0.08) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.calc-solar-grid {
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: repeating-linear-gradient(90deg, transparent 0, transparent 17px, rgba(255, 255, 255, 0.06) 17px, rgba(255, 255, 255, 0.06) 18px) !important;
+  pointer-events: none !important;
+}
+
+.calc-solar-glare {
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.04) 40%, transparent 65%) !important;
+  pointer-events: none !important;
+}
+
+.calc-close {
+  width: 22px !important;
+  height: 22px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #94a3b8 !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.15s ease !important;
+  margin-left: 6px !important;
+}
+
+.calc-close:hover {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+/* ══════ LCD SCREEN BEZEL & DOT-MATRIX DISPLAY ══════ */
+.calc-lcd {
+  border-radius: 9px !important;
+  padding: 4px 8px 6px !important;
+  margin: 2px 0 4px !important;
+  background: #141416 !important;
+  border: 2px solid #27272e !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8), 0 1px 2px rgba(255, 255, 255, 0.05) !important;
+}
+
+.calc-lcd > * {
+  /* Inner Screen */
+  background: linear-gradient(180deg, #d3dec9 0%, #c5d2ba 100%) !important;
+  color: #111a11 !important;
+  font-family: AxMath, "Cambria Math", "Consolas", monospace !important;
+  border-radius: 4px !important;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25) !important;
+}
+
+.lcd-status {
+  padding: 2px 4px !important;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.15) !important;
+}
+
+.lcd-main {
+  padding: 4px 6px !important;
+  min-height: 80px !important;
+}
+
+/* ══════ KEYPAD: LABELS (SHIFT / ALPHA) ══════ */
+.ck-labels {
+  height: calc(var(--lbl) + 4px) !important;
+  font: 700 var(--lbl)/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  padding: 0 1px !important;
+}
+
+.ck-shift {
+  color: #f59e0b !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.9) !important;
+  font-weight: 700 !important;
+  font-size: 8.5px !important;
+}
+
+.ck-alpha {
+  color: #f43f5e !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.9) !important;
+  font-weight: 700 !important;
+  font-size: 8.5px !important;
+  margin-left: auto !important;
+}
+
+/* ══════ METALLIC ROUND BUTTONS (SHIFT, ALPHA, MENU, ON) ══════ */
+.ck.round {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  margin: 0 auto !important;
+  background: radial-gradient(circle at 40% 30%, #e4e4e7 0%, #a1a1aa 50%, #52525b 100%) !important;
+  border: 1px solid #71717a !important;
+  color: #18181b !important;
+  font-weight: 800 !important;
+  font-size: 8.5px !important;
+  box-shadow: 0 2.5px 0 #27272a, 0 3px 5px rgba(0,0,0,0.5), inset 0 1px 1.5px rgba(255,255,255,0.7) !important;
+  transition: all 0.08s ease !important;
+  cursor: pointer !important;
+}
+
+.ck.round:active {
+  /* transform removed */
+  box-shadow: 0 1px 0 #27272a, inset 0 1px 2px rgba(0,0,0,0.4) !important;
+}
+
+/* ══════ AUTHENTIC CASIO D-PAD (METALLIC DISK WITH CONCAVE CENTER) ══════ */
+.ck-pad {
+  position: relative !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 45% 35%, #71717a 0%, #3f3f46 50%, #27272a 100%) !important;
+  border: 1.5px solid #52525b !important;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,255,255,0.4) !important;
+  margin-bottom: calc(-1 * (var(--fn-h) + var(--lbl) + 4px)) !important;
+  z-index: 2 !important;
+}
+
+.ck-pad::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 50% 50%, #27272a 0%, #3f3f46 60%, #18181b 100%) !important;
+  border: 1px solid #52525b !important;
+  box-shadow: inset 0 2px 3px rgba(0,0,0,0.8), 0 1px 1px rgba(255,255,255,0.2) !important;
+  pointer-events: none !important;
+}
+
+.ck-arrow {
+  color: #e4e4e7 !important;
+  font-size: 10px !important;
+  text-shadow: 0 1px 2px #000000 !important;
+  z-index: 3 !important;
+}
+
+.ck-arrow:active {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ══════ UPPER FUNCTION KEYS (MATTE DARK CHARCOAL) ══════ */
+.ck-top .ck:not(.round) {
+  height: var(--fn-h) !important;
+  border-radius: 5px !important;
+  background: linear-gradient(180deg, #383842 0%, #222227 100%) !important;
+  border: 1px solid #43434c !important;
+  color: #f8fafc !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 0 #121215, 0 2.5px 4px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.18) !important;
+  transition: all 0.08s ease !important;
+}
+
+.ck-top .ck:not(.round):active {
+  /* transform removed */
+  box-shadow: 0 0.5px 0 #121215 !important;
+}
+
+/* ══════ LOWER KEYS (PORCELAIN WHITE NUMBERS & BLUE AC/DEL) ══════ */
+.ck-bottom {
+  margin-top: 5px !important;
+}
+
+.ck-bottom .ck.big {
+  height: var(--ck-h) !important;
+  border-radius: 7px !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%) !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2.5px 0 #94a3b8, 0 3px 5px rgba(0,0,0,0.25), inset 0 1px 0 #ffffff !important;
+  transition: all 0.08s ease !important;
+}
+
+.ck-bottom .ck.big:active {
+  /* transform removed */
+  box-shadow: 0 1px 0 #94a3b8 !important;
+}
+
+/* Iconic Sapphire Blue DEL & AC Keys */
+.ck-bottom .ck.big.del {
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%) !important;
+  border: 1px solid #1e40af !important;
+  color: #ffffff !important;
+  font-size: 13.5px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2.5px 0 #1e3a8a, 0 3px 5px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.35) !important;
+}
+
+.ck-bottom .ck.big.del:active {
+  /* transform removed */
+  box-shadow: 0 1px 0 #1e3a8a !important;
+}
+
+
+/* --- 8. MODERN CLEAN SCROLLBARS --- */
+::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+  border-radius: 10px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8 !important;
+}
+
+
+/* ==========================================================================
+   ✨ VOLUME TOOLBAR GROUPED CARDS & PILLS (.vol-group, .vol-break)
+   ========================================================================== */
+.selection-bar {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px 5px !important;
+  padding: 4px 7px !important;
+  max-width: min(1360px, calc(100vw - 20px)) !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.08) !important;
+  border-radius: 12px !important;
+}
+
+.vol-break {
+  width: 100% !important;
+  height: 0 !important;
+  margin: 1px 0 !important;
+  flex-basis: 100% !important;
+  display: block !important;
+}
+
+.vol-group {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  background: rgba(248, 250, 252, 0.95) !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  padding: 2px 4px !important;
+  white-space: nowrap !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+.vol-group-label {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #475569 !important;
+  padding: 0 2px !important;
+  letter-spacing: 0.01em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  user-select: none !important;
+}
+
+.vol-group button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  padding: 2px 6px !important;
+  min-height: 24px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  border-radius: 5px !important;
+  color: #334155 !important;
+  border: 1px solid transparent !important;
+  transition: all 0.12s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  background: transparent !important;
+  cursor: pointer !important;
+}
+
+.vol-group button:hover:not(:disabled) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06) !important;
+  /* transform removed */
+}
+
+.vol-group button.on {
+  background: #ffffff !important;
+  color: #1d4ed8 !important;
+  border-color: #93c5fd !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.16) !important;
+}
+
+.vol-group button:disabled {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+}
+
+.vol-sep {
+  width: 1px !important;
+  height: 14px !important;
+  background: #cbd5e1 !important;
+  margin: 0 2px !important;
+  align-self: center !important;
+}
+
+.vol-dpad {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 1px !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 5px !important;
+  padding: 1px !important;
+}
+
+.vol-dpad button {
+  padding: 1px 3px !important;
+  min-height: 20px !important;
+  min-width: 20px !important;
+  justify-content: center !important;
+  font-size: 10px !important;
+  border-radius: 4px !important;
+}
+
+.selection-bar > button {
+  padding: 2px 7px !important;
+  min-height: 24px !important;
+  font-size: 11px !important;
+  border-radius: 6px !important;
+  background: rgba(248, 250, 252, 0.95) !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #334155 !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.12s ease !important;
+}
+
+.selection-bar > button:hover:not(:disabled) {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06) !important;
+  /* transform removed */
+}
+
+
+/* ==========================================================================
+   Volume Dialog Modal - Modern Aesthetic Styling
+   ========================================================================== */
+.dialog.volume-dialog-modal {
+  width: 860px !important;
+  max-width: calc(100vw - 32px) !important;
+  max-height: 92vh !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 60px -10px rgba(15, 23, 42, 0.28), 0 0 0 1px rgba(15, 23, 42, 0.08) !important;
+  overflow: hidden !important;
+}
+
+.dialog.volume-dialog-modal .dialog-head {
+  padding: 14px 22px !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  font-size: 16.5px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+
+.dialog.volume-dialog-modal .dialog-body {
+  padding: 16px 22px 14px !important;
+  max-height: calc(92vh - 120px) !important;
+  overflow-y: auto !important;
+}
+
+.dialog.volume-dialog-modal .dialog-actions {
+  padding: 12px 22px 16px !important;
+  background: #f8fafc !important;
+  border-top: 1px solid #e2e8f0 !important;
+  margin-bottom: 0 !important;
+  gap: 10px !important;
+}
+
+.dialog.volume-dialog-modal input:focus,
+.dialog.volume-dialog-modal select:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+.vol-form-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.vol-form-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+
+/* ==========================================================================
+   ROCK-SOLID BUTTON STABILITY: Zero jumping/shifting on hover or active
+   ========================================================================== */
+button, 
+.tb, 
+.tbar-btn, 
+.shape-tab-btn, 
+.selection-bar button, 
+.vol-group button, 
+.primary, 
+button.primary, 
+.dialog-actions button,
+.page-ctrl-btn,
+.sheet-add {
+  transform: none !important;
+  transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease, color 0.12s ease, filter 0.12s ease !important;
+}
+
+button:hover, 
+.tb:hover, 
+.tbar-btn:hover, 
+.shape-tab-btn:hover, 
+.selection-bar button:hover, 
+.vol-group button:hover, 
+.primary:hover, 
+button.primary:hover, 
+.dialog-actions button:hover,
+.page-ctrl-btn:hover,
+.sheet-add:hover {
+  transform: none !important;
+}
+
+button:active, 
+.tb:active, 
+.tbar-btn:active, 
+.shape-tab-btn:active, 
+.selection-bar button:active, 
+.vol-group button:active, 
+.primary:active, 
+button.primary:active, 
+.dialog-actions button:active,
+.page-ctrl-btn:active,
+.sheet-add:active {
+  transform: none !important;
+}
+
+
+/* --- 7. GRAPH DIALOG & RANGE GRID TYPOGRAPHY --- */
+.range-grid span {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  white-space: nowrap !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-style: normal !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #334155 !important;
+}
+
+.range-grid input {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-style: normal !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  border-radius: 8px !important;
+  border: 1px solid #cbd5e1 !important;
+  background: #ffffff !important;
+  padding: 6px 10px !important;
+  transition: all 0.15s ease !important;
+}
+
+.range-grid input:focus {
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15) !important;
+  outline: none !important;
+}
+
+
+
+/* --- 8. MODERN ROUNDED GREEN CHECKBOXES --- */
+input[type="checkbox"],
+.check input[type="checkbox"],
+.pp-check input[type="checkbox"],
+.dialog input[type="checkbox"] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  border-radius: 6px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  background-color: #ffffff !important;
+  cursor: pointer !important;
+  display: inline-grid !important;
+  place-content: center !important;
+  margin: 0 !important;
+  vertical-align: middle !important;
+  position: relative !important;
+  outline: none !important;
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  flex-shrink: 0 !important;
+}
+
+input[type="checkbox"]:hover,
+.check input[type="checkbox"]:hover {
+  border-color: #22c55e !important;
+  background-color: #f0fdf4 !important;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12) !important;
+}
+
+input[type="checkbox"]:checked,
+.check input[type="checkbox"]:checked {
+  background-color: #16a34a !important;
+  border-color: #16a34a !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5 8.5L6.5 11.5L12.5 4.5'/%3E%3C/svg%3E") !important;
+  background-size: 11px 11px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3) !important;
+}
+
+input[type="checkbox"]:focus-visible,
+.check input[type="checkbox"]:focus-visible {
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3) !important;
+  border-color: #16a34a !important;
+}
+
+label.check,
+label.pp-check,
+.check {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  font-size: 13px !important;
+  color: #334155 !important;
+  line-height: 1.4 !important;
+}
+
+label.check:hover,
+label.pp-check:hover,
+.check:hover {
+  color: #0f172a !important;
+}
+
+/* Shape option card checkboxes */
+.shape-opt-box {
+  border-radius: 6px !important;
+  border: 1.5px solid #16a34a !important;
+  background: #16a34a !important;
+  color: #ffffff !important;
+}
+
+.shape-opt-toggle:not(.checked) .shape-opt-box {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+.shape-opt-toggle.checked {
+  background: #f0fdf4 !important;
+  border-color: #86efac !important;
+  color: #15803d !important;
+  font-weight: 600 !important;
+}
+
+/* --- Gemini AI & Screen Snipper Styles --- */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes aiPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+}
+
+#nrn-screen-snipper {
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.vol-form-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+.vol-form-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.vol-form-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.vol-form-scroll::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+
+/* =============================================================
+   📱 MOBILE RESPONSIVE & PHONE OPTIMIZATION — Full Phone Support
+   Targets: screens ≤ 768px (smartphones & small tablets), html.mobile
+   ============================================================= */
+
+@media (max-width: 768px), (pointer: coarse) and (max-width: 900px) {
+  :root {
+    font-size: 14px !important;
+  }
+
+  html, body, #root, .app {
+    overflow: hidden !important;
+    height: 100% !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overscroll-behavior: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    touch-action: manipulation !important;
+  }
+
+  /* ── 1. Toolbar – Two-row layout with smooth horizontal finger scrolling ── */
+  .toolbar,
+  html.mobile .toolbar {
+    height: auto !important;
+    min-height: 94px !important;
+    padding: 2px 8px 4px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    row-gap: 2px !important;
+    gap: 4px !important;
+    position: relative !important;
+    z-index: 10000 !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.08) !important;
+  }
+
+  /* First row: main action buttons */
+  .toolbar > .tb-group:first-child,
+  html.mobile .toolbar > .tb-group:first-child {
+    display: flex !important;
+    flex: 1 1 auto !important;
+    height: 42px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    align-items: center !important;
+    gap: 3px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .toolbar > .tb-group:first-child::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .toolbar > .tb-group:first-child > * {
+    flex-shrink: 0 !important;
+  }
+
+  /* Document info / zoom */
+  .toolbar .tb-title,
+  html.mobile .toolbar .tb-title {
+    height: 42px !important;
+    flex: 0 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-left: auto !important;
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+    padding: 0 4px !important;
+  }
+
+  /* Second row: tools (pen, eraser, colors, shapes, 3D, math) */
+  .toolbar .tb-group.tools,
+  .toolbar.two-rows .tb-group.tools,
+  html.mobile .toolbar .tb-group.tools,
+  html:not(.mobile) .toolbar.two-rows .tb-group.tools {
+    order: 3 !important;
+    width: 100% !important;
+    height: 48px !important;
+    margin-left: 0 !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    border-top: 1px solid var(--line-subtle) !important;
+    padding: 4px 4px !important;
+    gap: 6px !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    touch-action: pan-x !important;
+  }
+
+  .toolbar .tb-group.tools::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .toolbar .tb-group.tools > * {
+    flex-shrink: 0 !important;
+  }
+
+  /* ── 2. Toolbar buttons – touch-ergonomic targets ── */
+  .tb {
+    min-width: 38px !important;
+    height: 38px !important;
+    padding: 0 6px !important;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+    touch-action: manipulation !important;
+    flex-shrink: 0 !important;
+  }
+
+  .tb svg {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .sep {
+    margin: 0 2px !important;
+    height: 18px !important;
+  }
+
+  /* ── 3. Palette & Swatches – compact and finger-friendly ── */
+  .tb-palette {
+    padding: 2px 5px !important;
+    gap: 4px !important;
+    border-radius: 18px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .swatch {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+    touch-action: manipulation !important;
+  }
+
+  .swatch span {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .swatch.on span {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 3.5px #2563eb !important;
+  }
+
+  /* ── 4. Left Pages Sidebar – overlay drawer mode on mobile ── */
+  .pages-panel {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 42px !important;
+    left: 0 !important;
+    width: 210px !important;
+    max-width: 78vw !important;
+    z-index: 10001 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    box-shadow: 8px 0 32px rgba(15, 23, 42, 0.28) !important;
+    border-right: 1px solid var(--line) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    animation: drawer-slide-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  @keyframes drawer-slide-in {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+
+  /* Drawer dark backdrop */
+  .mobile-drawer-backdrop {
+    display: block !important;
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 10000 !important;
+    background: rgba(15, 23, 42, 0.45) !important;
+    backdrop-filter: blur(3px) !important;
+    -webkit-backdrop-filter: blur(3px) !important;
+    animation: fade-in 0.2s ease !important;
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .pages-list {
+    padding: 12px 10px !important;
+    gap: 12px !important;
+  }
+
+  .page-thumb-img {
+    border-radius: 8px !important;
+  }
+
+  /* Board canvas occupies 100% full width */
+  .work {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  .board-wrap {
+    width: 100% !important;
+    max-width: 100vw !important;
+    flex: 1 1 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+  }
+
+  .board-scroller {
+    touch-action: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  html.pan-mode .board-scroller,
+  .board-scroller.pan-mode {
+    touch-action: pan-x pan-y !important;
+  }
+
+  .board {
+    touch-action: none !important;
+  }
+
+  /* ── 5. Bottom Sheet Tabs Bar ── */
+  .sheet-bar {
+    height: 42px !important;
+    min-height: 42px !important;
+    padding: 0 8px calc(env(safe-area-inset-bottom, 0px) + 2px) 8px !important;
+    gap: 4px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    background: rgba(248, 250, 252, 0.96) !important;
+    border-top: 1px solid var(--line-subtle) !important;
+    z-index: 8000 !important;
+  }
+
+  .sheet-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .sheet-tab {
+    height: 32px !important;
+    min-height: 32px !important;
+    padding: 0 12px !important;
+    font-size: 13px !important;
+    flex-shrink: 0 !important;
+    border-radius: 6px !important;
+  }
+
+  .sheet-add {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    flex-shrink: 0 !important;
+    border-radius: 6px !important;
+  }
+
+  /* ── 6. Modals & Dialogs – Adaptive phone sheets ── */
+  .dialog-backdrop {
+    padding: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 99999 !important;
+  }
+
+  .dialog {
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    max-height: 88dvh !important;
+    border-radius: 18px !important;
+    margin: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  .dialog.wide {
+    width: calc(100vw - 12px) !important;
+    max-width: calc(100vw - 12px) !important;
+  }
+
+  .dialog-body {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 12px !important;
+    gap: 8px !important;
+  }
+
+  .dialog-head {
+    padding: 12px 14px !important;
+    font-size: 15px !important;
+  }
+
+  .dialog-actions {
+    padding: 10px 14px !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* Prevent iOS Safari from zooming on input focus */
+  .dialog input,
+  .dialog select,
+  .dialog textarea,
+  .quick-api-input {
+    font-size: 16px !important;
+    min-height: 42px !important;
+  }
+
+  /* ── 7. Volume 3D Dialog – stack columns ── */
+  .vol-dialog-inner,
+  .dialog .vol-layout,
+  .dialog .vol-cols,
+  .dialog .vol-flex {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .vol-toolbar,
+  [class*="vol-sel-bar"],
+  [class*="volSelBar"] {
+    flex-wrap: wrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    gap: 4px !important;
+    padding: 4px 6px !important;
+  }
+
+  .vol-group {
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+  }
+
+  .vol-group button,
+  .vol-group label {
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+    min-height: 32px !important;
+  }
+
+  /* ── 8. Selection bar & Floating tools ── */
+  .selection-bar {
+    max-width: calc(100vw - 12px) !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 4px 6px !important;
+    gap: 4px !important;
+    z-index: 9000 !important;
+  }
+
+  .selection-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .selection-bar button {
+    padding: 6px 10px !important;
+    font-size: 12.5px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    min-height: 34px !important;
+  }
+
+  /* ── 9. Dropdown menus on mobile – ALWAYS CENTERED AND VISIBLE ── */
+  .dropdown-menu {
+    position: fixed !important;
+    top: 96px !important;
+    left: 8px !important;
+    right: 8px !important;
+    max-width: calc(100vw - 16px) !important;
+    max-height: 72dvh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    z-index: 999999 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 16px 48px rgba(15, 23, 42, 0.35) !important;
+    margin: 0 auto !important;
+  }
+
+  /* Shapes picker cards */
+  .shape-section-card {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  .shape-card-body {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  .shape-card-body button {
+    min-height: 38px !important;
+    padding: 6px 8px !important;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+  }
+
+  .shape-tab-bar {
+    display: flex !important;
+    gap: 4px !important;
+    padding: 4px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    width: 100% !important;
+  }
+
+  .shape-tab-btn {
+    flex: 1 1 auto !important;
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+    justify-content: center !important;
+  }
+
+  /* ── 10. Calc / scientific calculator ── */
+  .calc {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    max-height: 88dvh !important;
+    border-radius: 20px 20px 0 0 !important;
+    padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+    transform: none !important;
+    overflow-y: auto !important;
+    z-index: 99999 !important;
+  }
+
+  /* ── 11. Zoom input ── */
+  .zoom-input input {
+    width: 60px !important;
+    font-size: 14px !important;
+    min-height: 32px !important;
+  }
+
+  /* ── 12. Graph / equation dialogs ── */
+  .graph-dialog {
+    flex-direction: column-reverse !important;
+    height: 90dvh !important;
+  }
+
+  .graph-side {
+    position: static !important;
+    width: 100% !important;
+    max-height: 45dvh !important;
+  }
+
+  /* ── 13. FLOATING MOBILE DOCK CAPSULE (FAB) ── */
+  .mobile-dock {
+    display: block !important;
+    position: fixed !important;
+    bottom: 50px !important;
+    right: 10px !important;
+    z-index: 9990 !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    touch-action: manipulation !important;
+  }
+
+  .mobile-dock.min {
+    bottom: 50px !important;
+    right: 10px !important;
+  }
+
+  .mobile-dock-expand-btn {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    background: #2563eb !important;
+    color: #ffffff !important;
+    font-size: 20px !important;
+    border: 2.5px solid #ffffff !important;
+    box-shadow: 0 4px 18px rgba(37, 99, 235, 0.45) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+  }
+
+  .mobile-dock-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    padding: 4px 6px !important;
+    background: rgba(15, 23, 42, 0.9) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-radius: 30px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+  }
+
+  .mobile-dock-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    border: none !important;
+    background: transparent !important;
+    color: #cbd5e1 !important;
+    border-radius: 20px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    touch-action: manipulation !important;
+  }
+
+  .mobile-dock-btn.mode-btn {
+    height: 34px !important;
+    padding: 0 10px !important;
+  }
+
+  .mobile-dock-btn.mode-btn.active.pen {
+    background: #2563eb !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.45) !important;
+  }
+
+  .mobile-dock-btn.mode-btn.active.pan {
+    background: #d97706 !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(217, 119, 6, 0.45) !important;
+  }
+
+  .mobile-dock-btn.icon-btn {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    padding: 0 !important;
+    font-size: 14px !important;
+  }
+
+  .mobile-dock-btn.icon-btn:active {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+  }
+
+  .mobile-dock-btn.icon-btn.active {
+    background: #3b82f6 !important;
+    color: #ffffff !important;
+  }
+
+  .mobile-dock-btn:disabled {
+    opacity: 0.3 !important;
+    cursor: not-allowed !important;
+  }
+
+  .mobile-dock-sep {
+    width: 1px !important;
+    height: 18px !important;
+    background: rgba(255, 255, 255, 0.25) !important;
+    margin: 0 2px !important;
+  }
+
+  .mobile-dock-btn.min-btn {
+    color: #94a3b8 !important;
+    font-size: 16px !important;
+  }
+}
+
+/* ── Landscape phone (wide but short) ── */
+@media (max-width: 900px) and (max-height: 480px) {
+  .toolbar {
+    min-height: 46px !important;
+    height: 46px !important;
+    padding: 2px 8px !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+  }
+
+  .toolbar .tb-group.tools {
+    order: unset !important;
+    width: auto !important;
+    border-top: none !important;
+    overflow-x: visible !important;
+    flex-shrink: 0 !important;
+  }
+
+  .dialog {
+    max-height: 90dvh !important;
+  }
+
+  .calc {
+    max-height: 80dvh !important;
+  }
+}
+
+/* ── Desktop: hide mobile-only elements ── */
+@media (min-width: 769px) and (pointer: fine) {
+  .mobile-dock,
+  .mobile-drawer-backdrop {
+    display: none !important;
+  }
+}
+
+/* ── Touch-friendly tap highlights ── */
+@media (hover: none) and (pointer: coarse) {
+  .tb:hover:not(:disabled) {
+    background: transparent !important;
+    border-color: transparent !important;
+    color: #334155 !important;
+  }
+
+  .tb.on:hover {
+    background: #eff6ff !important;
+    color: #2563eb !important;
+  }
+
+  .swatch:hover span {
+    transform: none !important;
+  }
+
+  .tb, .selection-bar button, .vol-group button,
+  .sheet-btn, .sheet-add, .page-ctrl-btn {
+    touch-action: manipulation !important;
+  }
+
+  /* Active touch feedback */
+  .tb:active:not(:disabled),
+  .sheet-tab:active,
+  .sheet-add:active,
+  .selection-bar button:active {
+    opacity: 0.75 !important;
+    transform: scale(0.96) !important;
+  }
+}
+
+
+
+
+/* --- NRN BROWSER USER PILL & MODAL --- */
+.nrn-user-pill-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  height: 28px !important;
+  padding: 0 10px 0 8px !important;
+  margin: 0 4px !important;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(99, 102, 241, 0.12) 100%) !important;
+  border: 1px solid rgba(37, 99, 235, 0.25) !important;
+  border-radius: 999px !important;
+  color: #1e40af !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.08) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  outline: none !important;
+  user-select: none !important;
+}
+
+.nrn-user-pill-btn:hover {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(99, 102, 241, 0.2) 100%) !important;
+  border-color: rgba(37, 99, 235, 0.45) !important;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.18) !important;
+  transform: translateY(-0.5px) !important;
+}
+
+.nrn-user-pill-btn:active {
+  transform: translateY(0.5px) !important;
+}
+
+.nrn-user-dot {
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background-color: #10b981 !important;
+  box-shadow: 0 0 6px #10b981 !important;
+  display: inline-block !important;
+  animation: nrn-pulse-dot 2.5s infinite ease-in-out !important;
+}
+
+@keyframes nrn-pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+.nrn-user-icon {
+  font-size: 13px !important;
+  line-height: 1 !important;
+}
+
+.nrn-user-name {
+  max-width: 140px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Modal Overlay & Card */
+.nrn-user-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: nrn-fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nrn-user-modal-card {
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: nrn-scale-up 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: inherit;
+  color: #1e293b;
+}
+
+@keyframes nrn-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes nrn-scale-up {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.nrn-modal-header {
+  padding: 20px 24px 16px;
+  background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nrn-modal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nrn-modal-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: #ffffff;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.nrn-modal-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.nrn-modal-subtitle {
+  margin: 3px 0 0;
+  font-size: 12px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nrn-modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.nrn-modal-close-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.nrn-modal-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.nrn-info-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.nrn-info-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nrn-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.nrn-modal-input {
+  flex: 1;
+  height: 38px;
+  padding: 0 12px;
+  font-size: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+  background: #ffffff;
+  color: #0f172a;
+  transition: all 0.15s ease;
+}
+
+.nrn-modal-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.nrn-btn-primary {
+  height: 38px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.nrn-btn-primary:hover {
+  background: #1d4ed8;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.nrn-btn-secondary {
+  height: 38px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #ffffff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.nrn-btn-secondary:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.nrn-badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.nrn-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.nrn-badge.green {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.nrn-notice-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #1e40af;
+}
+
+.nrn-modal-footer {
+  padding: 16px 24px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   Compact Palette & Stroke Dropdowns (Color, Width, Highlighter)
+   ========================================================================== */
+.tb-capsule-palette {
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  border-left: 3px solid #8b5cf6 !important;
+}
+
+/* Indicators on toolbar buttons */
+.palette-btn-color-dot {
+  width: 17px !important;
+  height: 17px !important;
+  border-radius: 50% !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.12) !important;
+  transition: transform 0.16s ease !important;
+  margin-right: 2px !important;
+}
+
+.palette-btn-width-dot {
+  background: #0f172a !important;
+  border-radius: 50% !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.16s ease !important;
+  margin-right: 2px !important;
+}
+
+.palette-btn-hl-dot {
+  width: 17px !important;
+  height: 17px !important;
+  border-radius: 50% !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.15) !important;
+  transition: transform 0.16s ease !important;
+  margin-right: 2px !important;
+}
+
+.tb:hover .palette-btn-color-dot,
+.tb:hover .palette-btn-hl-dot {
+  transform: scale(1.14) !important;
+}
+
+/* Compact Dropdown Menu Panels */
+.compact-palette-dropdown {
+  min-width: 210px !important;
+  max-width: 250px !important;
+  padding: 6px 8px !important;
+}
+
+.compact-palette-dropdown .menu-heading {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.6px !important;
+  color: #64748b !important;
+  padding: 4px 6px 8px !important;
+}
+
+.compact-palette-grid {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 7px !important;
+  padding: 2px 4px 8px !important;
+}
+
+.compact-palette-grid .swatch {
+  width: 28px !important;
+  height: 28px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+}
+
+.compact-palette-grid .swatch span {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50% !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.16s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.compact-palette-grid .swatch.on span {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4.2px #2563eb, 0 2px 8px rgba(37, 99, 235, 0.35) !important;
+  transform: scale(1.08) !important;
+}
+
+.compact-palette-grid .swatch:hover span {
+  transform: scale(1.15) !important;
+}
+
+/* Rainbow other color picker */
+.swatch-other-label {
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 50% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red) !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18), 0 1px 3px rgba(0, 0, 0, 0.12) !important;
+  overflow: hidden !important;
+  position: relative !important;
+  transition: transform 0.16s ease !important;
+}
+
+.swatch-other-label:hover {
+  transform: scale(1.15) !important;
+}
+
+.swatch-other-label input[type="color"] {
+  opacity: 0 !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  cursor: pointer !important;
+}
+
+.compact-dropdown-sublink {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  padding: 8px 10px !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  color: #475569 !important;
+  border-radius: 8px !important;
+  transition: all 0.15s ease !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  text-align: left !important;
+}
+
+.compact-dropdown-sublink:hover {
+  background: #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
+.width-item-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-width: 200px !important;
+  padding: 8px 12px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  font-size: 13px !important;
+  transition: all 0.15s ease !important;
+}
+
+.width-item-row:hover {
+  background: #f1f5f9 !important;
+}
+
+.width-item-row.checked {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  font-weight: 600 !important;
+}
+
+.width-slider-box {
+  padding: 10px 12px !important;
+  background: #f8fafc !important;
+  border-radius: 10px !important;
+  border: 1px solid #e2e8f0 !important;
+  margin-top: 4px !important;
+}
+
+.width-slider-box input[type="range"] {
+  width: 100% !important;
+  height: 5px !important;
+  margin: 6px 0 2px !important;
+  accent-color: #2563eb !important;
+  cursor: pointer !important;
+}
+
