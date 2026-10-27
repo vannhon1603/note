@@ -1656,13 +1656,17 @@ label.pp-check:hover,
     touch-action: manipulation !important;
   }
 
-  /* ── 1. Toolbar – Single-row layout with smooth horizontal finger scrolling ── */
+  /* ── 1. Toolbar – Single-row layout with iOS Safe Area support (iPhone XS Max) ── */
   .toolbar,
   html.mobile .toolbar {
-    height: 48px !important;
-    min-height: 46px !important;
-    max-height: 48px !important;
-    padding: 2px 8px !important;
+    height: calc(48px + env(safe-area-inset-top, 0px)) !important;
+    min-height: calc(48px + env(safe-area-inset-top, 0px)) !important;
+    max-height: calc(56px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 3px) !important;
+    padding-bottom: 3px !important;
+    padding-left: calc(env(safe-area-inset-left, 0px) + 8px) !important;
+    padding-right: calc(env(safe-area-inset-right, 0px) + 8px) !important;
+    box-sizing: border-box !important;
     display: flex !important;
     flex-wrap: nowrap !important;
     align-items: center !important;
@@ -1743,15 +1747,30 @@ label.pp-check:hover,
     flex-shrink: 0 !important;
   }
 
-  /* ── 2. Toolbar buttons – touch-ergonomic targets ── */
+  /* ── 2. Toolbar buttons – touch-ergonomic targets for iPhone & mobile (42x42px) ── */
+  .toolbar .tb,
+  .toolbar button.tb,
+  .toolbar .tb-capsule .tb,
+  .toolbar .tb-title .tb,
   .tb {
-    min-width: 38px !important;
-    height: 38px !important;
-    padding: 0 6px !important;
+    min-width: 42px !important;
+    height: 42px !important;
+    padding: 0 8px !important;
     font-size: 13px !important;
-    border-radius: 8px !important;
+    border-radius: 10px !important;
     touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
     flex-shrink: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+  }
+
+  .toolbar .tb svg,
+  .toolbar .tb path,
+  .toolbar .tb * {
+    pointer-events: none !important;
   }
 
   .tb svg {
@@ -1877,10 +1896,10 @@ label.pp-check:hover,
     touch-action: none !important;
   }
 
-  /* ── 5. Bottom Sheet Tabs Bar ── */
+  /* ── 5. Bottom Sheet Tabs Bar (iPhone Safe Area) ── */
   .sheet-bar {
-    height: 42px !important;
-    min-height: 42px !important;
+    height: calc(42px + env(safe-area-inset-bottom, 0px)) !important;
+    min-height: calc(42px + env(safe-area-inset-bottom, 0px)) !important;
     padding: 0 8px calc(env(safe-area-inset-bottom, 0px) + 2px) 8px !important;
     gap: 4px !important;
     overflow-x: auto !important;
@@ -2021,16 +2040,16 @@ label.pp-check:hover,
     min-height: 34px !important;
   }
 
-  /* ── 9. Dropdown menus on mobile – ALWAYS CENTERED, FULLY VISIBLE & SCROLLABLE ── */
+  /* ── 9. Dropdown menus on mobile – ALWAYS CENTERED, FULLY VISIBLE & SCROLLABLE (iPhone Safe Area) ── */
   .dropdown-menu {
     position: fixed !important;
-    top: 52px !important;
-    left: 8px !important;
-    right: 8px !important;
+    top: calc(48px + env(safe-area-inset-top, 0px) + 4px) !important;
+    left: calc(env(safe-area-inset-left, 0px) + 8px) !important;
+    right: calc(env(safe-area-inset-right, 0px) + 8px) !important;
     width: auto !important;
     min-width: 0 !important;
-    max-width: calc(100vw - 16px) !important;
-    max-height: calc(100dvh - 64px) !important;
+    max-width: calc(100vw - 16px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)) !important;
+    max-height: calc(100dvh - 56px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
@@ -2146,12 +2165,12 @@ label.pp-check:hover,
     border-radius: 6px !important;
   }
 
-  /* Palette & color dropdown on mobile */
+  /* Palette & color dropdown on mobile (iPhone Safe Area) ── */
   .compact-palette-dropdown {
     position: fixed !important;
-    top: 52px !important;
-    left: 8px !important;
-    right: 8px !important;
+    top: calc(48px + env(safe-area-inset-top, 0px) + 4px) !important;
+    left: calc(env(safe-area-inset-left, 0px) + 8px) !important;
+    right: calc(env(safe-area-inset-right, 0px) + 8px) !important;
     width: auto !important;
     min-width: 0 !important;
     max-width: calc(100vw - 16px) !important;
@@ -2285,10 +2304,10 @@ label.pp-check:hover,
     box-shadow: 0 2px 8px rgba(217, 119, 6, 0.45) !important;
   }
 
-  /* ── Dropdown Backdrop for smooth tap dismissal on mobile (Unblocks Toolbar) ── */
+  /* ── Dropdown Backdrop for smooth tap dismissal on mobile (Unblocks Toolbar + Safe Area) ── */
   .dropdown-backdrop {
     position: fixed !important;
-    top: 48px !important;
+    top: calc(48px + env(safe-area-inset-top, 0px)) !important;
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
