@@ -1,7 +1,7 @@
 {
-  "name": "noterenderer-clone",
+  "name": "study-note-ai",
   "version": "1.0.0",
-  "description": "Reverse engineered and cloned NoteRenderer - Ink notebook with graphs, equations and dynamic geometry",
+  "description": "Study Note AI - Interactive ink notebook with graphs, equations and dynamic 3D geometry",
   "main": "electron/main.js",
   "scripts": {
     "start": "electron .",
@@ -14,8 +14,8 @@
     "build:exe": "electron-builder --win nsis --x64"
   },
   "build": {
-    "appId": "com.noterenderer.ai",
-    "productName": "NoteRenderer AI",
+    "appId": "com.studynote.ai",
+    "productName": "Study Note AI",
     "directories": {
       "output": "release"
     },
@@ -43,7 +43,7 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "NoteRenderer AI"
+      "shortcutName": "Study Note AI"
     }
   },
   "keywords": [

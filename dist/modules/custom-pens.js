@@ -1,6 +1,6 @@
 /**
  * =======================================================================
- * 🖋️ CUSTOM PENS MODULE (Study NoteBook)
+ * 🖋️ CUSTOM PENS MODULE (Study Note AI)
  * Tách riêng logic các loại bút vẽ & ngòi bút chuyên biệt
  * Dễ dàng mở rộng, chỉnh sửa nét thanh nét đậm mà không cần sửa file bundle lớn.
  * =======================================================================

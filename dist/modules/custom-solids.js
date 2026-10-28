@@ -1,6 +1,6 @@
 /**
  * =======================================================================
- * CUSTOM SOLIDS MODULE (Study NoteBook)
+ * CUSTOM SOLIDS MODULE (Study Note AI)
  * Tách riêng logic toán học và tạo các hình học trong không gian (3D Shapes)
  * Dễ dàng thêm hình mới (chóp, lăng trụ, đa diện) chỉ trong 1 file nhỏ.
  * =======================================================================

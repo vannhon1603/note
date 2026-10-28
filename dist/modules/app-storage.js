@@ -1,6 +1,6 @@
 /**
  * =======================================================================
- * APP STORAGE & PERSISTENCE MODULE (Study NoteBook)
+ * APP STORAGE & PERSISTENCE MODULE (Study Note AI)
  * Quản lý lưu trữ tự động, phục hồi dữ liệu khi F5,
  * và bảo vệ cấu hình giao diện (pagesPanel, toolbar, theme).
  * =======================================================================
@@ -13,17 +13,15 @@
     try {
       const prefs = JSON.parse(localStorage.getItem('prefs') || '{}');
       
-      // Đảm bảo thanh trang bên trái luôn bật mặc định
-      if (prefs.pagesPanel === undefined || prefs.pagesPanel === false) {
-        prefs.pagesPanel = true;
-      }
-      
       // Bật vẽ bằng ngón tay nếu màn hình cảm ứng
       const isTouch = (window.innerWidth <= 768) || 
                       (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ||
                       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       if (isTouch) {
         prefs.fingerDraw = true;
+        prefs.pagesPanel = false; // Luôn đóng danh sách trang mặc định trên mobile để tránh che menu
+      } else if (prefs.pagesPanel === undefined) {
+        prefs.pagesPanel = true;
       }
 
       localStorage.setItem('prefs', JSON.stringify(prefs));

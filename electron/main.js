@@ -31,6 +31,7 @@ function createWindow() {
     height: 850,
     minWidth: 800,
     minHeight: 600,
+    title: "Study Note AI",
     icon: fs.existsSync(iconPath) ? iconPath : undefined,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
@@ -239,7 +240,9 @@ ipcMain.handle("gemini-generate", async (event, { apiKey, model, prompt, imageBa
         ]
       }],
       generationConfig: {
-        response_mime_type: "application/json"
+        response_mime_type: "application/json",
+        maxOutputTokens: 2048,
+        temperature: 0.2
       }
     };
 
@@ -341,7 +344,7 @@ ipcMain.on("window-toggle-fullscreen", (event) => {
 });
 ipcMain.on("set-title", (event, title) => {
   const win = BrowserWindow.fromWebContents(event.sender);
-  if (win) win.setTitle(title ? `${title} — NoteRenderer` : "NoteRenderer");
+  if (win) win.setTitle(title ? `${title} — Study Note AI` : "Study Note AI");
 });
 ipcMain.on("set-dirty", () => {});
 ipcMain.on("set-autosave", () => {});

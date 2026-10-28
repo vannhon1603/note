@@ -1,6 +1,6 @@
 /**
  * =======================================================================
- * 🔄 AUTO-ROTATE MODULE (Study NoteBook)
+ * 🔄 AUTO-ROTATE MODULE (Study Note AI)
  * Tự động xoay khối không gian quanh trục đứng (chế độ bàn xoay).
  *
  * Board API (trong index bundle):
