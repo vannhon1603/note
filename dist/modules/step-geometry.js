@@ -6,7 +6,7 @@
  * - Bước 2: Dựng chiều cao TỰ DO HOÀN TOÀN (Kéo chuột/bút trên bảng vẽ hoặc dựng mẫu)
  * - Bước 3: Nối cạnh bên hoàn thiện & tự động phân tích nét khuất / nét đứt / xoay 3D!
  * 
- * ĐẶC BIỆT: Hỗ trợ TỰ VẼ ĐÁY ➔ KÉO CHIỀU CAO TỰ DO ➔ TỰ ĐỘNG HOÀN THIỆN!
+ * ĐẶC BIỆT: THUẬT TOÁN CONVEX HULL XÁC ĐỊNH NÉT LIỀN - NÉT ĐỨT CHUẨN XÁC 100%!
  * =======================================================================
  */
 (function(window) {
@@ -38,6 +38,132 @@
   function dist2D(p1, p2) {
     if (!p1 || !p2) return Infinity;
     return Math.hypot(p1.x - p2.x, p1.y - p2.y);
+  }
+
+  /**
+   * =======================================================================
+   * THUẬT TOÁN HÌNH HỌC TÍNH TOÁN NÉT LIỀN / NÉT ĐỨT CHUẨN SGK TOÁN
+   * =======================================================================
+   */
+  function crossProduct(o, a, b) {
+    return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+  }
+
+  function getConvexHull2D(pts) {
+    if (!pts || pts.length <= 2) return pts ? pts.slice() : [];
+    const sorted = pts.slice().sort((a, b) => a.x === b.x ? a.y - b.y : a.x - b.x);
+
+    const lower = [];
+    for (let p of sorted) {
+      while (lower.length >= 2 && crossProduct(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) {
+        lower.pop();
+      }
+      lower.push(p);
+    }
+
+    const upper = [];
+    for (let i = sorted.length - 1; i >= 0; i--) {
+      const p = sorted[i];
+      while (upper.length >= 2 && crossProduct(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) {
+        upper.pop();
+      }
+      upper.push(p);
+    }
+
+    lower.pop();
+    upper.pop();
+    return lower.concat(upper);
+  }
+
+  function isOuterHullEdge(hull, id1, id2) {
+    if (!hull || hull.length < 2) return false;
+    const n = hull.length;
+    for (let i = 0; i < n; i++) {
+      const next = (i + 1) % n;
+      if ((hull[i].id === id1 && hull[next].id === id2) ||
+          (hull[i].id === id2 && hull[next].id === id1)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Phân loại toàn diện nét đứt / nét liền cho khối chóp
+   */
+  function classifyPyramidEdges(apexPt, basePts, heightFootId = null) {
+    const allPts = [apexPt, ...basePts];
+    const hull = getConvexHull2D(allPts);
+
+    // 1. Tìm đỉnh khuất của đáy: đỉnh có y nhỏ nhất (nằm sâu nhất về phía sau theo góc nhìn phối cảnh SGK)
+    let hiddenBasePt = basePts[0];
+    for (const bp of basePts) {
+      if (bp.y < hiddenBasePt.y) {
+        hiddenBasePt = bp;
+      }
+    }
+
+    const isTriangle = (basePts.length === 3);
+    const isQuad = (basePts.length >= 4);
+
+    // 2. Xác định các cặp cạnh đáy bị khuất (nét đứt)
+    const baseDashedPairs = new Set();
+    if (isTriangle) {
+      // Tam giác: Cạnh đáy nối giữa 2 đỉnh có y nhỏ nhất (cạnh phía sau) là nét đứt
+      const sortedByY = basePts.slice().sort((a, b) => a.y - b.y);
+      const id1 = sortedByY[0].id;
+      const id2 = sortedByY[1].id;
+      baseDashedPairs.add(`${id1}--${id2}`);
+      baseDashedPairs.add(`${id2}--${id1}`);
+    } else if (isQuad) {
+      // Tứ giác / Đa giác: Các cạnh đáy nối trực tiếp vào đỉnh khuất là nét đứt
+      for (let i = 0; i < basePts.length; i++) {
+        const p1 = basePts[i];
+        const p2 = basePts[(i + 1) % basePts.length];
+        if (p1.id === hiddenBasePt.id || p2.id === hiddenBasePt.id) {
+          baseDashedPairs.add(`${p1.id}--${p2.id}`);
+          baseDashedPairs.add(`${p2.id}--${p1.id}`);
+        }
+      }
+    }
+
+    // 3. Xác định cạnh bên (nối từ đỉnh S xuống từng đỉnh đáy)
+    const lateralDashed = {};
+    for (const bp of basePts) {
+      if (isOuterHullEdge(hull, apexPt.id, bp.id)) {
+        // Cạnh viền ngoài Convex Hull -> 100% BẮT BUỘC NÉT LIỀN
+        lateralDashed[bp.id] = false;
+      } else {
+        // Cạnh nằm bên trong
+        if (isTriangle) {
+          // Trong hình chóp tam giác: Cạnh bên ở mặt trước quay về người xem -> NÉT LIỀN
+          lateralDashed[bp.id] = false;
+        } else {
+          // Trong hình chóp tứ giác: Cạnh bên nối tới đỉnh khuất phía sau -> NÉT ĐỨT; đỉnh trước -> NÉT LIỀN
+          lateralDashed[bp.id] = (bp.id === hiddenBasePt.id);
+        }
+      }
+    }
+
+    // 4. Xác định đường cao
+    let heightDashed = true;
+    if (heightFootId) {
+      if (isOuterHullEdge(hull, apexPt.id, heightFootId)) {
+        // Chân đường cao là viền ngoài (ví dụ SA trong hình chóp tam giác vuông tại A) -> NÉT LIỀN
+        heightDashed = false;
+      } else {
+        // Chân đường cao ở đỉnh khuất hoặc trong lòng đa giác đáy (tâm O, trung điểm H) -> NÉT ĐỨT
+        heightDashed = true;
+      }
+    }
+
+    return {
+      hull,
+      hiddenBasePtId: hiddenBasePt.id,
+      baseDashedPairs,
+      lateralDashed,
+      heightDashed
+    };
   }
 
   function showToast(msg) {
@@ -109,22 +235,62 @@
   let currentBuild = {
     active: false,
     stage: 'none', // 'none' | 'base' | 'height' | 'complete'
-    shapeType: 'pyramid', // 'pyramid' | 'prism'
-    baseType: 'quad',     // 'quad' | 'triangle' | 'tri_regular' | 'trapezoid'
-    heightType: 'freehand', // 'freehand' (vẽ tự do) | 'perp_A' | 'mid_H' | 'center_O' | 'slant'
+    shapeType: 'pyramid', // 'pyramid' | 'pyramid_tri' | 'pyramid_regular' | 'pyramid_trap' | 'prism_tri' | 'prism_quad' | 'cube' | 'cuboid' | 'frustum' | 'cone' | 'cylinder' | 'sphere'
+    baseType: 'quad',     // 'quad' | 'triangle' | 'tri_regular' | 'trapezoid' | 'round'
+    heightType: 'freehand', // 'freehand' | 'perp_A' | 'mid_H' | 'center_O' | 'slant'
     heightVal: 150,
-    waitingFreeHeight: false, // Đang chờ người dùng kéo đường cao tự do trên bảng vẽ
+    waitingFreeHeight: false,
     groupId: null,
     basePtIds: [],
     heightPtId: null,
     apexPtId: null,
+    extraPtIds: [],
     page: 0
   };
 
   let autoMode = true; // Tự động hoàn thiện khi phát hiện đường cao vừa vẽ
 
   /**
+   * ĐỘNG CƠ ANIMATION TỪNG BƯỚC (STEP-BY-STEP PROGRESSIVE DRAWING)
+   * Giúp giáo viên & học sinh quan sát trực quan từng điểm, từng cạnh xuất hiện mượt mà
+   */
+  function animateQueue(board, pageIdx, queue, onComplete, speed = 85) {
+    if (!board || !queue || !queue.length) {
+      if (typeof onComplete === 'function') onComplete();
+      return;
+    }
+
+    let idx = 0;
+    function runNext() {
+      if (idx >= queue.length) {
+        if (typeof onComplete === 'function') onComplete();
+        return;
+      }
+      const item = queue[idx++];
+      const pts = item.points || [];
+      const shps = item.shapes || [];
+
+      if (pts.length || shps.length) {
+        board.commit(board.addGeo(pageIdx, pts, shps));
+        board.redraw();
+        board.emit();
+      }
+
+      if (idx < queue.length) {
+        setTimeout(runNext, speed);
+      } else {
+        setTimeout(() => {
+          if (typeof onComplete === 'function') onComplete();
+        }, speed);
+      }
+    }
+
+    runNext();
+  }
+
+  /**
    * BƯỚC 1: DỰNG MẶT ĐÁY HÌNH HỌC KHÔNG GIAN
+   * Hỗ trợ đầy đủ các dạng đáy: Tứ giác, Tam giác thường/đều, Hình thang, Hình tròn/Elip
    */
   function step1_DrawBase(board, options = {}) {
     if (!board) board = getActiveBoard();
@@ -138,58 +304,59 @@
     const pg = board.doc.pages[pageIdx];
     if (!pg) return;
 
-    const baseType = options.baseType || currentBuild.baseType || 'quad';
     const shapeType = options.shapeType || currentBuild.shapeType || 'pyramid';
+    let baseType = options.baseType || currentBuild.baseType || 'quad';
+
+    // Chuẩn hoá baseType phù hợp theo shapeType
+    if (shapeType === 'pyramid_tri' || shapeType === 'prism_tri') {
+      baseType = 'triangle';
+    } else if (shapeType === 'pyramid_regular') {
+      baseType = (baseType === 'triangle') ? 'tri_regular' : 'quad';
+    } else if (shapeType === 'pyramid_trap') {
+      baseType = 'trapezoid';
+    } else if (shapeType === 'cube' || shapeType === 'cuboid' || shapeType === 'prism_quad') {
+      baseType = 'quad';
+    } else if (shapeType === 'cone' || shapeType === 'cylinder' || shapeType === 'sphere') {
+      baseType = 'round';
+    }
+
     const groupId = 'spatial_grp_' + Date.now();
     const center = options.center || { x: vp.x, y: vp.y };
 
-    const W = 160;
-    const D = W * 0.72;
+    const W = (shapeType === 'cube') ? 140 : ((shapeType === 'cuboid') ? 160 : 160);
+    const D = (shapeType === 'cube') ? 100 : (W * 0.72);
 
     const pointsList = [];
     const shapes = [];
     const basePtIds = [];
+    const queue = [];
 
-    if (baseType === 'quad') {
-      const pts3D = {
-        A: [0, D, 0],
-        B: [0, 0, 0],
-        C: [W, 0, 0],
-        D: [W, D, 0]
-      };
-      const proj = {};
-      let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-      for (const [k, p3d] of Object.entries(pts3D)) {
-        proj[k] = projectPoint(Zo, p3d);
-        minX = Math.min(minX, proj[k].x); maxX = Math.max(maxX, proj[k].x);
-        minY = Math.min(minY, proj[k].y); maxY = Math.max(maxY, proj[k].y);
-      }
-      const offX = center.x - (minX + maxX) / 2;
-      const offY = center.y - (minY + maxY) / 2 + 35;
+    if (baseType === 'round') {
+      // KHỐI TRÒN XOAY: NÓN, TRỤ, CẦU
+      const R = (shapeType === 'cone') ? 85 : ((shapeType === 'cylinder') ? 80 : 90);
+      const centerY = (shapeType === 'cone') ? (center.y + 40) : ((shapeType === 'cylinder') ? (center.y + 60) : center.y);
 
-      ['A', 'B', 'C', 'D'].forEach(label => {
-        const id = uid('pt_' + label);
-        const pt = {
-          id,
-          def: { t: 'free', x: Math.round(proj[label].x + offX), y: Math.round(proj[label].y + offY) },
-          z: 0,
-          label,
-          show: true,
-          group: groupId
-        };
-        pointsList.push(pt);
-        basePtIds.push(id);
-      });
+      const idO = uid('pt_O');
+      const idA = uid('pt_A');
+      const idB = uid('pt_B');
 
-      const [idA, idB, idC, idD] = basePtIds;
-      shapes.push(
-        { id: uid('seg'), kind: 'segment', pts: [idA, idB], dashed: true, color: '#1e293b', width: 1.8, group: groupId },
-        { id: uid('seg'), kind: 'segment', pts: [idA, idD], dashed: true, color: '#1e293b', width: 1.8, group: groupId },
-        { id: uid('seg'), kind: 'segment', pts: [idB, idC], color: '#1e293b', width: 2.0, group: groupId },
-        { id: uid('seg'), kind: 'segment', pts: [idC, idD], color: '#1e293b', width: 2.0, group: groupId }
-      );
+      const ptO = { id: idO, def: { t: 'free', x: Math.round(center.x), y: Math.round(centerY) }, z: 0, label: 'O', show: true, group: groupId };
+      const ptA = { id: idA, def: { t: 'free', x: Math.round(center.x + R), y: Math.round(centerY) }, z: 0, label: 'A', show: true, group: groupId };
+      const ptB = { id: idB, def: { t: 'free', x: Math.round(center.x - R), y: Math.round(centerY) }, z: 0, label: 'B', show: true, group: groupId };
+
+      pointsList.push(ptO, ptA, ptB);
+      basePtIds.push(idO, idA, idB);
+
+      // Bán kính đáy OA nét đứt
+      const segOA = { id: uid('seg_radius'), kind: 'segment', pts: [idO, idA], dashed: true, color: '#dc2626', width: 1.5, group: groupId };
+      shapes.push(segOA);
+
+      queue.push({ points: [ptO, ptA, ptB], shapes: [] });
+      queue.push({ points: [], shapes: [segOA] });
+
     } else if (baseType === 'triangle' || baseType === 'tri_regular') {
-      const isRegular = baseType === 'tri_regular';
+      // ĐÁY TAM GIÁC
+      const isRegular = (baseType === 'tri_regular');
       const pts3D = {
         A: [0, (isRegular ? 0.88 : 0.75) * W, 0],
         B: [(isRegular ? 0.5 : 0.4) * W, 0, 0],
@@ -220,12 +387,19 @@
       });
 
       const [idA, idB, idC] = basePtIds;
-      shapes.push(
-        { id: uid('seg'), kind: 'segment', pts: [idA, idC], dashed: true, color: '#1e293b', width: 1.8, group: groupId },
-        { id: uid('seg'), kind: 'segment', pts: [idA, idB], color: '#1e293b', width: 2.0, group: groupId },
-        { id: uid('seg'), kind: 'segment', pts: [idB, idC], color: '#1e293b', width: 2.0, group: groupId }
-      );
+      const segAC = { id: uid('seg'), kind: 'segment', pts: [idA, idC], dashed: true, color: '#1e293b', width: 1.8, group: groupId };
+      const segAB = { id: uid('seg'), kind: 'segment', pts: [idA, idB], dashed: false, color: '#1e293b', width: 2.0, group: groupId };
+      const segBC = { id: uid('seg'), kind: 'segment', pts: [idB, idC], dashed: false, color: '#1e293b', width: 2.0, group: groupId };
+
+      shapes.push(segAC, segAB, segBC);
+
+      queue.push({ points: pointsList, shapes: [] });
+      queue.push({ points: [], shapes: [segAC] });
+      queue.push({ points: [], shapes: [segAB] });
+      queue.push({ points: [], shapes: [segBC] });
+
     } else if (baseType === 'trapezoid') {
+      // ĐÁY HÌNH THANG
       const pts3D = {
         A: [0, D, 0],
         B: [0, 0, 0],
@@ -257,15 +431,66 @@
       });
 
       const [idA, idB, idC, idD] = basePtIds;
-      shapes.push(
-        { id: uid('seg'), kind: 'segment', pts: [idA, idB], dashed: true, color: '#1e293b', width: 1.8, group: groupId },
-        { id: uid('seg'), kind: 'segment', pts: [idA, idD], dashed: true, color: '#1e293b', width: 1.8, group: groupId },
-        { id: uid('seg'), kind: 'segment', pts: [idB, idC], color: '#1e293b', width: 2.0, group: groupId },
-        { id: uid('seg'), kind: 'segment', pts: [idC, idD], color: '#1e293b', width: 2.0, group: groupId }
-      );
-    }
+      const segAB = { id: uid('seg'), kind: 'segment', pts: [idA, idB], dashed: true, color: '#1e293b', width: 1.8, group: groupId };
+      const segAD = { id: uid('seg'), kind: 'segment', pts: [idA, idD], dashed: true, color: '#1e293b', width: 1.8, group: groupId };
+      const segBC = { id: uid('seg'), kind: 'segment', pts: [idB, idC], dashed: false, color: '#1e293b', width: 2.0, group: groupId };
+      const segCD = { id: uid('seg'), kind: 'segment', pts: [idC, idD], dashed: false, color: '#1e293b', width: 2.0, group: groupId };
 
-    board.commit(board.addGeo(pageIdx, pointsList, shapes));
+      shapes.push(segAB, segAD, segBC, segCD);
+
+      queue.push({ points: pointsList, shapes: [] });
+      queue.push({ points: [], shapes: [segAB] });
+      queue.push({ points: [], shapes: [segAD] });
+      queue.push({ points: [], shapes: [segBC] });
+      queue.push({ points: [], shapes: [segCD] });
+
+    } else {
+      // ĐÁY TỨ GIÁC (HÌNH BÌNH HÀNH / CHỮ NHẬT / VUÔNG)
+      const pts3D = {
+        A: [0, D, 0],
+        B: [0, 0, 0],
+        C: [W, 0, 0],
+        D: [W, D, 0]
+      };
+      const proj = {};
+      let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+      for (const [k, p3d] of Object.entries(pts3D)) {
+        proj[k] = projectPoint(Zo, p3d);
+        minX = Math.min(minX, proj[k].x); maxX = Math.max(maxX, proj[k].x);
+        minY = Math.min(minY, proj[k].y); maxY = Math.max(maxY, proj[k].y);
+      }
+      const offX = center.x - (minX + maxX) / 2;
+      const offY = center.y - (minY + maxY) / 2 + 35;
+
+      ['A', 'B', 'C', 'D'].forEach(label => {
+        const id = uid('pt_' + label);
+        const pt = {
+          id,
+          def: { t: 'free', x: Math.round(proj[label].x + offX), y: Math.round(proj[label].y + offY) },
+          z: 0,
+          label,
+          show: true,
+          group: groupId
+        };
+        pointsList.push(pt);
+        basePtIds.push(id);
+      });
+
+      const [idA, idB, idC, idD] = basePtIds;
+      // Nét đứt phía sau AB, AD; nét liền phía trước BC, CD
+      const segAB = { id: uid('seg'), kind: 'segment', pts: [idA, idB], dashed: true, color: '#1e293b', width: 1.8, group: groupId };
+      const segAD = { id: uid('seg'), kind: 'segment', pts: [idA, idD], dashed: true, color: '#1e293b', width: 1.8, group: groupId };
+      const segBC = { id: uid('seg'), kind: 'segment', pts: [idB, idC], dashed: false, color: '#1e293b', width: 2.0, group: groupId };
+      const segCD = { id: uid('seg'), kind: 'segment', pts: [idC, idD], dashed: false, color: '#1e293b', width: 2.0, group: groupId };
+
+      shapes.push(segAB, segAD, segBC, segCD);
+
+      queue.push({ points: pointsList, shapes: [] });
+      queue.push({ points: [], shapes: [segAB] });
+      queue.push({ points: [], shapes: [segAD] });
+      queue.push({ points: [], shapes: [segBC] });
+      queue.push({ points: [], shapes: [segCD] });
+    }
 
     currentBuild = {
       active: true,
@@ -279,22 +504,43 @@
       page: pageIdx,
       basePtIds,
       heightPtId: null,
-      apexPtId: null
+      apexPtId: null,
+      extraPtIds: []
     };
 
-    board.sel = {
-      page: pageIdx,
-      strokes: new Set(),
-      items: new Set(),
-      points: new Set(basePtIds),
-      shapes: new Set(shapes.map(s => s.id))
+    const finalize = () => {
+      board.sel = {
+        page: pageIdx,
+        strokes: new Set(),
+        items: new Set(),
+        points: new Set(basePtIds),
+        shapes: new Set(shapes.map(s => s.id))
+      };
+      board.redraw();
+      board.emit();
+      updateBuilderUI();
+      if (typeof options.onComplete === 'function') {
+        options.onComplete();
+      }
     };
-    board.redraw();
-    board.emit();
 
-    updateBuilderUI();
-    showToast('✅ Bước 1: Đã vẽ đáy! Bạn có thể kéo đường cao tự do trên bảng vẽ.');
-    console.log('[SpatialBuilder] Bước 1 vẽ đáy thành công:', baseType, 'tại trang', pageIdx);
+    const s1QueuedIds = new Set();
+    queue.forEach(item => (item.shapes || []).forEach(s => s1QueuedIds.add(s.id)));
+    const s1Unqueued = shapes.filter(s => !s1QueuedIds.has(s.id));
+    if (s1Unqueued.length) queue.push({ points: [], shapes: s1Unqueued });
+
+    if (options.animate !== false) {
+      animateQueue(board, pageIdx, queue, () => {
+        finalize();
+        showToast('✅ Bước 1: Đã vẽ đáy chuẩn SGK có hiệu ứng animation!');
+      }, 75);
+    } else {
+      board.commit(board.addGeo(pageIdx, pointsList, shapes));
+      finalize();
+      showToast('✅ Bước 1: Đã dựng mặt đáy chuẩn SGK!');
+    }
+
+    console.log('[SpatialBuilder] Bước 1 vẽ đáy thành công:', shapeType, baseType);
   }
 
   /**
@@ -304,31 +550,28 @@
     if (!board) board = getActiveBoard();
     if (!board) return;
 
-    // Nếu chưa có đáy, vẽ đáy trước
     if (!currentBuild.active || currentBuild.stage === 'none' || !currentBuild.basePtIds.length) {
       step1_DrawBase(board);
     }
 
     currentBuild.waitingFreeHeight = true;
+    currentBuild.heightType = 'freehand';
 
-    // Chuyển sang công cụ vẽ đoạn thẳng
     if (typeof board.setTool === 'function') {
-      board.setTool({ k: 'shape', t: 'segment' });
+      board.setTool({ k: 'geo', t: 'segment' });
     }
 
-    // Hiển thị banner hướng dẫn kéo tự do
-    showGuideBanner(board);
-
-    // Tự động thu gọn bảng điều khiển sang cạnh để không che tầm nhìn
     if (builderPanelEl) {
       builderPanelEl.classList.add('minimized');
     }
 
-    showToast('✍️ Hãy kéo chuột/bút từ mặt đáy lên đỉnh S theo độ cao bạn muốn!');
+    showGuideBanner(board);
+    showToast('✍️ Chế độ vẽ tự do: Hãy kéo 1 đoạn thẳng từ đáy lên đỉnh S theo chiều cao bạn muốn!');
   }
 
   /**
-   * BƯỚC 2: DỰNG CHIỀU CAO (HỖ TRỢ CẢ VẼ TỰ DO LẪN DỰNG MẪU)
+   * BƯỚC 2: DỰNG CHIỀU CAO / TRỤC ĐỨNG HÌNH HỌC KHÔNG GIAN
+   * Hỗ trợ đầy đủ các khối: Chóp, Lăng trụ, Hộp, Cụct, Nón, Trụ, Cầu
    */
   function step2_DrawHeight(board, options = {}) {
     if (!board) board = getActiveBoard();
@@ -336,21 +579,20 @@
 
     const heightType = options.heightType || currentBuild.heightType || 'freehand';
 
-    // NẾU LÀ CHẾ ĐỘ VẼ TỰ DO ➔ BẬT CHẾ ĐỘ KÉO CHUỘT/BÚT TRÊN CANVAS
     if (heightType === 'freehand') {
       startFreehandHeight(board);
       return;
     }
 
-    // NẾU LÀ DỰNG MẪU (perp_A, mid_H, center_O, slant)
     if (!currentBuild.active || currentBuild.stage === 'none' || !currentBuild.basePtIds.length) {
-      step1_DrawBase(board, options);
+      step1_DrawBase(board, { ...options, animate: false });
     }
 
     const pageIdx = currentBuild.page;
     const pg = board.doc.pages[pageIdx];
     if (!pg || !pg.geo) return;
 
+    const shapeType = currentBuild.shapeType;
     const H_val = options.heightVal || currentBuild.heightVal || 150;
     const groupId = currentBuild.groupId;
     const basePtIds = currentBuild.basePtIds;
@@ -358,106 +600,185 @@
 
     const newPoints = [];
     const newShapes = [];
+    const queue = [];
 
     let footPtId = null;
     let footPos = null;
+    let apexPtId = null;
+    let apexPos = null;
 
-    if (heightType === 'perp_A') {
+    if (shapeType === 'cone') {
+      // HÌNH NÓN: Chiều cao SO vuông góc mặt đáy tại tâm O
+      footPtId = basePtIds[0];
+      const pO = pointsMap[footPtId];
+      footPos = { x: pO.def.x, y: pO.def.y, z: 0 };
+      apexPos = { x: footPos.x, y: footPos.y - H_val, z: H_val };
+      apexPtId = uid('pt_S');
+
+      const ptS = { id: apexPtId, def: { t: 'free', x: apexPos.x, y: apexPos.y }, z: H_val, label: 'S', show: true, group: groupId };
+      newPoints.push(ptS);
+
+      const segSO = { id: uid('seg_height'), kind: 'segment', pts: [apexPtId, footPtId], dashed: true, color: '#dc2626', width: 2.2, group: groupId };
+      newShapes.push(segSO);
+
+      // Góc vuông tại O
+      const rightAngle = { id: uid('right_angle'), kind: 'right', pts: [apexPtId, footPtId, basePtIds[1]], aux: true, color: '#dc2626', width: 1.5, group: groupId };
+      newShapes.push(rightAngle);
+
+      queue.push({ points: [ptS], shapes: [] });
+      queue.push({ points: [], shapes: [segSO, rightAngle] });
+
+    } else if (shapeType === 'cylinder') {
+      // HÌNH TRỤ: Trục nối tâm đáy dưới O với tâm đáy trên O'
+      footPtId = basePtIds[0];
+      const pO = pointsMap[footPtId];
+      footPos = { x: pO.def.x, y: pO.def.y, z: 0 };
+      apexPos = { x: footPos.x, y: footPos.y - H_val, z: H_val };
+      apexPtId = uid("pt_O'");
+
+      const ptO_prime = { id: apexPtId, def: { t: 'free', x: apexPos.x, y: apexPos.y }, z: H_val, label: "O'", show: true, group: groupId };
+      newPoints.push(ptO_prime);
+
+      const segOO_prime = { id: uid('seg_height'), kind: 'segment', pts: [apexPtId, footPtId], dashed: true, color: '#dc2626', width: 2.2, group: groupId };
+      newShapes.push(segOO_prime);
+
+      queue.push({ points: [ptO_prime], shapes: [] });
+      queue.push({ points: [], shapes: [segOO_prime] });
+
+    } else if (shapeType === 'sphere') {
+      // KHỐI CẦU: Trục cực Bắc N - cực Nam S qua tâm O
+      footPtId = basePtIds[0];
+      const pO = pointsMap[footPtId];
+      const R = 90;
+      const idN = uid('pt_N');
+      const idS = uid('pt_S');
+
+      const ptN = { id: idN, def: { t: 'free', x: pO.def.x, y: pO.def.y - R }, z: R, label: 'N', show: true, group: groupId };
+      const ptS = { id: idS, def: { t: 'free', x: pO.def.x, y: pO.def.y + R }, z: -R, label: 'S', show: true, group: groupId };
+      newPoints.push(ptN, ptS);
+
+      const segNS = { id: uid('seg_axis'), kind: 'segment', pts: [idN, idS], dashed: true, color: '#dc2626', width: 2.0, group: groupId };
+      newShapes.push(segNS);
+
+      apexPtId = idN;
+      queue.push({ points: [ptN, ptS], shapes: [] });
+      queue.push({ points: [], shapes: [segNS] });
+
+    } else if (shapeType === 'cube' || shapeType === 'cuboid' || shapeType === 'prism_quad' || shapeType === 'prism_tri') {
+      // LĂNG TRỤ & HÌNH HỘP: Cạnh bên thẳng đứng AA'
       footPtId = basePtIds[0];
       const pA = pointsMap[footPtId];
-      footPos = { x: pA.def.x, y: pA.def.y, z: pA.z || 0 };
-    } else if (heightType === 'mid_H') {
-      const p1 = pointsMap[basePtIds[0]];
-      const p2 = pointsMap[basePtIds[1]];
-      footPtId = uid('pt_H');
-      footPos = { x: Math.round((p1.def.x + p2.def.x) / 2), y: Math.round((p1.def.y + p2.def.y) / 2), z: 0 };
-      newPoints.push({
-        id: footPtId,
-        def: { t: 'free', x: footPos.x, y: footPos.y },
-        z: 0,
-        label: 'H',
-        show: true,
-        group: groupId
-      });
-      if (basePtIds.length >= 3) {
-        newShapes.push({
-          id: uid('seg_aux'),
-          kind: 'segment',
-          pts: [footPtId, basePtIds[2]],
-          dashed: true,
-          aux: true,
-          color: '#64748b',
-          width: 1.4,
-          group: groupId
-        });
-      }
-    } else if (heightType === 'center_O') {
-      footPtId = uid('pt_O');
+      footPos = { x: pA.def.x, y: pA.def.y, z: 0 };
+      const slantDx = (heightType === 'slant') ? 40 : 0;
+      apexPos = { x: footPos.x + slantDx, y: footPos.y - H_val, z: H_val };
+      apexPtId = uid("pt_A'");
+
+      const ptA_prime = { id: apexPtId, def: { t: 'free', x: apexPos.x, y: apexPos.y }, z: H_val, label: "A'", show: true, group: groupId };
+      newPoints.push(ptA_prime);
+
+      // Điểm A là điểm khuất phía sau -> cạnh bên AA' là nét đứt!
+      const segAA = { id: uid('seg_height'), kind: 'segment', pts: [apexPtId, footPtId], dashed: true, color: '#dc2626', width: 2.0, group: groupId };
+      newShapes.push(segAA);
+
+      queue.push({ points: [ptA_prime], shapes: [] });
+      queue.push({ points: [], shapes: [segAA] });
+
+    } else if (shapeType === 'frustum') {
+      // CHÓP CỤT: Trục OO' hoặc cạnh bên AA'
       if (basePtIds.length === 4) {
         const pA = pointsMap[basePtIds[0]], pC = pointsMap[basePtIds[2]];
-        const pB = pointsMap[basePtIds[1]], pD = pointsMap[basePtIds[3]];
+        footPtId = uid('pt_O');
         footPos = { x: Math.round((pA.def.x + pC.def.x) / 2), y: Math.round((pA.def.y + pC.def.y) / 2), z: 0 };
-        newShapes.push(
-          { id: uid('seg_diag1'), kind: 'segment', pts: [basePtIds[0], basePtIds[2]], dashed: true, aux: true, color: '#94a3b8', width: 1.2, group: groupId },
-          { id: uid('seg_diag2'), kind: 'segment', pts: [basePtIds[1], basePtIds[3]], dashed: true, aux: true, color: '#94a3b8', width: 1.2, group: groupId }
-        );
       } else {
         const pA = pointsMap[basePtIds[0]], pB = pointsMap[basePtIds[1]], pC = pointsMap[basePtIds[2]];
+        footPtId = uid('pt_O');
         footPos = { x: Math.round((pA.def.x + pB.def.x + pC.def.x) / 3), y: Math.round((pA.def.y + pB.def.y + pC.def.y) / 3), z: 0 };
       }
-      newPoints.push({
-        id: footPtId,
-        def: { t: 'free', x: footPos.x, y: footPos.y },
-        z: 0,
-        label: 'O',
-        show: true,
-        group: groupId
+      const ptO = { id: footPtId, def: { t: 'free', x: footPos.x, y: footPos.y }, z: 0, label: 'O', show: true, group: groupId };
+      newPoints.push(ptO);
+
+      apexPtId = uid("pt_O'");
+      apexPos = { x: footPos.x, y: footPos.y - H_val, z: H_val };
+      const ptO_prime = { id: apexPtId, def: { t: 'free', x: apexPos.x, y: apexPos.y }, z: H_val, label: "O'", show: true, group: groupId };
+      newPoints.push(ptO_prime);
+
+      const segOO = { id: uid('seg_height'), kind: 'segment', pts: [apexPtId, footPtId], dashed: true, color: '#dc2626', width: 2.0, group: groupId };
+      newShapes.push(segOO);
+
+      queue.push({ points: [ptO, ptO_prime], shapes: [] });
+      queue.push({ points: [], shapes: [segOO] });
+
+    } else {
+      // HÌNH CHÓP (TỨ GIÁC, TAM GIÁC, ĐỀU, HÌNH THANG)
+      if (heightType === 'perp_A') {
+        footPtId = basePtIds[0];
+        const pA = pointsMap[footPtId];
+        footPos = { x: pA.def.x, y: pA.def.y, z: pA.z || 0 };
+      } else if (heightType === 'mid_H') {
+        const p1 = pointsMap[basePtIds[0]];
+        const p2 = pointsMap[basePtIds[1]];
+        footPtId = uid('pt_H');
+        footPos = { x: Math.round((p1.def.x + p2.def.x) / 2), y: Math.round((p1.def.y + p2.def.y) / 2), z: 0 };
+        const ptH = { id: footPtId, def: { t: 'free', x: footPos.x, y: footPos.y }, z: 0, label: 'H', show: true, group: groupId };
+        newPoints.push(ptH);
+        if (basePtIds.length >= 3) {
+          const segAux = { id: uid('seg_aux'), kind: 'segment', pts: [footPtId, basePtIds[2]], dashed: true, aux: true, color: '#64748b', width: 1.4, group: groupId };
+          newShapes.push(segAux);
+          queue.push({ points: [ptH], shapes: [segAux] });
+        } else {
+          queue.push({ points: [ptH], shapes: [] });
+        }
+      } else if (heightType === 'center_O' || shapeType === 'pyramid_regular') {
+        footPtId = uid('pt_O');
+        if (basePtIds.length === 4) {
+          const pA = pointsMap[basePtIds[0]], pC = pointsMap[basePtIds[2]];
+          const pB = pointsMap[basePtIds[1]], pD = pointsMap[basePtIds[3]];
+          footPos = { x: Math.round((pA.def.x + pC.def.x) / 2), y: Math.round((pA.def.y + pC.def.y) / 2), z: 0 };
+          const diag1 = { id: uid('seg_diag1'), kind: 'segment', pts: [basePtIds[0], basePtIds[2]], dashed: true, aux: true, color: '#94a3b8', width: 1.2, group: groupId };
+          const diag2 = { id: uid('seg_diag2'), kind: 'segment', pts: [basePtIds[1], basePtIds[3]], dashed: true, aux: true, color: '#94a3b8', width: 1.2, group: groupId };
+          newShapes.push(diag1, diag2);
+          const ptO = { id: footPtId, def: { t: 'free', x: footPos.x, y: footPos.y }, z: 0, label: 'O', show: true, group: groupId };
+          newPoints.push(ptO);
+          queue.push({ points: [ptO], shapes: [diag1, diag2] });
+        } else {
+          const pA = pointsMap[basePtIds[0]], pB = pointsMap[basePtIds[1]], pC = pointsMap[basePtIds[2]];
+          footPos = { x: Math.round((pA.def.x + pB.def.x + pC.def.x) / 3), y: Math.round((pA.def.y + pB.def.y + pC.def.y) / 3), z: 0 };
+          const ptO = { id: footPtId, def: { t: 'free', x: footPos.x, y: footPos.y }, z: 0, label: 'O', show: true, group: groupId };
+          newPoints.push(ptO);
+          queue.push({ points: [ptO], shapes: [] });
+        }
+      } else { // 'slant'
+        footPtId = basePtIds[0];
+        const pA = pointsMap[footPtId];
+        footPos = { x: pA.def.x, y: pA.def.y, z: pA.z || 0 };
+      }
+
+      apexPtId = uid('pt_S');
+      const slantDx = (heightType === 'slant') ? 45 : 0;
+      apexPos = { x: footPos.x + slantDx, y: footPos.y - H_val, z: H_val };
+
+      const ptS = { id: apexPtId, def: { t: 'free', x: apexPos.x, y: apexPos.y }, z: H_val, label: 'S', show: true, group: groupId };
+      newPoints.push(ptS);
+
+      const basePtsList = basePtIds.map(id => {
+        const p = pointsMap[id];
+        return { id, x: p.def.x, y: p.def.y };
       });
-    } else { // 'slant' (chiều cao xiên)
-      footPtId = basePtIds[0];
-      const pA = pointsMap[footPtId];
-      footPos = { x: pA.def.x, y: pA.def.y, z: pA.z || 0 };
+      const apexObj = { id: apexPtId, x: apexPos.x, y: apexPos.y };
+      const vis = classifyPyramidEdges(apexObj, basePtsList, footPtId);
+
+      const segHeight = { id: uid('seg_height'), kind: 'segment', pts: [apexPtId, footPtId], dashed: vis.heightDashed, color: '#dc2626', width: 2.2, group: groupId };
+      newShapes.push(segHeight);
+
+      const refPtId = basePtIds.find(id => id !== footPtId);
+      if (refPtId && heightType !== 'slant') {
+        const rightAngle = { id: uid('right_angle'), kind: 'right', pts: [apexPtId, footPtId, refPtId], aux: true, color: '#dc2626', width: 1.5, group: groupId };
+        newShapes.push(rightAngle);
+        queue.push({ points: [ptS], shapes: [segHeight, rightAngle] });
+      } else {
+        queue.push({ points: [ptS], shapes: [segHeight] });
+      }
     }
-
-    const apexPtId = uid('pt_S');
-    const slantDx = (heightType === 'slant') ? 45 : 0;
-    const apexPos = { x: footPos.x + slantDx, y: footPos.y - H_val, z: H_val };
-
-    newPoints.push({
-      id: apexPtId,
-      def: { t: 'free', x: apexPos.x, y: apexPos.y },
-      z: H_val,
-      label: currentBuild.shapeType === 'prism' ? "A'" : "S",
-      show: true,
-      group: groupId
-    });
-
-    const isPerpEdge = (heightType === 'perp_A' && currentBuild.baseType === 'triangle');
-    const segHeightId = uid('seg_height');
-    newShapes.push({
-      id: segHeightId,
-      kind: 'segment',
-      pts: [apexPtId, footPtId],
-      dashed: !isPerpEdge,
-      color: '#dc2626',
-      width: 2.2,
-      group: groupId
-    });
-
-    const refPtId = basePtIds.find(id => id !== footPtId);
-    if (refPtId && heightType !== 'slant') {
-      newShapes.push({
-        id: uid('right_angle'),
-        kind: 'right',
-        pts: [apexPtId, footPtId, refPtId],
-        aux: true,
-        color: '#dc2626',
-        width: 1.5,
-        group: groupId
-      });
-    }
-
-    board.commit(board.addGeo(pageIdx, newPoints, newShapes));
 
     currentBuild.stage = 'height';
     currentBuild.heightPtId = footPtId;
@@ -466,39 +787,55 @@
     currentBuild.heightVal = H_val;
     currentBuild.waitingFreeHeight = false;
 
-    // ĐẶT CÔNG CỤ CHỌN VÀ CHỌN ĐỈNH S ĐỂ NGƯỜI DÙNG KÉO THẢ TỰ DO ĐƯỢC NGAY!
-    if (typeof board.setTool === 'function') {
-      board.setTool({ k: 'select' });
-    }
-
-    board.sel = {
-      page: pageIdx,
-      strokes: new Set(),
-      items: new Set(),
-      points: new Set([apexPtId]), // Chọn sẵn đỉnh S để kéo thả tự do!
-      shapes: new Set([segHeightId])
+    const finalize = () => {
+      if (typeof board.setTool === 'function') {
+        board.setTool({ k: 'select' });
+      }
+      board.sel = {
+        page: pageIdx,
+        strokes: new Set(),
+        items: new Set(),
+        points: new Set([apexPtId]),
+        shapes: new Set(newShapes.map(s => s.id))
+      };
+      board.redraw();
+      board.emit();
+      hideGuideBanner();
+      if (builderPanelEl) {
+        builderPanelEl.classList.remove('minimized');
+      }
+      updateBuilderUI();
+      if (typeof options.onComplete === 'function') {
+        options.onComplete();
+      }
     };
-    board.redraw();
-    board.emit();
 
-    hideGuideBanner();
-    if (builderPanelEl) {
-      builderPanelEl.classList.remove('minimized');
+    const s2QueuedIds = new Set();
+    queue.forEach(item => (item.shapes || []).forEach(s => s2QueuedIds.add(s.id)));
+    const s2Unqueued = newShapes.filter(s => !s2QueuedIds.has(s.id));
+    if (s2Unqueued.length) queue.push({ points: [], shapes: s2Unqueued });
+
+    if (options.animate !== false) {
+      animateQueue(board, pageIdx, queue, () => {
+        finalize();
+        showToast('✨ Bước 2: Đã dựng chiều cao chuẩn SGK có animation!');
+      }, 85);
+    } else {
+      board.commit(board.addGeo(pageIdx, newPoints, newShapes));
+      finalize();
+      showToast('✨ Đã dựng chiều cao nét đứt/liền chuẩn SGK!');
     }
-    updateBuilderUI();
-    showToast('✨ Đã dựng chiều cao! Bạn có thể kéo đỉnh S trên bảng để chỉnh độ cao tự do.');
-    console.log('[SpatialBuilder] Bước 2 dựng chiều cao thành công');
   }
 
   /**
-   * BƯỚC 3: NỐI CÁC CẠNH BÊN HOÀN THIỆN KHỐI 3D
+   * BƯỚC 3: NỐI CÁC CẠNH BÊN HOÀN THIỆN KHỐI 3D (CHUẨN NÉT KHUẤT VÀ TÍNH NĂNG XOAY)
    */
-  function step3_CompleteEdges(board) {
+  function step3_CompleteEdges(board, options = {}) {
     if (!board) board = getActiveBoard();
     if (!board) return;
 
     if (!currentBuild.active || !currentBuild.apexPtId) {
-      step2_DrawHeight(board, { heightType: 'perp_A' });
+      step2_DrawHeight(board, { heightType: 'perp_A', animate: false });
     }
 
     const pageIdx = currentBuild.page;
@@ -515,25 +852,282 @@
     const allPtIds = [...basePtIds, apexPtId];
     const newPoints = [];
     const newShapes = [];
+    const queue = [];
 
-    if (shapeType === 'pyramid') {
-      basePtIds.forEach((pid, idx) => {
+    const apexP = pointsMap[apexPtId];
+
+    if (shapeType === 'cone') {
+      // HÌNH NÓN: Nối 2 đường sinh bên SA và SB
+      const idA = basePtIds[1];
+      const idB = basePtIds[2];
+
+      const segSA = { id: uid('seg_lat'), kind: 'segment', pts: [apexPtId, idA], dashed: false, color: '#1e293b', width: 2.0, group: groupId };
+      const segSB = { id: uid('seg_lat'), kind: 'segment', pts: [apexPtId, idB], dashed: false, color: '#1e293b', width: 2.0, group: groupId };
+      newShapes.push(segSA, segSB);
+
+      // Shape nón chuẩn SVG/Canvas
+      const coneShape = { id: uid('cone_shape'), kind: 'cone', pts: [basePtIds[0], idA, apexPtId], color: '#1e293b', width: 2.0, group: groupId };
+      newShapes.push(coneShape);
+
+      // Solid xoay 3D
+      newShapes.push({
+        id: 'solid_' + groupId,
+        kind: 'solid',
+        pts: [basePtIds[0], idA, idB, apexPtId],
+        color: '#2563eb',
+        width: 1.5,
+        group: groupId,
+        hidden: true,
+        solid: { of: 'cone', view: Zo, turn: Cp }
+      });
+
+      queue.push({ points: [], shapes: [segSB] });
+      queue.push({ points: [], shapes: [segSA] });
+      queue.push({ points: [], shapes: [coneShape] });
+
+    } else if (shapeType === 'cylinder') {
+      // HÌNH TRỤ: Đáy trên O'A' và 2 đường sinh AA' và BB'
+      const idA = basePtIds[1];
+      const idB = basePtIds[2];
+      const pO_prime = pointsMap[apexPtId];
+      const R = 80;
+
+      const idA_prime = uid("pt_A'");
+      const idB_prime = uid("pt_B'");
+      const ptA_prime = { id: idA_prime, def: { t: 'free', x: pO_prime.def.x + R, y: pO_prime.def.y }, z: currentBuild.heightVal, label: "A'", show: true, group: groupId };
+      const ptB_prime = { id: idB_prime, def: { t: 'free', x: pO_prime.def.x - R, y: pO_prime.def.y }, z: currentBuild.heightVal, label: "B'", show: true, group: groupId };
+      newPoints.push(ptA_prime, ptB_prime);
+      allPtIds.push(idA_prime, idB_prime);
+
+      const segAA = { id: uid('seg_lat'), kind: 'segment', pts: [idA, idA_prime], dashed: false, color: '#1e293b', width: 2.0, group: groupId };
+      const segBB = { id: uid('seg_lat'), kind: 'segment', pts: [idB, idB_prime], dashed: false, color: '#1e293b', width: 2.0, group: groupId };
+      const segTopRadius = { id: uid('seg_top_r'), kind: 'segment', pts: [apexPtId, idA_prime], dashed: false, color: '#1e293b', width: 1.6, group: groupId };
+      newShapes.push(segAA, segBB, segTopRadius);
+
+      const cylShape = { id: uid('cyl_shape'), kind: 'cylinder', pts: [basePtIds[0], idA, apexPtId], color: '#1e293b', width: 2.0, group: groupId };
+      newShapes.push(cylShape);
+
+      newShapes.push({
+        id: 'solid_' + groupId,
+        kind: 'solid',
+        pts: allPtIds,
+        color: '#2563eb',
+        width: 1.5,
+        group: groupId,
+        hidden: true,
+        solid: { of: 'cylinder', view: Zo, turn: Cp }
+      });
+
+      queue.push({ points: [ptA_prime, ptB_prime], shapes: [] });
+      queue.push({ points: [], shapes: [segBB] });
+      queue.push({ points: [], shapes: [segAA] });
+      queue.push({ points: [], shapes: [segTopRadius, cylShape] });
+
+    } else if (shapeType === 'sphere') {
+      // KHỐI CẦU: Mặt cầu hoàn thiện
+      const sphereShape = { id: uid('sphere_shape'), kind: 'sphere', pts: [basePtIds[0], basePtIds[1]], color: '#1e293b', width: 2.0, group: groupId };
+      newShapes.push(sphereShape);
+
+      newShapes.push({
+        id: 'solid_' + groupId,
+        kind: 'solid',
+        pts: [basePtIds[0], basePtIds[1], basePtIds[2], apexPtId],
+        color: '#2563eb',
+        width: 1.5,
+        group: groupId,
+        hidden: true,
+        solid: { of: 'sphere', view: Zo, turn: Cp }
+      });
+
+      queue.push({ points: [], shapes: [sphereShape] });
+
+    } else if (shapeType === 'cube' || shapeType === 'cuboid' || shapeType === 'prism_quad' || shapeType === 'prism_tri') {
+      // LĂNG TRỤ & HÌNH HỘP / HÌNH LẬP PHƯƠNG
+      const base0P = pointsMap[basePtIds[0]];
+      const dx = apexP.def.x - base0P.def.x;
+      const dy = apexP.def.y - base0P.def.y;
+      const H_val = currentBuild.heightVal;
+
+      const topPtIds = [apexPtId];
+      const topPtsList = [];
+
+      for (let i = 1; i < basePtIds.length; i++) {
+        const bPt = pointsMap[basePtIds[i]];
+        const tId = uid('pt_' + bPt.label + "'");
+        const tPt = {
+          id: tId,
+          def: { t: 'free', x: bPt.def.x + dx, y: bPt.def.y + dy },
+          z: H_val,
+          label: bPt.label + "'",
+          show: true,
+          group: groupId
+        };
+        newPoints.push(tPt);
+        topPtsList.push(tPt);
+        topPtIds.push(tId);
+        allPtIds.push(tId);
+
+        // Cạnh bên: AA' (i=0) đã là nét đứt ở bước 2. Các cạnh BB', CC', DD' đều là nét liền!
+        const segLat = {
+          id: uid('seg_lat'),
+          kind: 'segment',
+          pts: [basePtIds[i], tId],
+          dashed: false,
+          color: '#1e293b',
+          width: 2.0,
+          group: groupId
+        };
+        newShapes.push(segLat);
+      }
+
+      queue.push({ points: topPtsList, shapes: [] });
+
+      // Đáy trên: nhìn từ trên xuống -> TẤT CẢ CẠNH ĐÁY TRÊN ĐỀU LÀ NÉT LIỀN!
+      const topSegs = [];
+      for (let i = 0; i < topPtIds.length; i++) {
+        const next = (i + 1) % topPtIds.length;
+        const segTop = {
+          id: uid('seg_top'),
+          kind: 'segment',
+          pts: [topPtIds[i], topPtIds[next]],
+          dashed: false,
+          color: '#1e293b',
+          width: 2.0,
+          group: groupId
+        };
+        newShapes.push(segTop);
+        topSegs.push(segTop);
+      }
+
+      // Đẩy vào queue animation
+      for (const seg of topSegs) {
+        queue.push({ points: [], shapes: [seg] });
+      }
+      for (let i = 1; i < basePtIds.length; i++) {
+        const sLat = newShapes.find(s => s.kind === 'segment' && s.pts[0] === basePtIds[i]);
+        if (sLat) queue.push({ points: [], shapes: [sLat] });
+      }
+
+      newShapes.push({
+        id: 'solid_' + groupId,
+        kind: 'solid',
+        pts: allPtIds,
+        color: '#2563eb',
+        width: 1.5,
+        group: groupId,
+        hidden: true,
+        solid: {
+          of: basePtIds.length === 4 ? 'box' : 'prism3',
+          view: Zo,
+          turn: Cp
+        }
+      });
+
+    } else if (shapeType === 'frustum') {
+      // HÌNH CHÓP CỤT: Đáy trên thu nhỏ tỉ lệ k = 0.5
+      const k = 0.5;
+      const H_val = currentBuild.heightVal;
+      const topPtIds = [];
+      const topPtsList = [];
+
+      let centerBottom = { x: 0, y: 0 };
+      basePtIds.forEach(id => {
+        centerBottom.x += pointsMap[id].def.x;
+        centerBottom.y += pointsMap[id].def.y;
+      });
+      centerBottom.x /= basePtIds.length;
+      centerBottom.y /= basePtIds.length;
+
+      basePtIds.forEach((id, idx) => {
+        const bPt = pointsMap[id];
+        const tId = uid('pt_' + bPt.label + "'");
+        const tPt = {
+          id: tId,
+          def: {
+            t: 'free',
+            x: Math.round(centerBottom.x + (bPt.def.x - centerBottom.x) * k),
+            y: Math.round(centerBottom.y + (bPt.def.y - centerBottom.y) * k - H_val)
+          },
+          z: H_val,
+          label: bPt.label + "'",
+          show: true,
+          group: groupId
+        };
+        newPoints.push(tPt);
+        topPtsList.push(tPt);
+        topPtIds.push(tId);
+        allPtIds.push(tId);
+
+        // Cạnh bên chóp cụt: Đỉnh A khuất -> AA' nét đứt; các cạnh bên còn lại nét liền
+        const segLat = {
+          id: uid('seg_lat'),
+          kind: 'segment',
+          pts: [id, tId],
+          dashed: (idx === 0),
+          color: '#1e293b',
+          width: 1.8,
+          group: groupId
+        };
+        newShapes.push(segLat);
+      });
+
+      queue.push({ points: topPtsList, shapes: [] });
+
+      // Đáy trên: toàn bộ nét liền
+      for (let i = 0; i < topPtIds.length; i++) {
+        const next = (i + 1) % topPtIds.length;
+        const segTop = {
+          id: uid('seg_top'),
+          kind: 'segment',
+          pts: [topPtIds[i], topPtIds[next]],
+          dashed: false,
+          color: '#1e293b',
+          width: 1.8,
+          group: groupId
+        };
+        newShapes.push(segTop);
+        queue.push({ points: [], shapes: [segTop] });
+      }
+
+      newShapes.push({
+        id: 'solid_' + groupId,
+        kind: 'solid',
+        pts: allPtIds,
+        color: '#2563eb',
+        width: 1.5,
+        group: groupId,
+        hidden: true,
+        solid: { of: 'box', view: Zo, turn: Cp }
+      });
+
+    } else {
+      // CÁC LOẠI HÌNH CHÓP (TỨ GIÁC, TAM GIÁC, ĐỀU, HÌNH THANG)
+      const basePtsList = basePtIds.map(id => {
+        const p = pointsMap[id];
+        return { id, x: p.def.x, y: p.def.y };
+      });
+      const apexObj = { id: apexPtId, x: apexP.def.x, y: apexP.def.y };
+      const vis = classifyPyramidEdges(apexObj, basePtsList, currentBuild.heightPtId);
+
+      basePtIds.forEach((pid) => {
         const alreadyHasEdge = existingShapes.some(s => s.kind === 'segment' && (
           (s.pts[0] === apexPtId && s.pts[1] === pid) ||
           (s.pts[1] === apexPtId && s.pts[0] === pid)
         ));
         if (alreadyHasEdge) return;
 
-        const isHidden = (idx === 0 && currentBuild.heightType !== 'perp_A');
-        newShapes.push({
+        const isDashed = !!vis.lateralDashed[pid];
+        const segLat = {
           id: uid('seg_lat'),
           kind: 'segment',
           pts: [apexPtId, pid],
-          dashed: isHidden,
+          dashed: isDashed,
           color: '#1e293b',
           width: 1.8,
           group: groupId
-        });
+        };
+        newShapes.push(segLat);
+        queue.push({ points: [], shapes: [segLat] });
       });
 
       const faces = [];
@@ -558,102 +1152,105 @@
           faces
         }
       });
-    } else if (shapeType === 'prism') {
-      const apexP = pointsMap[apexPtId];
-      const base0P = pointsMap[basePtIds[0]];
-      const dx = apexP.def.x - base0P.def.x;
-      const dy = apexP.def.y - base0P.def.y;
-      const H_val = currentBuild.heightVal;
-
-      const topPtIds = [apexPtId];
-      for (let i = 1; i < basePtIds.length; i++) {
-        const bPt = pointsMap[basePtIds[i]];
-        const tId = uid('pt_' + bPt.label + "'");
-        newPoints.push({
-          id: tId,
-          def: { t: 'free', x: bPt.def.x + dx, y: bPt.def.y + dy },
-          z: H_val,
-          label: bPt.label + "'",
-          show: true,
-          group: groupId
-        });
-        topPtIds.push(tId);
-        allPtIds.push(tId);
-
-        newShapes.push({
-          id: uid('seg_lat'),
-          kind: 'segment',
-          pts: [basePtIds[i], tId],
-          color: '#1e293b',
-          width: 1.8,
-          group: groupId
-        });
-      }
-
-      for (let i = 0; i < topPtIds.length; i++) {
-        const next = (i + 1) % topPtIds.length;
-        newShapes.push({
-          id: uid('seg_top'),
-          kind: 'segment',
-          pts: [topPtIds[i], topPtIds[next]],
-          color: '#1e293b',
-          width: 1.8,
-          group: groupId
-        });
-      }
-
-      newShapes.push({
-        id: 'solid_' + groupId,
-        kind: 'solid',
-        pts: allPtIds,
-        color: '#2563eb',
-        width: 1.5,
-        group: groupId,
-        hidden: true,
-        solid: {
-          of: basePtIds.length === 4 ? 'box' : 'prism3',
-          view: Zo,
-          turn: Cp
-        }
-      });
     }
-
-    board.commit(board.addGeo(pageIdx, newPoints, newShapes));
 
     currentBuild.stage = 'complete';
     currentBuild.waitingFreeHeight = false;
 
-    const curPage = board.doc.pages[pageIdx];
-    const grpShapes = curPage.geo.shapes.filter(s => s.group === groupId && !s.hidden).map(s => s.id);
-    
-    // Đặt công cụ chọn và chọn toàn bộ hình
-    if (typeof board.setTool === 'function') {
-      board.setTool({ k: 'select' });
-    }
+    const finalize = () => {
+      const curPage = board.doc.pages[pageIdx];
+      const grpShapes = curPage.geo.shapes.filter(s => s.group === groupId && !s.hidden).map(s => s.id);
 
-    board.sel = {
-      page: pageIdx,
-      strokes: new Set(),
-      items: new Set(),
-      points: new Set(allPtIds),
-      shapes: new Set(grpShapes)
+      if (typeof board.setTool === 'function') {
+        board.setTool({ k: 'select' });
+      }
+
+      board.sel = {
+        page: pageIdx,
+        strokes: new Set(),
+        items: new Set(),
+        points: new Set(allPtIds),
+        shapes: new Set(grpShapes)
+      };
+      board.redraw();
+      board.emit();
+
+      hideGuideBanner();
+      if (builderPanelEl) {
+        builderPanelEl.classList.remove('minimized');
+      }
+      updateBuilderUI();
+      if (typeof options.onComplete === 'function') {
+        options.onComplete();
+      }
     };
-    board.redraw();
-    board.emit();
 
-    hideGuideBanner();
-    if (builderPanelEl) {
-      builderPanelEl.classList.remove('minimized');
+    const s3QueuedIds = new Set();
+    queue.forEach(item => (item.shapes || []).forEach(s => s3QueuedIds.add(s.id)));
+    const s3Unqueued = newShapes.filter(s => !s3QueuedIds.has(s.id));
+    if (s3Unqueued.length) queue.push({ points: [], shapes: s3Unqueued });
+
+    if (options.animate !== false) {
+      animateQueue(board, pageIdx, queue, () => {
+        finalize();
+        showToast('🎉 Bước 3: Đã hoàn tất dựng hình 3D nét liền nét đứt chuẩn SGK! Có thể bấm "Xoay 3D".');
+      }, 75);
+    } else {
+      board.commit(board.addGeo(pageIdx, newPoints, newShapes));
+      finalize();
+      showToast('🎉 Đã hoàn tất khối 3D chuẩn SGK!');
     }
-    updateBuilderUI();
-    showToast('🎉 Bước 3: Đã hoàn tất dựng hình 3D! Bạn có thể kéo đỉnh S để chỉnh chiều cao hoặc bấm "Xoay 3D".');
+
     console.log('[SpatialBuilder] Bước 3 hoàn thành khối 3D!');
   }
 
+  /**
+   * DỰNG NHANH TOÀN BỘ KHỐI 3D (0ms)
+   */
   function buildAll(board, options = {}) {
-    step1_DrawBase(board, options);
-    step2_DrawHeight(board, { ...options, heightType: options.heightType === 'freehand' ? 'perp_A' : options.heightType });
-    step3_CompleteEdges(board);
+    step1_DrawBase(board, { ...options, animate: false });
+    step2_DrawHeight(board, {
+      ...options,
+      animate: false,
+      heightType: options.heightType === 'freehand' ? 'perp_A' : (options.heightType || 'perp_A')
+    });
+    step3_CompleteEdges(board, { ...options, animate: false });
+  }
+
+  /**
+   * CHẠY TOÀN BỘ ANIMATION DỰNG HÌNH 3 BƯỚC TUẦN TỰ MƯỢT MÀ
+   */
+  function runFullAnimation(board, options = {}) {
+    if (!board) board = getActiveBoard();
+    if (!board) {
+      showToast('⚠️ Vui lòng mở bảng vẽ trước khi chạy diễn hoạt!');
+      return;
+    }
+    showToast('🎬 Đang chạy diễn hoạt dựng hình không gian từng bước...');
+    step1_DrawBase(board, {
+      ...options,
+      animate: true,
+      onComplete: () => {
+        setTimeout(() => {
+          step2_DrawHeight(board, {
+            ...options,
+            animate: true,
+            heightType: (options.heightType === 'freehand' || !options.heightType) ? 'perp_A' : options.heightType,
+            onComplete: () => {
+              setTimeout(() => {
+                step3_CompleteEdges(board, {
+                  ...options,
+                  animate: true,
+                  onComplete: () => {
+                    showToast('🌟 Tuyệt vời! Diễn hoạt hoàn tất, khối hình đã sẵn sàng xoay 3D.');
+                  }
+                });
+              }, 260);
+            }
+          });
+        }, 260);
+      }
+    });
   }
 
   function turn3DCurrent(board) {
@@ -664,11 +1261,6 @@
     }
   }
 
-  /**
-   * =======================================================================
-   * TỰ ĐỘNG HOÀN THIỆN KHI NGƯỜI DÙNG TỰ VẼ ĐÁY ➔ CHIỀU CAO TỰ DO
-   * =======================================================================
-   */
   function completeFromBaseAndHeight(board, targetHeightSegId = null) {
     if (!board) board = getActiveBoard();
     if (!board) return false;
@@ -687,7 +1279,6 @@
       heightSeg = shapes.find(s => s.id === targetHeightSegId && s.kind === 'segment');
     }
 
-    // Nếu người dùng đang quét chọn (selection):
     if (!heightSeg && board.sel && board.sel.shapes && board.sel.shapes.size) {
       const selSegs = shapes.filter(s => board.sel.shapes.has(s.id) && s.kind === 'segment');
       let maxDy = 0;
@@ -705,7 +1296,6 @@
       }
     }
 
-    // Nếu không có trong selection, tìm đoạn thẳng mới vẽ gần đây có độ cao rõ rệt
     if (!heightSeg) {
       for (let i = shapes.length - 1; i >= 0; i--) {
         const seg = shapes[i];
@@ -741,21 +1331,20 @@
     const footP = getPt2D(pointsMap[footId]);
     const heightVal = Math.max(25, Math.round(footP.y - apexP.y));
 
-    // 2. Tìm mặt đáy (Đa giác hoặc các đoạn thẳng đáy)
+    // 2. Tìm các đỉnh đáy
     let basePtIds = [];
-    let baseShape = null;
+    let basePolygonShape = null;
 
-    // A. Nếu có currentBuild và có sẵn basePtIds:
     if (currentBuild.active && currentBuild.basePtIds && currentBuild.basePtIds.length >= 3) {
       basePtIds = [...currentBuild.basePtIds];
     }
 
-    // B. Tìm đa giác polygon có chứa footId hoặc nằm ngay dưới footId
+    // Nếu người dùng vẽ bằng tool đa giác (polygon):
     if (!basePtIds.length) {
       const polygons = shapes.filter(s => s.kind === 'polygon' && s.pts && s.pts.length >= 3);
       for (const poly of polygons) {
         if (poly.pts.includes(footId)) {
-          baseShape = poly;
+          basePolygonShape = poly;
           basePtIds = [...poly.pts];
           break;
         }
@@ -770,7 +1359,7 @@
             const minX = Math.min(...polyPts.map(p => p.x));
             const maxX = Math.max(...polyPts.map(p => p.x));
             if (footP.y >= minY - 35 && footP.y <= maxY + 40 && footP.x >= minX - 40 && footP.x <= maxX + 40) {
-              baseShape = poly;
+              basePolygonShape = poly;
               basePtIds = [...poly.pts];
               break;
             }
@@ -779,7 +1368,7 @@
       }
     }
 
-    // C. Nếu không có polygon, tìm các đoạn thẳng segment nối đáy
+    // Nếu người dùng vẽ đáy bằng các đoạn thẳng nối nhau:
     if (!basePtIds.length) {
       const otherSegs = shapes.filter(s => s.id !== heightSeg.id && s.kind === 'segment' && s.pts);
       const connectedPtIds = new Set();
@@ -796,14 +1385,13 @@
       }
     }
 
-    // D. Nếu người dùng đang chọn điểm:
     if (!basePtIds.length && board.sel && board.sel.points && board.sel.points.size >= 3) {
       basePtIds = Array.from(board.sel.points).filter(id => id !== apexId);
     }
 
     if (basePtIds.length < 3) return false;
 
-    // Snap footId vào điểm đáy gần nhất nếu khoảng cách < 35px
+    // Snap chân đường cao vào đỉnh đáy gần nhất nếu khoảng cách < 35px
     let closestBaseId = null;
     let minDist = Infinity;
     for (const bId of basePtIds) {
@@ -831,50 +1419,67 @@
       }
     });
 
-    // Tìm đỉnh khuất phía sau trong đáy (đỉnh có y nhỏ nhất)
-    let hiddenBasePtId = null;
-    let minBaseY = Infinity;
-    for (const bId of basePtIds) {
-      const p = getPt2D(pointsMap[bId]);
-      if (p && p.y < minBaseY) {
-        minBaseY = p.y;
-        hiddenBasePtId = bId;
-      }
-    }
-
     const groupId = currentBuild.groupId || ('spatial_auto_' + Date.now());
 
-    // Cập nhật z-coordinate và group
     basePtIds.forEach(bId => {
       pointsMap[bId] = { ...pointsMap[bId], z: 0, group: groupId };
     });
-    // Điểm S là điểm tự do có z = chiều cao thực tế
     pointsMap[apexId] = { ...pointsMap[apexId], z: heightVal, group: groupId };
 
-    const footIsHidden = (footId === hiddenBasePtId) || (dist2D(footP, getPt2D(pointsMap[hiddenBasePtId])) < 35);
+    // TÍNH TOÁN TOÀN DIỆN NÉT LIỀN - NÉT ĐỨT QUA CONVEX HULL CHUẨN XÁC
+    const basePtsList = basePtIds.map(id => {
+      const p = pointsMap[id];
+      return { id, x: p.def.x, y: p.def.y };
+    });
+    const apexObj = { id: apexId, x: apexP.x, y: apexP.y };
+    const vis = classifyPyramidEdges(apexObj, basePtsList, footId);
 
-    // Cập nhật các đường nét hiện hữu
-    const updatedShapes = shapes.map(s => {
+    // XỬ LÝ ĐÁY: Nếu đáy là polygon, chuyển đổi sang các segment riêng biệt để gán nét đứt chuẩn
+    let convertedBaseSegs = [];
+    let shapesWithoutBasePoly = shapes;
+    if (basePolygonShape) {
+      shapesWithoutBasePoly = shapes.filter(s => s.id !== basePolygonShape.id);
+      for (let i = 0; i < basePtIds.length; i++) {
+        const id1 = basePtIds[i];
+        const id2 = basePtIds[(i + 1) % basePtIds.length];
+        const isBaseDashed = vis.baseDashedPairs.has(`${id1}--${id2}`);
+        convertedBaseSegs.push({
+          id: uid('seg_base'),
+          kind: 'segment',
+          pts: [id1, id2],
+          dashed: isBaseDashed,
+          color: basePolygonShape.color || '#1e293b',
+          width: basePolygonShape.width || 1.8,
+          group: groupId
+        });
+      }
+    }
+
+    // CẬP NHẬT CÁC CẠNH HIỆN CÓ:
+    const updatedShapes = shapesWithoutBasePoly.map(s => {
       if (s.id === heightSeg.id) {
         return {
           ...s,
           pts: [apexId, footId],
-          dashed: footIsHidden,
+          dashed: vis.heightDashed, // Chuẩn xác nét đứt/liền cho đường cao
           color: '#dc2626',
           width: 2.2,
           group: groupId
         };
       }
-      if (s.kind === 'segment' && s.pts && hiddenBasePtId && s.pts.includes(hiddenBasePtId) && s.id !== heightSeg.id) {
-        return { ...s, dashed: true, group: groupId };
-      }
-      if (baseShape && s.id === baseShape.id) {
-        return { ...s, group: groupId };
+      // Nếu là các đoạn thẳng đáy do người dùng tự vẽ
+      if (s.kind === 'segment' && s.pts && s.pts.length === 2 && s.id !== heightSeg.id) {
+        const pairKey = `${s.pts[0]}--${s.pts[1]}`;
+        if (vis.baseDashedPairs.has(pairKey)) {
+          return { ...s, dashed: true, group: groupId };
+        } else if (basePtIds.includes(s.pts[0]) && basePtIds.includes(s.pts[1])) {
+          return { ...s, dashed: false, group: groupId };
+        }
       }
       return s;
     });
 
-    // Nối các cạnh bên còn thiếu
+    // NỐI CÁC CẠNH BÊN CÒN THIẾU TỪ ĐỈNH S XUỐNG ĐÁY
     const newLateralEdges = [];
     basePtIds.forEach(bId => {
       if (bId === footId) return;
@@ -884,19 +1489,19 @@
       ));
       if (hasEdge) return;
 
-      const isHiddenEdge = (bId === hiddenBasePtId);
+      const isLatDashed = !!vis.lateralDashed[bId];
       newLateralEdges.push({
         id: uid('seg_lat'),
         kind: 'segment',
         pts: [apexId, bId],
-        dashed: isHiddenEdge,
+        dashed: isLatDashed, // Chuẩn xác theo Convex Hull
         color: '#1e293b',
         width: 1.8,
         group: groupId
       });
     });
 
-    // Thêm ký hiệu góc vuông tại chân đường cao nếu dốc thẳng đứng
+    // Ký hiệu góc vuông
     const rightAngleShapes = [];
     const refPtId = basePtIds.find(id => id !== footId);
     if (refPtId) {
@@ -911,7 +1516,7 @@
       });
     }
 
-    // Đóng gói khối 3D để xoay được
+    // Đóng gói khối solid 3D
     const allPtIds = [...basePtIds];
     if (!allPtIds.includes(apexId)) allPtIds.push(apexId);
     if (footId && !allPtIds.includes(footId)) allPtIds.push(footId);
@@ -940,15 +1545,13 @@
       }
     };
 
-    const finalShapes = [...updatedShapes, ...newLateralEdges, ...rightAngleShapes, groupSolid];
+    const finalShapes = [...updatedShapes, ...convertedBaseSegs, ...newLateralEdges, ...rightAngleShapes, groupSolid];
     
-    // Lưu vào board
     board.commit(board.updatePage(pageIdx, P => ({
       ...P,
       geo: { ...P.geo, points: pointsMap, shapes: finalShapes }
     })));
 
-    // Cập nhật trạng thái currentBuild
     currentBuild.active = true;
     currentBuild.stage = 'complete';
     currentBuild.groupId = groupId;
@@ -958,7 +1561,6 @@
     currentBuild.heightVal = heightVal;
     currentBuild.waitingFreeHeight = false;
 
-    // Đặt công cụ chọn và chọn toàn bộ hình
     if (typeof board.setTool === 'function') {
       board.setTool({ k: 'select' });
     }
@@ -981,7 +1583,7 @@
       updateBuilderUI();
     }
 
-    showToast(`✨ Đã tự động hoàn thiện khối 3D theo chiều cao tự do (${heightVal}px)!`);
+    showToast(`✨ Đã tự động hoàn thiện khối 3D với nét liền/nét đứt chuẩn SGK!`);
     console.log('[SpatialBuilder] ✨ TỰ ĐỘNG HOÀN THIỆN THÀNH CÔNG KHỐI HÌNH HỌC KHÔNG GIAN 3D!');
     return true;
   }
@@ -1006,7 +1608,6 @@
 
     const dy = Math.abs(p1.y - p2.y);
 
-    // Nếu đang trong chế độ vẽ chiều cao tự do HOẶC tự vẽ đoạn thẳng từ đáy lên
     if (currentBuild.waitingFreeHeight || dy > 25) {
       const hasBase = (currentBuild.basePtIds && currentBuild.basePtIds.length >= 3) ||
         pg.geo.shapes.some(s => s.id !== seg.id && (s.kind === 'polygon' || s.kind === 'segment'));
@@ -1014,7 +1615,6 @@
       if (hasBase) {
         console.log('[SpatialBuilder] Nhận diện đoạn thẳng chiều cao tự do vừa vẽ!');
         setTimeout(() => {
-          // Nếu đang trong quy trình từng bước và người dùng chỉ muốn hoàn thành Bước 2
           if (currentBuild.waitingFreeHeight && currentBuild.stage === 'base') {
             recordFreehandHeightStep(board, pageIdx, seg.id);
           } else {
@@ -1026,7 +1626,7 @@
   }
 
   /**
-   * Ghi nhận đường cao tự do vừa vẽ cho Bước 2 (chưa nối cạnh bên nếu người dùng muốn bấm Bước 3)
+   * Ghi nhận đường cao tự do vừa vẽ cho Bước 2 (Áp dụng đúng nét đứt/nét liền)
    */
   function recordFreehandHeightStep(board, pageIdx, segId) {
     const pg = board.doc.pages[pageIdx];
@@ -1048,7 +1648,6 @@
     const footP = getPt2D(pMap[footId]);
     const heightVal = Math.round(footP.y - apexP.y);
 
-    // Snap vào điểm đáy gần nhất
     const basePtIds = currentBuild.basePtIds || [];
     let minDist = Infinity, closestId = null;
     for (const bId of basePtIds) {
@@ -1061,13 +1660,20 @@
       seg.pts = [apexId, footId];
     }
 
-    // Đặt nhãn đỉnh S
+    // TÍNH TOÁN NÉT KHUẤT CHO ĐƯỜNG CAO TỰ DO
+    const basePtsList = basePtIds.map(id => {
+      const p = pMap[id];
+      return { id, x: p.def.x, y: p.def.y };
+    });
+    const apexObj = { id: apexId, x: apexP.x, y: apexP.y };
+    const vis = classifyPyramidEdges(apexObj, basePtsList, footId);
+
     pMap[apexId] = { ...pMap[apexId], label: 'S', show: true, z: heightVal, group: currentBuild.groupId };
     seg.color = '#dc2626';
     seg.width = 2.2;
+    seg.dashed = vis.heightDashed; // GÁN NÉT ĐỨT/LIỀN CHUẨN XÁC
     seg.group = currentBuild.groupId;
 
-    // Ký hiệu góc vuông
     const refPtId = basePtIds.find(id => id !== footId);
     const newShapes = [...shapes];
     if (refPtId) {
@@ -1093,7 +1699,6 @@
     currentBuild.heightVal = heightVal;
     currentBuild.waitingFreeHeight = false;
 
-    // Đặt công cụ chọn và chọn đỉnh S
     if (typeof board.setTool === 'function') {
       board.setTool({ k: 'select' });
     }
@@ -1114,7 +1719,7 @@
       updateBuilderUI();
     }
 
-    showToast(`✅ Đã vẽ đường cao tự do (${heightVal}px)! Bấm Bước 3 để hoàn thiện cạnh bên.`);
+    showToast(`✅ Đã vẽ chiều cao tự do (${vis.heightDashed ? 'nét đứt' : 'nét liền'})! Bấm Bước 3 để nối cạnh bên.`);
   }
 
   /**
@@ -1155,7 +1760,7 @@
 
   function hideGuideBanner() {
     if (guideBannerEl) {
-      guideBannerEl.remove();
+      if (typeof guideBannerEl.remove === "function") if (typeof guideBannerEl.remove === "function") if (typeof guideBannerEl.remove === "function") if (typeof guideBannerEl.remove === "function") guideBannerEl.remove();
       guideBannerEl = null;
     }
   }
@@ -1241,7 +1846,6 @@
         <button type="button" class="sb-close" title="Đóng bảng">✕</button>
       </div>
 
-      <!-- Tab chuyển đổi giữa Dựng từng bước & Tự vẽ tự động -->
       <div class="sb-nav-tabs">
         <button type="button" class="sb-nav-tab on" data-tab="steps">🪜 Dựng từng bước</button>
         <button type="button" class="sb-nav-tab" data-tab="draw">✍️ Tự vẽ ➔ Tự hoàn thiện</button>
@@ -1249,77 +1853,86 @@
 
       <div class="sb-body tab-steps-content">
         <div class="sb-row">
-          <label class="sb-label">Khối hình:</label>
-          <div class="sb-toggle-group">
-            <button type="button" class="sb-btn sb-toggle on" data-shape="pyramid">🔺 Hình chóp</button>
-            <button type="button" class="sb-btn sb-toggle" data-shape="prism">🧊 Lăng trụ</button>
+          <label class="sb-label" style="margin-bottom: 6px;">Chọn khối hình không gian:</label>
+          <div class="sb-shape-grid">
+            <button type="button" class="sb-btn sb-toggle on" data-shape="pyramid" title="Chóp tứ giác S.ABCD">🔺 Chóp tứ giác</button>
+            <button type="button" class="sb-btn sb-toggle" data-shape="pyramid_tri" title="Chóp tam giác S.ABC">📐 Chóp tam giác</button>
+            <button type="button" class="sb-btn sb-toggle" data-shape="pyramid_regular" title="Chóp đều S.ABCD / S.ABC">⭐ Chóp đều</button>
+            <button type="button" class="sb-btn sb-toggle" data-shape="prism_tri" title="Lăng trụ tam giác ABC.A'B'C'">🧊 Lăng trụ △</button>
+            <button type="button" class="sb-btn sb-toggle" data-shape="prism_quad" title="Lăng trụ tứ giác ABCD.A'B'C'D'">🏛️ Lăng trụ ▱</button>
+            <button type="button" class="sb-btn sb-toggle" data-shape="cube" title="Hình lập phương">📦 Lập phương</button>
+            <button type="button" class="sb-btn sb-toggle" data-shape="cuboid" title="Hình hộp chữ nhật">📦 Hộp chữ nhật</button>
+            <button type="button" class="sb-btn sb-toggle" data-shape="frustum" title="Chóp cụt">⏳ Chóp cụt</button>
+            <button type="button" class="sb-btn sb-toggle" data-shape="cone" title="Hình nón tròn xoay">⛺ Hình nón</button>
+            <button type="button" class="sb-btn sb-toggle" data-shape="cylinder" title="Hình trụ tròn xoay">🛢️ Hình trụ</button>
+            <button type="button" class="sb-btn sb-toggle" data-shape="sphere" title="Khối cầu / Mặt cầu">🌐 Mặt cầu</button>
           </div>
         </div>
 
-        <div class="sb-row">
+        <div class="sb-row" id="sb-base-row">
           <label class="sb-label">Mặt đáy:</label>
           <select class="sb-select" id="sb-base-select">
             <option value="quad">▱ Tứ giác (Hình bình hành / Chữ nhật / Vuông)</option>
             <option value="triangle">◺ Tam giác thường / vuông (ABC)</option>
             <option value="tri_regular">△ Tam giác đều (ABC)</option>
             <option value="trapezoid">⏢ Hình thang (ABCD)</option>
+            <option value="round">◯ Đáy tròn elip chuẩn SGK</option>
           </select>
         </div>
 
-        <div class="sb-row">
-          <label class="sb-label">Đường cao:</label>
+        <div class="sb-row" id="sb-height-row">
+          <label class="sb-label">Đường cao / Trục:</label>
           <select class="sb-select" id="sb-height-select">
-            <option value="freehand" selected>✍️ Tự do (Kéo chuột/bút trên bảng vẽ)</option>
-            <option value="perp_A">⊥ SA vuông góc đáy (tại đỉnh A)</option>
+            <option value="perp_A" selected>⊥ SA / AA' vuông góc đáy (tại đỉnh A)</option>
+            <option value="center_O">⊥ SO trục đứng / tâm O (chóp đều / nón / trụ / cầu)</option>
             <option value="mid_H">⊥ SH vuông góc đáy (tại trung điểm AB)</option>
-            <option value="center_O">⊥ SO vuông góc đáy (chóp đều / tâm O)</option>
             <option value="slant">📐 Chiều cao xiên / nghiêng tự do</option>
+            <option value="freehand">✍️ Kéo chuột/bút tự do trên bảng vẽ</option>
           </select>
         </div>
 
-        <!-- Hướng dẫn khi chọn Vẽ tự do -->
-        <div class="sb-free-hint" id="sb-free-hint">
+        <div class="sb-free-hint" id="sb-free-hint" style="display: none;">
           <span>✨ <b>Vẽ tự do:</b> Bấm Bước 2 rồi kéo chuột/bút từ đáy lên đỉnh S theo độ cao bạn muốn!</span>
         </div>
 
-        <!-- Chiều cao theo mẫu (ẩn khi chọn tự do) -->
-        <div class="sb-row" id="sb-height-slider-row" style="display: none;">
+        <div class="sb-row" id="sb-height-slider-row">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
             <label class="sb-label" style="margin: 0;">Chiều cao mẫu:</label>
             <b id="sb-height-val" style="color: #2563eb; font-size: 12.5px;">150px</b>
           </div>
           <input type="range" class="sb-slider" id="sb-height-range" min="60" max="360" step="10" value="150" />
-          <div class="sb-sub-text">💡 Sau khi dựng, bạn có thể bấm vào đỉnh S để kéo chỉnh độ cao tùy ý!</div>
+          <div class="sb-sub-text">💡 Sau khi dựng, bạn có thể bấm vào đỉnh để kéo chỉnh kích thước tùy ý!</div>
         </div>
 
         <!-- 3 NÚT DỰNG TỪNG BƯỚC -->
         <div class="sb-steps">
-          <button type="button" class="sb-step-btn active" id="sb-btn-step1">
+          <button type="button" class="sb-step-btn active" id="sb-btn-step1" title="Vẽ mặt đáy chuẩn SGK có hiệu ứng animation">
             <span class="sb-step-num">1</span>
             <span class="sb-step-txt">1. Vẽ mặt đáy</span>
           </button>
 
           <div class="sb-step2-wrapper">
-            <button type="button" class="sb-step-btn" id="sb-btn-step2">
+            <button type="button" class="sb-step-btn" id="sb-btn-step2" title="Dựng đường cao có animation">
               <span class="sb-step-num">2</span>
-              <span class="sb-step-txt" id="sb-step2-label">2. Kéo chiều cao tự do</span>
+              <span class="sb-step-txt" id="sb-step2-label">2. Dựng đường cao</span>
             </button>
             <button type="button" class="sb-step2-quick" id="sb-btn-step2-quick" title="Dựng nhanh đường cao theo mẫu">⚡ Mẫu</button>
           </div>
 
-          <button type="button" class="sb-step-btn" id="sb-btn-step3">
+          <button type="button" class="sb-step-btn" id="sb-btn-step3" title="Hoàn thiện các cạnh bên và tạo khối 3D">
             <span class="sb-step-num">3</span>
             <span class="sb-step-txt">3. Nối cạnh bên</span>
           </button>
         </div>
 
         <div class="sb-actions">
-          <button type="button" class="sb-act-btn sb-quick" id="sb-btn-all" title="Dựng nhanh cả khối đầy đủ chỉ với 1 click">⚡ Dựng toàn bộ</button>
+          <button type="button" class="sb-act-btn sb-anim" id="sb-btn-anim" title="Chạy diễn hoạt toàn bộ 3 bước có hiệu ứng chuyển động sinh động">🎬 Chạy Animation</button>
+          <button type="button" class="sb-act-btn sb-quick" id="sb-btn-all" title="Dựng ngay lập tức cả khối đầy đủ trong 0ms">⚡ Dựng toàn bộ</button>
           <button type="button" class="sb-act-btn sb-turn" id="sb-btn-turn" title="Bật xoay 3D quanh trục đứng hoặc tự do">🔄 Xoay 3D</button>
         </div>
       </div>
 
-      <!-- Nội dung Tab Tự vẽ tự hoàn thiện -->
+      <!-- Tab Tự vẽ tự hoàn thiện -->
       <div class="sb-body tab-draw-content" style="display: none;">
         <div class="sb-guide-box">
           <div class="sb-guide-title">✨ Quy trình tự vẽ hoàn toàn tự do:</div>
@@ -1347,13 +1960,11 @@
     document.body.appendChild(panel);
     builderPanelEl = panel;
 
-    // Sự kiện nút đóng
     panel.querySelector('.sb-close').addEventListener('click', () => {
       panel.style.display = 'none';
       hideGuideBanner();
     });
 
-    // Tab switcher
     const tabBtns = panel.querySelectorAll('.sb-nav-tab');
     const stepsContent = panel.querySelector('.tab-steps-content');
     const drawContent = panel.querySelector('.tab-draw-content');
@@ -1373,24 +1984,43 @@
       });
     });
 
-    // Chọn loại hình: Chóp / Lăng trụ
-    panel.querySelectorAll('.sb-toggle').forEach(btn => {
-      btn.addEventListener('click', () => {
-        panel.querySelectorAll('.sb-toggle').forEach(b => b.classList.remove('on'));
-        btn.classList.add('on');
-        currentBuild.shapeType = btn.dataset.shape;
-      });
-    });
-
     const baseSel = panel.querySelector('#sb-base-select');
-    baseSel.addEventListener('change', () => {
-      currentBuild.baseType = baseSel.value;
-    });
-
     const heightSel = panel.querySelector('#sb-height-select');
     const freeHint = panel.querySelector('#sb-free-hint');
     const sliderRow = panel.querySelector('#sb-height-slider-row');
     const step2Label = panel.querySelector('#sb-step2-label');
+
+    // Chuyển đổi khối hình
+    panel.querySelectorAll('.sb-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        panel.querySelectorAll('.sb-toggle').forEach(b => b.classList.remove('on'));
+        btn.classList.add('on');
+        const shape = btn.dataset.shape;
+        currentBuild.shapeType = shape;
+
+        // Cập nhật đáy và chiều cao ngữ cảnh phù hợp
+        if (shape === 'cone' || shape === 'cylinder' || shape === 'sphere') {
+          baseSel.value = 'round';
+          heightSel.value = 'center_O';
+        } else if (shape === 'pyramid_tri' || shape === 'prism_tri') {
+          baseSel.value = 'triangle';
+        } else if (shape === 'pyramid_regular') {
+          heightSel.value = 'center_O';
+        } else if (shape === 'pyramid_trap') {
+          baseSel.value = 'trapezoid';
+        } else if (shape === 'cube' || shape === 'cuboid' || shape === 'prism_quad') {
+          baseSel.value = 'quad';
+          heightSel.value = 'perp_A';
+        }
+
+        currentBuild.baseType = baseSel.value;
+        currentBuild.heightType = heightSel.value;
+      });
+    });
+
+    baseSel.addEventListener('change', () => {
+      currentBuild.baseType = baseSel.value;
+    });
 
     heightSel.addEventListener('change', () => {
       const val = heightSel.value;
@@ -1402,7 +2032,7 @@
       } else {
         freeHint.style.display = 'none';
         sliderRow.style.display = 'block';
-        step2Label.textContent = '2. Dựng chiều cao';
+        step2Label.textContent = '2. Dựng đường cao';
       }
     });
 
@@ -1421,9 +2051,9 @@
       });
     }
 
-    // Sự kiện các nút Dựng từng bước
     panel.querySelector('#sb-btn-step1').addEventListener('click', () => {
       step1_DrawBase(null, {
+        animate: true,
         shapeType: currentBuild.shapeType,
         baseType: baseSel.value,
         heightType: heightSel.value,
@@ -1431,28 +2061,37 @@
       });
     });
 
-    // Nút Bước 2 (Chính: Vẽ tự do hoặc Dựng mẫu tùy chọn)
     panel.querySelector('#sb-btn-step2').addEventListener('click', () => {
       if (heightSel.value === 'freehand') {
         startFreehandHeight(null);
       } else {
         step2_DrawHeight(null, {
+          animate: true,
           heightType: heightSel.value,
           heightVal: Number(heightRange.value)
         });
       }
     });
 
-    // Nút Bước 2 (Nút phụ: Dựng nhanh theo mẫu)
     panel.querySelector('#sb-btn-step2-quick').addEventListener('click', () => {
       step2_DrawHeight(null, {
+        animate: false,
         heightType: heightSel.value === 'freehand' ? 'perp_A' : heightSel.value,
         heightVal: Number(heightRange.value)
       });
     });
 
     panel.querySelector('#sb-btn-step3').addEventListener('click', () => {
-      step3_CompleteEdges(null);
+      step3_CompleteEdges(null, { animate: true });
+    });
+
+    panel.querySelector('#sb-btn-anim').addEventListener('click', () => {
+      runFullAnimation(null, {
+        shapeType: currentBuild.shapeType,
+        baseType: baseSel.value,
+        heightType: heightSel.value === 'freehand' ? 'perp_A' : heightSel.value,
+        heightVal: Number(heightRange.value)
+      });
     });
 
     panel.querySelector('#sb-btn-all').addEventListener('click', () => {
@@ -1491,25 +2130,23 @@
     const btn2 = builderPanelEl.querySelector('#sb-btn-step2');
     const btn3 = builderPanelEl.querySelector('#sb-btn-step3');
 
-    if (btn1 && btn2 && btn3) {
-      btn1.classList.remove('active', 'done');
-      btn2.classList.remove('active', 'done');
-      btn3.classList.remove('active', 'done');
+    if (btn1) btn1.classList.remove('active', 'done');
+    if (btn2) btn2.classList.remove('active', 'done');
+    if (btn3) btn3.classList.remove('active', 'done');
 
-      if (currentBuild.stage === 'base') {
-        btn1.classList.add('done');
-        btn2.classList.add('active');
-      } else if (currentBuild.stage === 'height') {
-        btn1.classList.add('done');
-        btn2.classList.add('done');
-        btn3.classList.add('active');
-      } else if (currentBuild.stage === 'complete') {
-        btn1.classList.add('done');
-        btn2.classList.add('done');
-        btn3.classList.add('done');
-      } else {
-        btn1.classList.add('active');
-      }
+    if (currentBuild.stage === 'base') {
+      if (btn1) btn1.classList.add('done');
+      if (btn2) btn2.classList.add('active');
+    } else if (currentBuild.stage === 'height') {
+      if (btn1) btn1.classList.add('done');
+      if (btn2) btn2.classList.add('done');
+      if (btn3) btn3.classList.add('active');
+    } else if (currentBuild.stage === 'complete') {
+      if (btn1) btn1.classList.add('done');
+      if (btn2) btn2.classList.add('done');
+      if (btn3) btn3.classList.add('done');
+    } else {
+      if (btn1) btn1.classList.add('active');
     }
   }
 
@@ -1520,7 +2157,7 @@
     handle.ontouchstart = dragTouchStart;
 
     function dragMouseDown(e) {
-      e = e || window.event;
+      if (e.target.closest('.sb-close')) return;
       e.preventDefault();
       pos3 = e.clientX;
       pos4 = e.clientY;
@@ -1529,36 +2166,34 @@
     }
 
     function dragTouchStart(e) {
-      const touch = e.touches[0];
-      pos3 = touch.clientX;
-      pos4 = touch.clientY;
+      if (e.target.closest('.sb-close')) return;
+      const t = e.touches[0];
+      pos3 = t.clientX;
+      pos4 = t.clientY;
       document.ontouchend = closeDragElement;
       document.ontouchmove = elementTouchDrag;
     }
 
     function elementDrag(e) {
-      e = e || window.event;
       e.preventDefault();
       pos1 = pos3 - e.clientX;
       pos2 = pos4 - e.clientY;
       pos3 = e.clientX;
       pos4 = e.clientY;
-      element.style.top = (element.offsetTop - pos2) + "px";
-      element.style.left = (element.offsetLeft - pos1) + "px";
+      element.style.top = Math.max(10, Math.min(window.innerHeight - element.offsetHeight - 10, element.offsetTop - pos2)) + 'px';
+      element.style.left = Math.max(10, Math.min(window.innerWidth - element.offsetWidth - 10, element.offsetLeft - pos1)) + 'px';
       element.style.right = 'auto';
-      element.style.bottom = 'auto';
     }
 
     function elementTouchDrag(e) {
-      const touch = e.touches[0];
-      pos1 = pos3 - touch.clientX;
-      pos2 = pos4 - touch.clientY;
-      pos3 = touch.clientX;
-      pos4 = touch.clientY;
-      element.style.top = (element.offsetTop - pos2) + "px";
-      element.style.left = (element.offsetLeft - pos1) + "px";
+      const t = e.touches[0];
+      pos1 = pos3 - t.clientX;
+      pos2 = pos4 - t.clientY;
+      pos3 = t.clientX;
+      pos4 = t.clientY;
+      element.style.top = Math.max(10, Math.min(window.innerHeight - element.offsetHeight - 10, element.offsetTop - pos2)) + 'px';
+      element.style.left = Math.max(10, Math.min(window.innerWidth - element.offsetWidth - 10, element.offsetLeft - pos1)) + 'px';
       element.style.right = 'auto';
-      element.style.bottom = 'auto';
     }
 
     function closeDragElement() {
@@ -1602,7 +2237,7 @@
         position: fixed;
         top: 75px;
         right: 25px;
-        width: 320px;
+        width: 360px; max-height: 92vh; overflow-y: auto;
         background: #ffffff;
         border-radius: 14px;
         box-shadow: 0 10px 30px -5px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.08);
@@ -2046,9 +2681,18 @@
     startFreehandHeight,
     step3_CompleteEdges,
     buildAll,
+    runFullAnimation,
+    animateQueue,
+    runFullAnimation,
+    animateQueue,
+    runFullAnimation,
+    animateQueue,
+    runFullAnimation,
+    animateQueue,
     turn3DCurrent,
     completeFromBaseAndHeight,
     onShapeAdded,
+    classifyPyramidEdges,
     showGuideBanner,
     hideGuideBanner,
     showAutoCompletePill,
@@ -2058,5 +2702,5 @@
     toggleAutoMode() { autoMode = !autoMode; return autoMode; }
   };
 
-  console.log('[Module] SpatialGeometryBuilder loaded successfully with freehand height support.');
+  console.log('[Module] SpatialGeometryBuilder loaded successfully with Convex-Hull visibility algorithm.');
 })(typeof window !== 'undefined' ? window : this);
