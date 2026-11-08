@@ -89,37 +89,72 @@
   }
 
   /**
-   * Phân loại toàn diện nét đứt / nét liền cho khối chóp
+   * Phân loại toàn diện nét đứt / nét liền cho khối chóp chuẩn SGK Toán THPT GDPT 2018
    */
   function classifyPyramidEdges(apexPt, basePts, heightFootId = null) {
-    const allPts = [apexPt, ...basePts];
-    const hull = getConvexHull2D(allPts);
+    if (!basePts || !basePts.length) {
+      return {
+        hiddenBasePtId: null,
+        baseDashedPairs: new Set(),
+        basePerimeterPairs: new Set(),
+        isBaseSegmentDashed: () => false,
+        lateralDashed: {},
+        heightDashed: true
+      };
+    }
 
-    // 1. Tìm đỉnh khuất của đáy: đỉnh có y nhỏ nhất (nằm sâu nhất về phía sau theo góc nhìn phối cảnh SGK)
-    let hiddenBasePt = basePts[0];
-    for (const bp of basePts) {
-      if (bp.y < hiddenBasePt.y) {
-        hiddenBasePt = bp;
+    // 1. Xác định đỉnh khuất của đáy (A_hidden)
+    // Trong góc nhìn phối cảnh SGK, đáy nằm trên mặt phẳng ngang nhìn từ trên xuống và trước tới.
+    // Đỉnh khuất là đỉnh nằm sâu nhất về phía sau (y nhỏ nhất).
+    // Nếu có chân đường cao nằm trên một đỉnh đáy (như SA ⊥ đáy), đỉnh đó chính là đỉnh khuất A_hidden.
+    let hiddenBasePt = null;
+    if (heightFootId) {
+      hiddenBasePt = basePts.find(bp => bp.id === heightFootId);
+    }
+    if (!hiddenBasePt) {
+      hiddenBasePt = basePts[0];
+      for (const bp of basePts) {
+        if (bp.y < hiddenBasePt.y) {
+          hiddenBasePt = bp;
+        }
       }
     }
 
     const isTriangle = (basePts.length === 3);
-    const isQuad = (basePts.length >= 4);
 
-    // 2. Xác định các cặp cạnh đáy bị khuất (nét đứt)
+    // 2. Sắp xếp các đỉnh đáy theo thứ tự vòng tròn quanh tâm (Centroid) để xác định đúng chu vi đáy
+    const cx = basePts.reduce((s, p) => s + p.x, 0) / basePts.length;
+    const cy = basePts.reduce((s, p) => s + p.y, 0) / basePts.length;
+    const cyclicBasePts = basePts.slice().sort((a, b) => {
+      return Math.atan2(a.y - cy, a.x - cx) - Math.atan2(b.y - cy, b.x - cx);
+    });
+
+    const basePerimeterPairs = new Set();
     const baseDashedPairs = new Set();
+
     if (isTriangle) {
-      // Tam giác: Cạnh đáy nối giữa 2 đỉnh có y nhỏ nhất (cạnh phía sau) là nét đứt
+      // Đáy tam giác ABC: Cạnh đáy nằm sâu nhất phía sau (nối 2 đỉnh có y nhỏ nhất) là nét đứt
       const sortedByY = basePts.slice().sort((a, b) => a.y - b.y);
       const id1 = sortedByY[0].id;
       const id2 = sortedByY[1].id;
       baseDashedPairs.add(`${id1}--${id2}`);
       baseDashedPairs.add(`${id2}--${id1}`);
-    } else if (isQuad) {
-      // Tứ giác / Đa giác: Các cạnh đáy nối trực tiếp vào đỉnh khuất là nét đứt
-      for (let i = 0; i < basePts.length; i++) {
-        const p1 = basePts[i];
-        const p2 = basePts[(i + 1) % basePts.length];
+
+      for (let i = 0; i < 3; i++) {
+        const p1 = cyclicBasePts[i];
+        const p2 = cyclicBasePts[(i + 1) % 3];
+        basePerimeterPairs.add(`${p1.id}--${p2.id}`);
+        basePerimeterPairs.add(`${p2.id}--${p1.id}`);
+      }
+    } else {
+      // Đáy tứ giác / đa giác (ABCD...):
+      // Các cạnh thuộc chu vi nối vào đỉnh khuất (AB, AD) là NÉT ĐỨT; các cạnh chu vi phía trước (BC, CD) là NÉT LIỀN
+      for (let i = 0; i < cyclicBasePts.length; i++) {
+        const p1 = cyclicBasePts[i];
+        const p2 = cyclicBasePts[(i + 1) % cyclicBasePts.length];
+        basePerimeterPairs.add(`${p1.id}--${p2.id}`);
+        basePerimeterPairs.add(`${p2.id}--${p1.id}`);
+
         if (p1.id === hiddenBasePt.id || p2.id === hiddenBasePt.id) {
           baseDashedPairs.add(`${p1.id}--${p2.id}`);
           baseDashedPairs.add(`${p2.id}--${p1.id}`);
@@ -127,40 +162,43 @@
       }
     }
 
-    // 3. Xác định cạnh bên (nối từ đỉnh S xuống từng đỉnh đáy)
+    // Helper kiểm tra một đoạn nối 2 đỉnh đáy có phải nét đứt không:
+    // Nếu là đường chéo (như AC, BD) hoặc cạnh nối đỉnh khuất -> 100% BẮT BUỘC NÉT ĐỨT!
+    function isBaseSegmentDashed(id1, id2) {
+      const key = `${id1}--${id2}`;
+      if (baseDashedPairs.has(key)) return true;
+      if (!basePerimeterPairs.has(key)) {
+        // Đường chéo trong lòng đáy (AC, BD...) hoặc đoạn thẳng xuyên qua khối đáy -> BẮT BUỘC NÉT ĐỨT
+        return true;
+      }
+      return false;
+    }
+
+    // 3. Xác định cạnh bên (nối từ đỉnh S xuống từng đỉnh đáy):
+    // - Cạnh nối tới đỉnh khuất phía sau (SA) -> NÉT ĐỨT
+    // - TẤT CẢ các cạnh bên nối tới các đỉnh nhìn thấy (SB, SC, SD...) -> 100% BẮT BUỘC NÉT LIỀN (SILHOUETTE / MẶT TRƯỚC)
     const lateralDashed = {};
     for (const bp of basePts) {
-      if (isOuterHullEdge(hull, apexPt.id, bp.id)) {
-        // Cạnh viền ngoài Convex Hull -> 100% BẮT BUỘC NÉT LIỀN
-        lateralDashed[bp.id] = false;
-      } else {
-        // Cạnh nằm bên trong
-        if (isTriangle) {
-          // Trong hình chóp tam giác: Cạnh bên ở mặt trước quay về người xem -> NÉT LIỀN
-          lateralDashed[bp.id] = false;
+      if (isTriangle) {
+        if (heightFootId && bp.id === heightFootId) {
+          lateralDashed[bp.id] = true;
         } else {
-          // Trong hình chóp tứ giác: Cạnh bên nối tới đỉnh khuất phía sau -> NÉT ĐỨT; đỉnh trước -> NÉT LIỀN
-          lateralDashed[bp.id] = (bp.id === hiddenBasePt.id);
+          lateralDashed[bp.id] = false;
         }
+      } else {
+        // Tứ giác / đa giác: Chỉ cạnh bên tới đỉnh khuất mới nét đứt, các cạnh bên còn lại 100% NÉT LIỀN
+        lateralDashed[bp.id] = (bp.id === hiddenBasePt.id);
       }
     }
 
-    // 4. Xác định đường cao
-    let heightDashed = true;
-    if (heightFootId) {
-      if (isOuterHullEdge(hull, apexPt.id, heightFootId)) {
-        // Chân đường cao là viền ngoài (ví dụ SA trong hình chóp tam giác vuông tại A) -> NÉT LIỀN
-        heightDashed = false;
-      } else {
-        // Chân đường cao ở đỉnh khuất hoặc trong lòng đa giác đáy (tâm O, trung điểm H) -> NÉT ĐỨT
-        heightDashed = true;
-      }
-    }
+    // 4. Đường cao hình chóp luôn là nét đứt (đi xuyên qua lòng khối chóp)
+    const heightDashed = true;
 
     return {
-      hull,
-      hiddenBasePtId: hiddenBasePt.id,
+      hiddenBasePtId: hiddenBasePt ? hiddenBasePt.id : null,
       baseDashedPairs,
+      basePerimeterPairs,
+      isBaseSegmentDashed,
       lateralDashed,
       heightDashed
     };
@@ -1275,20 +1313,40 @@
 
     // 1. Tìm đoạn thẳng chiều cao
     let heightSeg = null;
+
+    // Helper: kiểm tra xem 1 đoạn thẳng có nằm hoàn toàn trong vùng đáy không (không thể là đường cao)
+    function isLikelyBaseEdge(seg) {
+      if (!seg || !seg.pts || seg.pts.length < 2) return true;
+      const p1 = getPt2D(pointsMap[seg.pts[0]]);
+      const p2 = getPt2D(pointsMap[seg.pts[1]]);
+      if (!p1 || !p2) return true;
+      const allYs = Object.values(pointsMap).map(p => (p.def ? p.def.y : p.y)).filter(y => y !== undefined);
+      if (allYs.length < 4) return false;
+      const minY = Math.min(...allYs);
+      // Nếu cả 2 đầu của đoạn thẳng đều cách xa đỉnh cao nhất (> 30px), tức là đoạn này nằm trong vùng đáy
+      if (p1.y > minY + 30 && p2.y > minY + 30) {
+        return true;
+      }
+      return false;
+    }
+
     if (targetHeightSegId) {
-      heightSeg = shapes.find(s => s.id === targetHeightSegId && s.kind === 'segment');
+      const cand = shapes.find(s => s.id === targetHeightSegId && s.kind === 'segment');
+      if (cand && !isLikelyBaseEdge(cand)) {
+        heightSeg = cand;
+      }
     }
 
     if (!heightSeg && board.sel && board.sel.shapes && board.sel.shapes.size) {
       const selSegs = shapes.filter(s => board.sel.shapes.has(s.id) && s.kind === 'segment');
       let maxDy = 0;
       for (const seg of selSegs) {
-        if (!seg.pts || seg.pts.length < 2) continue;
+        if (!seg.pts || seg.pts.length < 2 || isLikelyBaseEdge(seg)) continue;
         const p1 = getPt2D(pointsMap[seg.pts[0]]);
         const p2 = getPt2D(pointsMap[seg.pts[1]]);
         if (p1 && p2) {
           const dy = Math.abs(p1.y - p2.y);
-          if (dy > 20 && dy > maxDy) {
+          if (dy > 25 && dy > maxDy) {
             maxDy = dy;
             heightSeg = seg;
           }
@@ -1297,9 +1355,31 @@
     }
 
     if (!heightSeg) {
+      // Ưu tiên đoạn thẳng nối từ đỉnh cao nhất (y nhỏ nhất) xuống vùng đáy
+      const allPointsList = Object.values(pointsMap).map(p => ({ id: p.id, ...getPt2D(p) })).filter(p => p.x !== undefined);
+      if (allPointsList.length >= 4) {
+        const sortedByY = allPointsList.slice().sort((a, b) => a.y - b.y);
+        const topPt = sortedByY[0];
+        const segsWithTop = shapes.filter(s => s.kind === 'segment' && s.pts && (s.pts[0] === topPt.id || s.pts[1] === topPt.id));
+        let bestDy = 0;
+        for (const seg of segsWithTop) {
+          const otherId = (seg.pts[0] === topPt.id) ? seg.pts[1] : seg.pts[0];
+          const otherPt = getPt2D(pointsMap[otherId]);
+          if (otherPt) {
+            const dy = Math.abs(otherPt.y - topPt.y);
+            if (dy > 25 && dy > bestDy) {
+              bestDy = dy;
+              heightSeg = seg;
+            }
+          }
+        }
+      }
+    }
+
+    if (!heightSeg) {
       for (let i = shapes.length - 1; i >= 0; i--) {
         const seg = shapes[i];
-        if (seg.kind !== 'segment' || !seg.pts || seg.pts.length < 2) continue;
+        if (seg.kind !== 'segment' || !seg.pts || seg.pts.length < 2 || isLikelyBaseEdge(seg)) continue;
         const p1 = getPt2D(pointsMap[seg.pts[0]]);
         const p2 = getPt2D(pointsMap[seg.pts[1]]);
         if (p1 && p2) {
@@ -1391,6 +1471,15 @@
 
     if (basePtIds.length < 3) return false;
 
+    // Sắp xếp các đỉnh đáy theo vòng tròn quanh trọng tâm để bảo đảm thứ tự chu vi đáy
+    const basePtsWithCoords = basePtIds.map(id => ({ id, ...getPt2D(pointsMap[id]) })).filter(p => p.x !== undefined);
+    if (basePtsWithCoords.length >= 3) {
+      const baseCx = basePtsWithCoords.reduce((s, p) => s + p.x, 0) / basePtsWithCoords.length;
+      const baseCy = basePtsWithCoords.reduce((s, p) => s + p.y, 0) / basePtsWithCoords.length;
+      basePtsWithCoords.sort((a, b) => Math.atan2(a.y - baseCy, a.x - baseCx) - Math.atan2(b.y - baseCy, b.x - baseCx));
+      basePtIds = basePtsWithCoords.map(p => p.id);
+    }
+
     // Snap chân đường cao vào đỉnh đáy gần nhất nếu khoảng cách < 35px
     let closestBaseId = null;
     let minDist = Infinity;
@@ -1426,7 +1515,7 @@
     });
     pointsMap[apexId] = { ...pointsMap[apexId], z: heightVal, group: groupId };
 
-    // TÍNH TOÁN TOÀN DIỆN NÉT LIỀN - NÉT ĐỨT QUA CONVEX HULL CHUẨN XÁC
+    // TÍNH TOÁN TOÀN DIỆN NÉT LIỀN - NÉT ĐỨT CHUẨN SGK HÌNH HỌC KHÔNG GIAN
     const basePtsList = basePtIds.map(id => {
       const p = pointsMap[id];
       return { id, x: p.def.x, y: p.def.y };
@@ -1442,7 +1531,7 @@
       for (let i = 0; i < basePtIds.length; i++) {
         const id1 = basePtIds[i];
         const id2 = basePtIds[(i + 1) % basePtIds.length];
-        const isBaseDashed = vis.baseDashedPairs.has(`${id1}--${id2}`);
+        const isBaseDashed = vis.isBaseSegmentDashed ? vis.isBaseSegmentDashed(id1, id2) : vis.baseDashedPairs.has(`${id1}--${id2}`);
         convertedBaseSegs.push({
           id: uid('seg_base'),
           kind: 'segment',
@@ -1461,19 +1550,24 @@
         return {
           ...s,
           pts: [apexId, footId],
-          dashed: vis.heightDashed, // Chuẩn xác nét đứt/liền cho đường cao
-          color: '#dc2626',
-          width: 2.2,
+          dashed: vis.heightDashed, // Chuẩn xác nét đứt cho đường cao
+          color: '#1e293b',
+          width: 2.0,
           group: groupId
         };
       }
-      // Nếu là các đoạn thẳng đáy do người dùng tự vẽ
+      // Nếu là các đoạn thẳng cạnh đáy hoặc đường chéo đáy (AC, BD...)
       if (s.kind === 'segment' && s.pts && s.pts.length === 2 && s.id !== heightSeg.id) {
-        const pairKey = `${s.pts[0]}--${s.pts[1]}`;
-        if (vis.baseDashedPairs.has(pairKey)) {
-          return { ...s, dashed: true, group: groupId };
-        } else if (basePtIds.includes(s.pts[0]) && basePtIds.includes(s.pts[1])) {
-          return { ...s, dashed: false, group: groupId };
+        const id1 = s.pts[0], id2 = s.pts[1];
+        if (basePtIds.includes(id1) && basePtIds.includes(id2)) {
+          const isDashed = vis.isBaseSegmentDashed ? vis.isBaseSegmentDashed(id1, id2) : (vis.baseDashedPairs.has(`${id1}--${id2}`) || id1 === vis.hiddenBasePtId || id2 === vis.hiddenBasePtId);
+          return { ...s, dashed: isDashed, group: groupId };
+        }
+        // Nếu là cạnh bên nối từ đỉnh S xuống đáy đã vẽ sẵn (SB, SC, SD...)
+        if ((id1 === apexId && basePtIds.includes(id2)) || (id2 === apexId && basePtIds.includes(id1))) {
+          const bId = (id1 === apexId) ? id2 : id1;
+          const isLatDashed = !!vis.lateralDashed[bId];
+          return { ...s, dashed: isLatDashed, group: groupId };
         }
       }
       return s;
@@ -1494,7 +1588,7 @@
         id: uid('seg_lat'),
         kind: 'segment',
         pts: [apexId, bId],
-        dashed: isLatDashed, // Chuẩn xác theo Convex Hull
+        dashed: isLatDashed, // Chuẩn xác nét liền cho các cạnh bên nhìn thấy (SB, SC, SD)
         color: '#1e293b',
         width: 1.8,
         group: groupId
@@ -1510,7 +1604,7 @@
         kind: 'right',
         pts: [apexId, footId, refPtId],
         aux: true,
-        color: '#dc2626',
+        color: '#1e293b',
         width: 1.5,
         group: groupId
       });
@@ -1609,6 +1703,17 @@
     const dy = Math.abs(p1.y - p2.y);
 
     if (currentBuild.waitingFreeHeight || dy > 25) {
+      // Kiểm tra nếu cả 2 đầu của đoạn thẳng đều nằm trong vùng đáy thì đây là cạnh đáy hoặc đường chéo đáy, KHÔNG PHẢI đường cao!
+      const otherPoints = Object.values(pMap).filter(p => p.id !== seg.pts[0] && p.id !== seg.pts[1]);
+      if (otherPoints.length >= 3) {
+        const otherYs = otherPoints.map(p => (p.def ? p.def.y : p.y)).filter(y => y !== undefined);
+        const minOtherY = Math.min(...otherYs);
+        const minSegY = Math.min(p1.y, p2.y);
+        if (minSegY >= minOtherY - 20) {
+          return;
+        }
+      }
+
       const hasBase = (currentBuild.basePtIds && currentBuild.basePtIds.length >= 3) ||
         pg.geo.shapes.some(s => s.id !== seg.id && (s.kind === 'polygon' || s.kind === 'segment'));
       
@@ -1669,8 +1774,8 @@
     const vis = classifyPyramidEdges(apexObj, basePtsList, footId);
 
     pMap[apexId] = { ...pMap[apexId], label: 'S', show: true, z: heightVal, group: currentBuild.groupId };
-    seg.color = '#dc2626';
-    seg.width = 2.2;
+    seg.color = '#1e293b';
+    seg.width = 2.0;
     seg.dashed = vis.heightDashed; // GÁN NÉT ĐỨT/LIỀN CHUẨN XÁC
     seg.group = currentBuild.groupId;
 
@@ -1682,7 +1787,7 @@
         kind: 'right',
         pts: [apexId, footId, refPtId],
         aux: true,
-        color: '#dc2626',
+        color: '#1e293b',
         width: 1.5,
         group: currentBuild.groupId
       });

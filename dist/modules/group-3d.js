@@ -99,15 +99,17 @@
     const map = new Map();
     if (!geo || !geo.points) return map;
 
-    // First pass: free points
+    // First pass: free points or points with x, y
     for (const [id, pt] of Object.entries(geo.points)) {
-      if (pt && pt.def && pt.def.t === 'free') {
+      if (pt && pt.def && pt.def.x != null && pt.def.y != null) {
         map.set(id, { x: pt.def.x, y: pt.def.y });
+      } else if (pt && pt.x != null && pt.y != null) {
+        map.set(id, { x: pt.x, y: pt.y });
       }
     }
 
-    // Second pass: derived points (mid, on, etc.)
-    for (let iter = 0; iter < 3; iter++) {
+    // Second pass: derived points (mid, on, sum, etc.)
+    for (let iter = 0; iter < 6; iter++) {
       for (const [id, pt] of Object.entries(geo.points)) {
         if (!pt || !pt.def || map.has(id)) continue;
         const def = pt.def;
@@ -119,6 +121,11 @@
           if (pA && pB) {
             const k = def.k ?? 0.5;
             map.set(id, { x: pA.x + k * (pB.x - pA.x), y: pA.y + k * (pB.y - pA.y) });
+          }
+        } else if (def.t === 'sum') {
+          const pA = map.get(def.a), pB = map.get(def.b), pC = map.get(def.c);
+          if (pA && pB && pC) {
+            map.set(id, { x: pA.x + pB.x - pC.x, y: pA.y + pB.y - pC.y });
           }
         }
       }
@@ -239,38 +246,48 @@
       }
     });
 
-    // Nếu chưa có Z, tự động gán Z chuẩn hình học SGK
-    if (zMap.size < sol.pts.length) {
+    // 3. BFS Tìm tất cả shapes và points được vẽ thêm kết nối với khối
+    const attachedPtIds = new Set(sol.pts);
+    const attachedShapeIds = new Set();
+
+    // Điểm đã thuộc group của khối và đã có toạ độ Z hợp lệ thì luôn bảo toàn toạ độ Z, không chiếu lại 2D
+    Object.keys(geo.points).forEach(pid => {
+      const pt = geo.points[pid];
+      if (pt && pt.group === groupId && pt.z !== undefined && Number.isFinite(pt.z)) {
+        zMap.set(pid, pt.z);
+        attachedPtIds.add(pid);
+      }
+    });
+
+    // Nếu chưa có Z nào, ước lượng chuẩn hình học SGK
+    if (zMap.size === 0) {
       const pts2D = sol.pts.map(pid => pMap.get(pid)).filter(Boolean);
       const minY = pts2D.length ? Math.min(...pts2D.map(p => p.y)) : 0;
       const maxY = pts2D.length ? Math.max(...pts2D.map(p => p.y)) : 0;
       const height = Math.max(30, maxY - minY);
 
       sol.pts.forEach(pid => {
-        if (!zMap.has(pid)) {
-          const p2D = pMap.get(pid);
-          if (p2D && p2D.y <= minY + height * 0.15) {
-            zMap.set(pid, height * 0.85); // Đỉnh S
-          } else {
-            zMap.set(pid, 0);             // Mặt đáy
-          }
+        const p2D = pMap.get(pid);
+        if (p2D && p2D.y <= minY + height * 0.15) {
+          zMap.set(pid, height * 0.85); // Đỉnh
+        } else {
+          zMap.set(pid, 0);             // Mặt đáy
         }
+      });
+    } else if (zMap.size < sol.pts.length) {
+      const allZVals = Array.from(zMap.values());
+      const fallbackZ = allZVals.reduce((a, b) => a + b, 0) / allZVals.length;
+      sol.pts.forEach(pid => {
+        if (!zMap.has(pid)) zMap.set(pid, fallbackZ);
       });
     }
 
-    // Giá trị Z trung bình của mặt đáy và đỉnh
     const allZ = Array.from(zMap.values());
     const minZ = allZ.length ? Math.min(...allZ) : 0;
     const maxZ = allZ.length ? Math.max(...allZ) : 100;
     const avgZ = allZ.length ? allZ.reduce((a, b) => a + b, 0) / allZ.length : 0;
 
-    // 3. BFS Tìm tất cả shapes và points được vẽ thêm kết nối với khối
-    const attachedPtIds = new Set(sol.pts);
-    const attachedShapeIds = new Set();
-
-    let queue = Array.from(sol.pts);
     let changed = true;
-
     while (changed) {
       changed = false;
       // Quét các shape kết nối với bất kỳ điểm nào đã thuộc solid
@@ -288,18 +305,45 @@
           shPts.forEach(pid => {
             if (!attachedPtIds.has(pid)) {
               attachedPtIds.add(pid);
-              queue.push(pid);
               changed = true;
+              const pt = geo.points[pid];
+              if (pt && pt.z !== undefined && Number.isFinite(pt.z)) {
+                zMap.set(pid, pt.z);
+              }
             }
           });
         }
       });
     }
 
-    // Quét thêm các điểm nằm trên các cạnh hoặc mặt của khối
+    // Quét thêm các điểm nằm trên các cạnh hoặc mặt của khối hoặc phụ thuộc (on, mid)
     Object.keys(geo.points).forEach(pid => {
-      if (attachedPtIds.has(pid)) return;
+      if (attachedPtIds.has(pid) || zMap.has(pid)) return;
+      const pt = geo.points[pid];
+      if (!pt) return;
+      if (pt.z !== undefined && Number.isFinite(pt.z)) {
+        zMap.set(pid, pt.z);
+        return;
+      }
       const P = pMap.get(pid);
+
+      // Điểm phụ thuộc 'on' (nằm trên đoạn thẳng giữa 2 đỉnh đã có)
+      if (pt.def && pt.def.t === 'on' && pt.def.a && pt.def.b && zMap.has(pt.def.a) && zMap.has(pt.def.b)) {
+        attachedPtIds.add(pid);
+        const zA = zMap.get(pt.def.a), zB = zMap.get(pt.def.b);
+        const k = Number.isFinite(pt.def.k) ? pt.def.k : 0.5;
+        zMap.set(pid, (1 - k) * zA + k * zB);
+        return;
+      }
+
+      // Điểm phụ thuộc 'mid' (trung điểm)
+      if (pt.def && pt.def.t === 'mid' && pt.def.a && pt.def.b && zMap.has(pt.def.a) && zMap.has(pt.def.b)) {
+        attachedPtIds.add(pid);
+        const zA = zMap.get(pt.def.a), zB = zMap.get(pt.def.b);
+        zMap.set(pid, 0.5 * zA + 0.5 * zB);
+        return;
+      }
+
       if (!P) return;
 
       // Kiểm tra xem P có nằm trên cạnh nào của solid không (< 8px)
@@ -309,31 +353,28 @@
           const { k, distSq: dSq } = getProjectionRatio(P, pA, pB);
           if (dSq <= 64 && k >= -0.05 && k <= 1.05) {
             attachedPtIds.add(pid);
-            // Gán tỉ lệ z tương ứng
             const zA = zMap.get(idA) ?? minZ, zB = zMap.get(idB) ?? minZ;
             zMap.set(pid, (1 - k) * zA + k * zB);
-            break;
+            return;
           }
         }
       }
 
-      // Kiểm tra xem P có nằm trong mặt nào của solid không
-      if (!attachedPtIds.has(pid)) {
-        for (const face of faces) {
-          const poly = face.map(id => pMap.get(id)).filter(Boolean);
-          if (poly.length >= 3 && isPointInsidePolygon(P, poly)) {
-            attachedPtIds.add(pid);
-            // Tính Z bằng toạ độ trọng tâm
-            const b = getBarycentricCoords(P, poly[0], poly[1], poly[2]);
-            if (b) {
+      // Kiểm tra xem P có nằm trong mặt nào của solid không (tam giác hoặc đa giác)
+      for (const face of faces) {
+        const poly = face.map(id => pMap.get(id)).filter(Boolean);
+        if (poly.length >= 3) {
+          // Triangulate đa giác thành các tam giác (0, i, i+1)
+          for (let i = 1; i < poly.length - 1; i++) {
+            const b = getBarycentricCoords(P, poly[0], poly[i], poly[i + 1]);
+            if (b && b.u >= -0.02 && b.v >= -0.02 && b.w >= -0.02) {
+              attachedPtIds.add(pid);
               const z0 = zMap.get(face[0]) ?? minZ;
-              const z1 = zMap.get(face[1]) ?? minZ;
-              const z2 = zMap.get(face[2]) ?? minZ;
-              zMap.set(pid, b.u * z0 + b.v * z1 + b.w * z2);
-            } else {
-              zMap.set(pid, minZ);
+              const zi = zMap.get(face[i]) ?? minZ;
+              const zi1 = zMap.get(face[i + 1]) ?? minZ;
+              zMap.set(pid, b.u * z0 + b.v * zi + b.w * zi1);
+              return;
             }
-            break;
           }
         }
       }
@@ -357,13 +398,13 @@
         return;
       }
 
-      // Thử nội suy theo cạnh
+      // Thử nội suy theo cạnh gần nhất
       let interpolated = false;
       for (const [idA, idB] of edges) {
         const pA = pMap.get(idA), pB = pMap.get(idB);
         if (pA && pB) {
           const { k, distSq: dSq } = getProjectionRatio(P, pA, pB);
-          if (dSq <= 100) {
+          if (dSq <= 144) {
             const zA = zMap.get(idA) ?? minZ, zB = zMap.get(idB) ?? minZ;
             zMap.set(pid, (1 - k) * zA + k * zB);
             interpolated = true;
@@ -373,7 +414,7 @@
       }
 
       if (!interpolated) {
-        // Nội suy theo chiều cao Y tương đối
+        // Nội suy theo chiều cao Y tương đối giữa đáy và đỉnh
         const pts2D = sol.pts.map(id => pMap.get(id)).filter(Boolean);
         const minY = pts2D.length ? Math.min(...pts2D.map(p => p.y)) : 0;
         const maxY = pts2D.length ? Math.max(...pts2D.map(p => p.y)) : 0;
@@ -392,7 +433,9 @@
       if (pt) {
         const currentZ = pt.z;
         const targetZ = zMap.get(pid) ?? 0;
-        if (pt.group !== groupId || currentZ === undefined || Math.abs((currentZ ?? 0) - targetZ) > 1e-4) {
+        const needGroup = pt.group !== groupId;
+        const needZ = currentZ === undefined || !Number.isFinite(currentZ) || Math.abs(currentZ - targetZ) > 1e-4;
+        if (needGroup || needZ) {
           newPoints[pid] = { ...pt, group: groupId, z: targetZ };
           hasPointUpdate = true;
         }
@@ -408,14 +451,12 @@
       return sh;
     });
 
-    // Cập nhật danh sách điểm pts của solid
-    const mergedSolidPts = Array.from(attachedPtIds);
+    // ĐẢM BẢO sol.pts KHÔNG BỊ THAY ĐỔI, chỉ cập nhật group nếu cần
     let updatedSolid = sol;
-    if (sol.pts.length !== mergedSolidPts.length || sol.group !== groupId) {
+    if (sol.group !== groupId) {
       updatedSolid = {
         ...sol,
-        group: groupId,
-        pts: mergedSolidPts
+        group: groupId
       };
       const solIdx = newShapes.findIndex(s => s.id === sol.id);
       if (solIdx !== -1) newShapes[solIdx] = updatedSolid;
@@ -423,6 +464,12 @@
     }
 
     if (hasPointUpdate || hasShapeUpdate) {
+      if (board.sel) {
+        if (!board.sel.points) board.sel.points = new Set();
+        if (!board.sel.shapes) board.sel.shapes = new Set();
+        if (!board.sel.strokes) board.sel.strokes = new Set();
+        if (!board.sel.items) board.sel.items = new Set();
+      }
       board.commit(board.updatePage(pageIdx, P => ({
         ...P,
         geo: { ...P.geo, points: newPoints, shapes: newShapes }
@@ -433,9 +480,6 @@
     return { page: pageIdx, id: updatedSolid.id, group: groupId };
   }
 
-  /**
-   * Kiểm tra selection hiện tại có thể xoay 3D được không
-   */
   function canTurnSelection(board) {
     if (!board || !board.sel) return false;
     const sel = board.sel;
@@ -922,200 +966,218 @@
    * 🌟 MỞ RỘNG ĐƯỜNG THẲNG ĐỂ TÌM GIAO ĐIỂM GIỮA ĐƯỜNG THẲNG VÀ MẶT PHẲNG
    * (Line-Plane Intersection & Line Extension in 3D Spatial Geometry)
    */
-  function expandLinePlaneIntersection(board, linePtIds, planePtIds) {
+  /**
+   * 🌟 THỰC HIỆN TÍNH TOÁN & DỰNG GIAO ĐIỂM 3D (Core Calculation)
+   */
+  /**
+   * 🌟 THỰC HIỆN TÍNH TOÁN & DỰNG GIAO ĐIỂM 3D (Core Calculation)
+   */
+  function executeLineIntersection(board, params) {
     if (!board) return false;
-    const pageIdx = board.sel ? board.sel.page : (board.turning ? board.turning.page : 0);
-    const pg = board.doc.pages[pageIdx];
+    var pageIdx = board.sel ? board.sel.page : (board.turning ? board.turning.page : 0);
+    var pg = board.doc.pages[pageIdx];
     if (!pg || !pg.geo) return false;
 
-    const sol = pg.geo.shapes.find(s => s.kind === 'solid' && s.solid && !s.hidden) ||
-                pg.geo.shapes.find(s => s.kind === 'solid' && s.solid);
+    var sol = pg.geo.shapes.find(function(s) { return s.kind === 'solid' && s.solid && !s.hidden; }) ||
+              pg.geo.shapes.find(function(s) { return s.kind === 'solid' && s.solid; });
     if (!sol || !sol.solid) {
-      alert("Vui lòng vẽ hoặc chọn một khối hình học không gian trước!");
+      showSpatialToast('⚠️ Không tìm thấy khối hình không gian!');
       return false;
     }
 
-    // 1. Xác định 2 điểm của đường thẳng d (Line points)
-    let ptAId = null, ptBId = null;
-
-    if (linePtIds && linePtIds.length >= 2) {
-      ptAId = linePtIds[0];
-      ptBId = linePtIds[1];
-    } else if (board.sel && board.sel.points && board.sel.points.size >= 2) {
-      const selPts = Array.from(board.sel.points);
-      ptAId = selPts[0];
-      ptBId = selPts[1];
-    } else if (board.sel && board.sel.shapes && board.sel.shapes.size === 1) {
-      // Nếu chọn 1 đoạn thẳng
-      const shId = Array.from(board.sel.shapes)[0];
-      const sh = pg.geo.shapes.find(s => s.id === shId);
-      if (sh && (sh.kind === 'segment' || sh.kind === 'line' || sh.kind === 'ray') && sh.pts && sh.pts.length >= 2) {
-        ptAId = sh.pts[0];
-        ptBId = sh.pts[1];
-      }
-    }
-
-    // Tự động tìm 2 điểm mẫu trên khối nếu chưa chọn (ví dụ 1 cạnh bên hoặc 2 điểm phụ)
-    if (!ptAId || !ptBId) {
-      if (sol.pts && sol.pts.length >= 4) {
-        const apexId = sol.pts[sol.pts.length - 1];
-        ptAId = apexId;
-        ptBId = sol.pts[0];
-      }
-    }
+    var ptAId = params.ptAId;
+    var ptBId = params.ptBId;
+    var targetType = params.targetType || 'plane'; // 'plane' | 'line'
+    var targetPlanePtIds = params.targetPlanePtIds || [];
+    var targetLinePtIds = params.targetLinePtIds || [];
+    var chosenLabel = (params.label || '').trim();
 
     if (!ptAId || !ptBId || ptAId === ptBId) {
-      alert("Vui lòng chọn 1 đường thẳng (hoặc 2 điểm) cần mở rộng để tìm giao điểm!");
+      showSpatialToast('⚠️ Vui lòng chọn 2 điểm xác định đường thẳng cần mở rộng!');
       return false;
     }
 
-    // Đảm bảo các điểm liên quan đã được tính toạ độ 3D
+    // Đảm bảo toạ độ 3D đã được đồng bộ
     attachDrawnElementsToSolid(board, pageIdx, sol);
 
-    const pMap2D = getPointMap(pg.geo);
-    const ptA = pg.geo.points[ptAId];
-    const ptB = pg.geo.points[ptBId];
-    const pA2D = pMap2D.get(ptAId);
-    const pB2D = pMap2D.get(ptBId);
-    if (!ptA || !ptB || !pA2D || !pB2D) {
-      alert("Không tìm thấy toạ độ của đường thẳng đã chọn!");
+    var pMap2D = getPointMap(pg.geo);
+    var ptA = pg.geo.points[ptAId];
+    var ptB = pg.geo.points[ptBId];
+    var pA2D = pMap2D.get(ptAId);
+    var pB2D = pMap2D.get(ptBId);
+
+    var c = o4(sol.solid.view || Cp);
+    var zA = ptA ? (ptA.z != null ? ptA.z : 0) : 0;
+    var zB = ptB ? (ptB.z != null ? ptB.z : 0) : 0;
+    var pA3D = (ptA && ptA.pos3d) ? [...ptA.pos3d] : (pA2D ? wo(c, [pA2D.x, pA2D.y, zA]) : null);
+    var pB3D = (ptB && ptB.pos3d) ? [...ptB.pos3d] : (pB2D ? wo(c, [pB2D.x, pB2D.y, zB]) : null);
+
+    if (!pA3D || !pB3D) {
+      showSpatialToast('⚠️ Không tìm thấy toạ độ của đường thẳng đã chọn!');
       return false;
     }
 
-    // Lấy toạ độ 3D của A và B
-    const c = o4(sol.solid.view || Cp);
-    const zA = ptA.z ?? 0;
-    const zB = ptB.z ?? 0;
-    const pA3D = ptA.pos3d ? [...ptA.pos3d] : wo(c, [pA2D.x, pA2D.y, zA]);
-    const pB3D = ptB.pos3d ? [...ptB.pos3d] : wo(c, [pB2D.x, pB2D.y, zB]);
-
-    // Vector chỉ phương của đường thẳng d: v = B - A
-    const vLine = [pB3D[0] - pA3D[0], pB3D[1] - pA3D[1], pB3D[2] - pA3D[2]];
-    const lineLen = Math.hypot(vLine[0], vLine[1], vLine[2]);
+    // Vector chỉ phương đường thẳng d: v = B - A
+    var vLine = [pB3D[0] - pA3D[0], pB3D[1] - pA3D[1], pB3D[2] - pA3D[2]];
+    var lineLen = Math.hypot(vLine[0], vLine[1], vLine[2]);
     if (lineLen < 1e-5) {
-      alert("Hai điểm chọn trùng nhau, không xác định được đường thẳng!");
+      showSpatialToast('⚠️ Hai điểm của đường thẳng trùng nhau!');
       return false;
     }
 
-    // 2. Xác định Mặt Phẳng (Plane Normal & Dist)
-    let normal = null;
-    let dist = 0;
-    let planeDesc = "";
-    const cs = board.crossSection;
+    var pI3D = null;
+    var tParam = 0;
+    var targetDesc = '';
+    var collinearTargetEdge = null; // [id1, id2, p3d1, p3d2] nếu có cạnh đồng phẳng được kéo dài
 
-    // Ưu tiên 1: Người dùng truyền planePtIds hoặc chọn 3 điểm làm mp (e.g. 5 điểm tổng cộng)
-    let pPlaneIds = planePtIds;
-    if (!pPlaneIds && board.sel && board.sel.points && board.sel.points.size >= 5) {
-      const allPts = Array.from(board.sel.points);
-      pPlaneIds = allPts.slice(2, 5);
-    }
+    if (targetType === 'plane') {
+      var normal = null;
+      var dist = 0;
 
-    if (pPlaneIds && pPlaneIds.length >= 3) {
-      const pt1 = pg.geo.points[pPlaneIds[0]], pt2 = pg.geo.points[pPlaneIds[1]], pt3 = pg.geo.points[pPlaneIds[2]];
-      const p1_2d = pMap2D.get(pPlaneIds[0]), p2_2d = pMap2D.get(pPlaneIds[1]), p3_2d = pMap2D.get(pPlaneIds[2]);
-      if (pt1 && pt2 && pt3 && p1_2d && p2_2d && p3_2d) {
-        const p1_3d = pt1.pos3d ? [...pt1.pos3d] : wo(c, [p1_2d.x, p1_2d.y, pt1.z ?? 0]);
-        const p2_3d = pt2.pos3d ? [...pt2.pos3d] : wo(c, [p2_2d.x, p2_2d.y, pt2.z ?? 0]);
-        const p3_3d = pt3.pos3d ? [...pt3.pos3d] : wo(c, [p3_2d.x, p3_2d.y, pt3.z ?? 0]);
-        const u1 = [p2_3d[0] - p1_3d[0], p2_3d[1] - p1_3d[1], p2_3d[2] - p1_3d[2]];
-        const u2 = [p3_3d[0] - p1_3d[0], p3_3d[1] - p1_3d[1], p3_3d[2] - p1_3d[2]];
-        const nCross = [
-          u1[1] * u2[2] - u1[2] * u2[1],
-          u1[2] * u2[0] - u1[0] * u2[2],
-          u1[0] * u2[1] - u1[1] * u2[0]
-        ];
-        const nL = Math.hypot(nCross[0], nCross[1], nCross[2]);
-        if (nL > 1e-5) {
-          normal = [nCross[0] / nL, nCross[1] / nL, nCross[2] / nL];
-          dist = normal[0] * p1_3d[0] + normal[1] * p1_3d[1] + normal[2] * p1_3d[2];
-          planeDesc = '(' + (pt1.label || 'P1') + (pt2.label || 'P2') + (pt3.label || 'P3') + ')';
-        }
-      }
-    }
-
-    // Ưu tiên 2: Mặt phẳng cắt / mở rộng đang mở (crossSection)
-    if (!normal && cs && cs.page === pageIdx) {
-      if (cs.normal && cs.dist !== undefined) {
-        normal = [...cs.normal];
-        dist = cs.dist;
-      } else {
-        const angRad = (cs.angle || 45) * Math.PI / 180;
-        normal = cs.type === "vert" ? [1, 0, 0] : cs.type === "diag" ? [Math.sin(angRad), 0, Math.cos(angRad)] : [0, 0, 1];
-        const nLen = Math.hypot(normal[0], normal[1], normal[2]) || 1;
-        normal = [normal[0] / nLen, normal[1] / nLen, normal[2] / nLen];
-        dist = cs.dist !== undefined ? cs.dist : 0;
-      }
-      planeDesc = cs.labels && cs.labels.length ? '(' + cs.labels.join("") + ')' : "mặt phẳng (α)";
-    }
-
-    // Ưu tiên 3: Mặt phẳng đáy của khối 3D (mặt phẳng thường dùng nhất trong toán HH KG)
-    if (!normal) {
-      const basePts = sol.pts.slice(0, sol.pts.length - 1);
-      if (basePts.length >= 3) {
-        const b1 = pg.geo.points[basePts[0]], b2 = pg.geo.points[basePts[1]], b3 = pg.geo.points[basePts[2]];
-        const b1_2d = pMap2D.get(basePts[0]), b2_2d = pMap2D.get(basePts[1]), b3_2d = pMap2D.get(basePts[2]);
-        if (b1 && b2 && b3 && b1_2d && b2_2d && b3_2d) {
-          const b1_3d = b1.pos3d ? [...b1.pos3d] : wo(c, [b1_2d.x, b1_2d.y, b1.z ?? 0]);
-          const b2_3d = b2.pos3d ? [...b2.pos3d] : wo(c, [b2_2d.x, b2_2d.y, b2.z ?? 0]);
-          const b3_3d = b3.pos3d ? [...b3.pos3d] : wo(c, [b3_2d.x, b3_2d.y, b3.z ?? 0]);
-          const u1 = [b2_3d[0] - b1_3d[0], b2_3d[1] - b1_3d[1], b2_3d[2] - b1_3d[2]];
-          const u2 = [b3_3d[0] - b1_3d[0], b3_3d[1] - b1_3d[1], b3_3d[2] - b1_3d[2]];
-          const nCross = [
+      if (targetPlanePtIds && targetPlanePtIds.length >= 3) {
+        var pt1 = pg.geo.points[targetPlanePtIds[0]], pt2 = pg.geo.points[targetPlanePtIds[1]], pt3 = pg.geo.points[targetPlanePtIds[2]];
+        var p1_2d = pMap2D.get(targetPlanePtIds[0]), p2_2d = pMap2D.get(targetPlanePtIds[1]), p3_2d = pMap2D.get(targetPlanePtIds[2]);
+        if (pt1 && pt2 && pt3 && p1_2d && p2_2d && p3_2d) {
+          var p1_3d = pt1.pos3d ? [...pt1.pos3d] : wo(c, [p1_2d.x, p1_2d.y, pt1.z != null ? pt1.z : 0]);
+          var p2_3d = pt2.pos3d ? [...pt2.pos3d] : wo(c, [p2_2d.x, p2_2d.y, pt2.z != null ? pt2.z : 0]);
+          var p3_3d = pt3.pos3d ? [...pt3.pos3d] : wo(c, [p3_2d.x, p3_2d.y, pt3.z != null ? pt3.z : 0]);
+          var u1 = [p2_3d[0] - p1_3d[0], p2_3d[1] - p1_3d[1], p2_3d[2] - p1_3d[2]];
+          var u2 = [p3_3d[0] - p1_3d[0], p3_3d[1] - p1_3d[1], p3_3d[2] - p1_3d[2]];
+          var nCross = [
             u1[1] * u2[2] - u1[2] * u2[1],
             u1[2] * u2[0] - u1[0] * u2[2],
             u1[0] * u2[1] - u1[1] * u2[0]
           ];
-          const nL = Math.hypot(nCross[0], nCross[1], nCross[2]);
+          var nL = Math.hypot(nCross[0], nCross[1], nCross[2]);
           if (nL > 1e-5) {
             normal = [nCross[0] / nL, nCross[1] / nL, nCross[2] / nL];
-            dist = normal[0] * b1_3d[0] + normal[1] * b1_3d[1] + normal[2] * b1_3d[2];
-            planeDesc = 'mặt phẳng đáy (' + basePts.map(id => pg.geo.points[id]?.label || '').join('') + ')';
+            dist = normal[0] * p1_3d[0] + normal[1] * p1_3d[1] + normal[2] * p1_3d[2];
+            targetDesc = params.targetName || ('(' + (pt1.label || 'P1') + (pt2.label || 'P2') + (pt3.label || 'P3') + ')');
           }
         }
       }
+
+      // Fallback mặt phẳng cắt hoặc đáy
+      if (!normal) {
+        var cs = board.crossSection;
+        if (cs && cs.page === pageIdx && cs.normal) {
+          normal = [...cs.normal];
+          dist = cs.dist !== undefined ? cs.dist : 0;
+          targetDesc = 'mặt phẳng (α)';
+        } else {
+          normal = [0, 0, 1];
+          dist = 0;
+          targetDesc = 'mặt phẳng đáy';
+        }
+      }
+
+      // Tính giao điểm đường thẳng d và mặt phẳng
+      var denom = normal[0] * vLine[0] + normal[1] * vLine[1] + normal[2] * vLine[2];
+      if (Math.abs(denom) < 1e-6) {
+        showSpatialToast('⚠️ Đường thẳng song song hoặc nằm trên ' + targetDesc + '!');
+        return false;
+      }
+
+      var dotA = normal[0] * pA3D[0] + normal[1] * pA3D[1] + normal[2] * pA3D[2];
+      tParam = (dist - dotA) / denom;
+      pI3D = [
+        pA3D[0] + tParam * vLine[0],
+        pA3D[1] + tParam * vLine[1],
+        pA3D[2] + tParam * vLine[2]
+      ];
+
+      // Tìm cạnh đồng phẳng trong mặt phẳng mục tiêu để kéo dài đồng quy
+      if (targetPlanePtIds && targetPlanePtIds.length >= 2) {
+        var candEdges = [];
+        for (var pi = 0; pi < targetPlanePtIds.length; pi++) {
+          candEdges.push([targetPlanePtIds[pi], targetPlanePtIds[(pi + 1) % targetPlanePtIds.length]]);
+        }
+        for (var ci = 0; ci < candEdges.length; ci++) {
+          var eAId = candEdges[ci][0], eBId = candEdges[ci][1];
+          var eA = pg.geo.points[eAId], eB = pg.geo.points[eBId];
+          var eA2D = pMap2D.get(eAId), eB2D = pMap2D.get(eBId);
+          if (!eA || !eB || !eA2D || !eB2D) continue;
+          var eA3D = eA.pos3d ? [...eA.pos3d] : wo(c, [eA2D.x, eA2D.y, eA.z != null ? eA.z : 0]);
+          var eB3D = eB.pos3d ? [...eB.pos3d] : wo(c, [eB2D.x, eB2D.y, eB.z != null ? eB.z : 0]);
+          var vE = [eB3D[0] - eA3D[0], eB3D[1] - eA3D[1], eB3D[2] - eA3D[2]];
+          var vEI = [pI3D[0] - eA3D[0], pI3D[1] - eA3D[1], pI3D[2] - eA3D[2]];
+          var crossE = [
+            vE[1] * vEI[2] - vE[2] * vEI[1],
+            vE[2] * vEI[0] - vE[0] * vEI[2],
+            vE[0] * vEI[1] - vE[1] * vEI[0]
+          ];
+          var dLine = Math.hypot(crossE[0], crossE[1], crossE[2]) / (Math.hypot(vE[0], vE[1], vE[2]) || 1);
+          if (dLine < 5) {
+            collinearTargetEdge = [eAId, eBId, eA3D, eB3D];
+            break;
+          }
+        }
+      }
+    } else {
+      // targetType === 'line'
+      var ptCId = targetLinePtIds[0];
+      var ptDId = targetLinePtIds[1];
+      if (!ptCId || !ptDId || ptCId === ptDId) {
+        showSpatialToast('⚠️ Vui lòng chọn đường thẳng mục tiêu hợp lệ!');
+        return false;
+      }
+      var ptC = pg.geo.points[ptCId], ptD = pg.geo.points[ptDId];
+      var pC2D = pMap2D.get(ptCId), pD2D = pMap2D.get(ptDId);
+      if (!ptC || !ptD || !pC2D || !pD2D) {
+        showSpatialToast('⚠️ Không tìm thấy toạ độ đường thẳng mục tiêu!');
+        return false;
+      }
+      var pC3D = ptC.pos3d ? [...ptC.pos3d] : wo(c, [pC2D.x, pC2D.y, ptC.z != null ? ptC.z : 0]);
+      var pD3D = ptD.pos3d ? [...ptD.pos3d] : wo(c, [pD2D.x, pD2D.y, ptD.z != null ? ptD.z : 0]);
+      var wLine = [pD3D[0] - pC3D[0], pD3D[1] - pC3D[1], pD3D[2] - pC3D[2]];
+      var rVec = [pA3D[0] - pC3D[0], pA3D[1] - pC3D[1], pA3D[2] - pC3D[2]];
+
+      var a = vLine[0]*vLine[0] + vLine[1]*vLine[1] + vLine[2]*vLine[2];
+      var b = vLine[0]*wLine[0] + vLine[1]*wLine[1] + vLine[2]*wLine[2];
+      var dCoef = wLine[0]*wLine[0] + wLine[1]*wLine[1] + wLine[2]*wLine[2];
+      var d1 = vLine[0]*rVec[0] + vLine[1]*rVec[1] + vLine[2]*rVec[2];
+      var d2 = wLine[0]*rVec[0] + wLine[1]*rVec[1] + wLine[2]*rVec[2];
+      var lDenom = a * dCoef - b * b;
+
+      if (Math.abs(lDenom) < 1e-6) {
+        showSpatialToast('⚠️ Hai đường thẳng song song, không có giao điểm!');
+        return false;
+      }
+
+      tParam = (b * d2 - dCoef * d1) / lDenom;
+      var sParam = (a * d2 - b * d1) / lDenom;
+
+      var q1 = [pA3D[0] + tParam * vLine[0], pA3D[1] + tParam * vLine[1], pA3D[2] + tParam * vLine[2]];
+      var q2 = [pC3D[0] + sParam * wLine[0], pC3D[1] + sParam * wLine[1], pC3D[2] + sParam * wLine[2]];
+      var distLines = Math.hypot(q1[0] - q2[0], q1[1] - q2[1], q1[2] - q2[2]);
+      if (distLines > 4.0) {
+        showSpatialToast('⚠️ Hai đường thẳng chéo nhau (không đồng phẳng), không có giao điểm!');
+        return false;
+      }
+      pI3D = [(q1[0] + q2[0]) / 2, (q1[1] + q2[1]) / 2, (q1[2] + q2[2]) / 2];
+      collinearTargetEdge = [ptCId, ptDId, pC3D, pD3D];
+      targetDesc = 'đường thẳng ' + (ptC.label || 'C') + (ptD.label || 'D');
     }
 
-    // Fallback: Mặt phẳng Oxy (Z = 0)
-    if (!normal) {
-      normal = [0, 0, 1];
-      dist = 0;
-      planeDesc = "mặt phẳng đáy";
-    }
-
-    // 3. Tính giao điểm của đường thẳng d và mặt phẳng (normal, dist)
-    const denom = normal[0] * vLine[0] + normal[1] * vLine[1] + normal[2] * vLine[2];
-    if (Math.abs(denom) < 1e-6) {
-      alert('Đường thẳng ' + (ptA.label || 'A') + (ptB.label || 'B') + ' song song hoặc nằm trên ' + planeDesc + ', không có giao điểm duy nhất!');
-      return false;
-    }
-
-    const dotA = normal[0] * pA3D[0] + normal[1] * pA3D[1] + normal[2] * pA3D[2];
-    const tParam = (dist - dotA) / denom;
-
-    // Toạ độ 3D của giao điểm I
-    const pI3D = [
-      pA3D[0] + tParam * vLine[0],
-      pA3D[1] + tParam * vLine[1],
-      pA3D[2] + tParam * vLine[2]
-    ];
-
-    // Chiếu toạ độ 3D về màn hình 2D
-    const viewMat = sol.solid.view || Cp;
-    const pI2D = {
+    // Chiếu toạ độ 3D về 2D theo góc nhìn hiện tại
+    var viewMat = sol.solid.view || Cp;
+    var pI2D = {
       x: viewMat[0] * pI3D[0] + viewMat[1] * pI3D[1] + viewMat[2] * pI3D[2],
       y: viewMat[3] * pI3D[0] + viewMat[4] * pI3D[1] + viewMat[5] * pI3D[2]
     };
-    const zI = viewMat[6] * pI3D[0] + viewMat[7] * pI3D[1] + viewMat[8] * pI3D[2];
+    var zI = viewMat[6] * pI3D[0] + viewMat[7] * pI3D[1] + viewMat[8] * pI3D[2];
 
-    // Chọn nhãn cho điểm giao (I, J, K, E, F...)
-    const existingLabels = new Set(Object.values(pg.geo.points).map(p => p.label).filter(Boolean));
-    const candidateLabels = ["I", "J", "K", "E", "F", "P", "Q", "H", "T"];
-    let chosenLabel = candidateLabels.find(lbl => !existingLabels.has(lbl)) || "I";
+    // Xác định nhãn giao điểm
+    var existingLabels = new Set(Object.values(pg.geo.points).map(function(p) { return p.label; }).filter(Boolean));
+    if (!chosenLabel || existingLabels.has(chosenLabel)) {
+      var candidateLabels = ['I', 'J', 'K', 'E', 'F', 'P', 'Q', 'H', 'M', 'N'];
+      chosenLabel = candidateLabels.find(function(lbl) { return !existingLabels.has(lbl); }) || 'I';
+    }
 
-    const ptIId = "pt_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
-    const ptI = {
+    var ptIId = 'pt_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+    var ptI = {
       id: ptIId,
-      def: { t: "free", x: Math.round(pI2D.x * 10) / 10, y: Math.round(pI2D.y * 10) / 10 },
+      def: { t: 'free', x: Math.round(pI2D.x * 10) / 10, y: Math.round(pI2D.y * 10) / 10 },
       label: chosenLabel,
       show: true,
       z: zI,
@@ -1123,110 +1185,531 @@
       pos3d: [Math.round(pI3D[0] * 100) / 100, Math.round(pI3D[1] * 100) / 100, Math.round(pI3D[2] * 100) / 100]
     };
 
-    const newShapes = [];
+    var newShapes = [];
 
-    // Tạo đoạn thẳng kéo dài (extension segment)
-    const extSegId = "seg_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
-    if (tParam > 1) {
+    // Tạo đoạn nối kéo dài từ d đến I
+    var distToA = Math.hypot(pI3D[0] - pA3D[0], pI3D[1] - pA3D[1], pI3D[2] - pA3D[2]);
+    var distToB = Math.hypot(pI3D[0] - pB3D[0], pI3D[1] - pB3D[1], pI3D[2] - pB3D[2]);
+    var nearPtId = distToB < distToA ? ptBId : ptAId;
+
+    if (distToA > 2 && distToB > 2) {
       newShapes.push({
-        id: extSegId,
-        kind: "segment",
-        pts: [ptBId, ptIId],
-        color: "#0284c7",
+        id: 'seg_ext_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
+        kind: 'segment',
+        pts: [nearPtId, ptIId],
+        color: '#0284c7',
         width: 2.2,
         dashed: false,
-        group: sol.group,
-        aux: true
-      });
-    } else if (tParam < 0) {
-      newShapes.push({
-        id: extSegId,
-        kind: "segment",
-        pts: [ptAId, ptIId],
-        color: "#0284c7",
-        width: 2.2,
-        dashed: false,
-        group: sol.group,
-        aux: true
-      });
-    } else {
-      newShapes.push({
-        id: extSegId,
-        kind: "segment",
-        pts: [ptAId, ptIId],
-        color: "#0284c7",
-        width: 2.2,
-        dashed: false,
-        group: sol.group,
-        aux: true
-      });
-      newShapes.push({
-        id: "seg_" + (Date.now() + 1) + "_" + Math.floor(Math.random() * 1000),
-        kind: "segment",
-        pts: [ptIId, ptBId],
-        color: "#0284c7",
-        width: 2.2,
-        dashed: true,
         group: sol.group,
         aux: true
       });
     }
 
-    // Kiểm tra tính đồng phẳng với cạnh đáy để kéo dài đồng quy chuẩn SGK
-    const baseEdges = [];
-    if (sol.pts && sol.pts.length >= 3) {
-      const numBase = sol.pts.length - 1;
-      for (let bi = 0; bi < numBase; bi++) {
-        baseEdges.push([sol.pts[bi], sol.pts[(bi + 1) % numBase]]);
-      }
-    }
+    // Kéo dài cạnh đồng phẳng nếu có
+    if (collinearTargetEdge) {
+      var ceAId = collinearTargetEdge[0], ceBId = collinearTargetEdge[1];
+      var ceA3D = collinearTargetEdge[2], ceB3D = collinearTargetEdge[3];
+      var dCeA = Math.hypot(pI3D[0] - ceA3D[0], pI3D[1] - ceA3D[1], pI3D[2] - ceA3D[2]);
+      var dCeB = Math.hypot(pI3D[0] - ceB3D[0], pI3D[1] - ceB3D[1], pI3D[2] - ceB3D[2]);
+      var nearCeId = dCeB < dCeA ? ceBId : ceAId;
 
-    for (const [eAId, eBId] of baseEdges) {
-      const eA = pg.geo.points[eAId], eB = pg.geo.points[eBId];
-      const eA2D = pMap2D.get(eAId), eB2D = pMap2D.get(eBId);
-      if (!eA || !eB || !eA2D || !eB2D) continue;
-      const eA3D = eA.pos3d ? [...eA.pos3d] : wo(c, [eA2D.x, eA2D.y, eA.z ?? 0]);
-      const eB3D = eB.pos3d ? [...eB.pos3d] : wo(c, [eB2D.x, eB2D.y, eB.z ?? 0]);
-
-      const vE = [eB3D[0] - eA3D[0], eB3D[1] - eA3D[1], eB3D[2] - eA3D[2]];
-      const vEI = [pI3D[0] - eA3D[0], pI3D[1] - eA3D[1], pI3D[2] - eA3D[2]];
-      const crossE = [
-        vE[1] * vEI[2] - vE[2] * vEI[1],
-        vE[2] * vEI[0] - vE[0] * vEI[2],
-        vE[0] * vEI[1] - vE[1] * vEI[0]
-      ];
-      const dLine = Math.hypot(crossE[0], crossE[1], crossE[2]) / (Math.hypot(vE[0], vE[1], vE[2]) || 1);
-      if (dLine < 5) {
-        const distToB = Math.hypot(pI3D[0] - eB3D[0], pI3D[1] - eB3D[1], pI3D[2] - eB3D[2]);
-        const distToA = Math.hypot(pI3D[0] - eA3D[0], pI3D[1] - eA3D[1], pI3D[2] - eA3D[2]);
-        const nearId = distToB < distToA ? eBId : eAId;
+      if (dCeA > 2 && dCeB > 2) {
         newShapes.push({
-          id: "seg_base_ext_" + Date.now(),
-          kind: "segment",
-          pts: [nearId, ptIId],
-          color: "#d97706",
+          id: 'seg_target_ext_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
+          kind: 'segment',
+          pts: [nearCeId, ptIId],
+          color: '#d97706',
           width: 2,
           dashed: false,
           group: sol.group,
           aux: true
         });
-        break;
       }
     }
 
-    // Thêm vào document
     board.commit(board.addGeo(pageIdx, [ptI], newShapes));
-
-    // Gắn kết với khối 3D để xoay đồng bộ
     attachDrawnElementsToSolid(board, pageIdx, sol);
-
+    board.sel = {
+      page: pageIdx,
+      strokes: new Set(),
+      items: new Set(),
+      shapes: new Set(sol ? [sol.id] : []),
+      points: new Set(sol ? sol.pts : [ptIId])
+    };
     board.redraw();
     board.emit();
-    console.log('[Group3D] Đã tìm và mở rộng giao điểm (' + chosenLabel + ') của đường thẳng với ' + planeDesc);
+
+    var lineName = (ptA.label || 'A') + (ptB.label || 'B');
+    showSpatialToast('🎉 Đã tìm được giao điểm ' + chosenLabel + ' của ' + lineName + ' với ' + targetDesc + '!');
     return true;
   }
 
-  window.expandLinePlaneIntersection = expandLinePlaneIntersection;
+  /**
+   * 🌟 HỘP THOẠI THÔNG MINH: CHỌN ĐỐI TƯỢNG ĐỂ TÌM GIAO ĐIỂM (Intersection Wizard)
+   */
+  function openSmartIntersectionModal(board, preselectedLinePtIds, preselectedPlanePtIds) {
+    if (!board) return;
+    var pageIdx = board.sel ? board.sel.page : (board.turning ? board.turning.page : 0);
+    var pg = board.doc.pages[pageIdx];
+    if (!pg || !pg.geo) return;
+
+    var sol = pg.geo.shapes.find(function(s) { return s.kind === 'solid' && s.solid && !s.hidden; }) ||
+              pg.geo.shapes.find(function(s) { return s.kind === 'solid' && s.solid; });
+    if (!sol || !sol.solid) {
+      showSpatialToast('⚠️ Vui lòng vẽ hoặc chọn một khối hình học không gian trước!');
+      return;
+    }
+
+    var getLabel = function(id) {
+      return (pg.geo.points[id] && pg.geo.points[id].label) ? pg.geo.points[id].label : id;
+    };
+
+    // 1. Thu thập tất cả điểm
+    var allPtsMap = new Map();
+    if (sol.pts) {
+      sol.pts.forEach(function(pid) {
+        if (pg.geo.points[pid]) allPtsMap.set(pid, { id: pid, label: getLabel(pid), isSolid: true });
+      });
+    }
+    Object.keys(pg.geo.points).forEach(function(pid) {
+      if (!allPtsMap.has(pid)) {
+        allPtsMap.set(pid, { id: pid, label: getLabel(pid), isSolid: false });
+      }
+    });
+    var allPtsList = Array.from(allPtsMap.values());
+
+    // 2. Thu thập các đường thẳng / cạnh
+    var lineCandidates = [];
+    var seenLines = new Set();
+    function addLineCandidate(id1, id2, groupName) {
+      if (!id1 || !id2 || id1 === id2) return;
+      var key1 = id1 + '_' + id2;
+      var key2 = id2 + '_' + id1;
+      if (seenLines.has(key1) || seenLines.has(key2)) return;
+      seenLines.add(key1);
+      var name = getLabel(id1) + getLabel(id2);
+      lineCandidates.push({ id1: id1, id2: id2, name: name, group: groupName });
+    }
+
+    // Đoạn thẳng tự vẽ
+    pg.geo.shapes.forEach(function(sh) {
+      if ((sh.kind === 'segment' || sh.kind === 'line') && sh.pts && sh.pts.length >= 2 && !sh.hidden) {
+        addLineCandidate(sh.pts[0], sh.pts[1], 'Đoạn vẽ');
+      }
+    });
+
+    // Cạnh của khối
+    var apexId = (sol.solid.of && sol.solid.of.startsWith('pyramid') || sol.solid.of === 'cone' || sol.pts.length === 5) ? sol.pts[sol.pts.length - 1] : null;
+    var basePtIds = apexId ? sol.pts.slice(0, sol.pts.length - 1) : sol.pts;
+
+    if (apexId) {
+      basePtIds.forEach(function(bId) {
+        addLineCandidate(apexId, bId, 'Cạnh bên');
+      });
+    } else if (sol.pts.length >= 6) {
+      var half = Math.floor(sol.pts.length / 2);
+      for (var pi = 0; pi < half; pi++) {
+        addLineCandidate(sol.pts[pi], sol.pts[pi + half], 'Cạnh bên');
+      }
+    }
+
+    for (var bi = 0; bi < basePtIds.length; bi++) {
+      var nxt = (bi + 1) % basePtIds.length;
+      addLineCandidate(basePtIds[bi], basePtIds[nxt], 'Cạnh đáy');
+    }
+    if (basePtIds.length === 4) {
+      addLineCandidate(basePtIds[0], basePtIds[2], 'Đường chéo');
+      addLineCandidate(basePtIds[1], basePtIds[3], 'Đường chéo');
+    }
+
+    // 3. Đường thẳng đã chọn mặc định (Preselection)
+    var curLine = null;
+    if (preselectedLinePtIds && preselectedLinePtIds.length >= 2) {
+      curLine = { id1: preselectedLinePtIds[0], id2: preselectedLinePtIds[1], name: getLabel(preselectedLinePtIds[0]) + getLabel(preselectedLinePtIds[1]) };
+    } else if (board.sel && board.sel.shapes && board.sel.shapes.size === 1) {
+      var selShId = Array.from(board.sel.shapes)[0];
+      var selSh = pg.geo.shapes.find(function(s) { return s.id === selShId; });
+      if (selSh && selSh.pts && selSh.pts.length >= 2) {
+        curLine = { id1: selSh.pts[0], id2: selSh.pts[1], name: getLabel(selSh.pts[0]) + getLabel(selSh.pts[1]) };
+      }
+    } else if (board.sel && board.sel.points && board.sel.points.size === 2) {
+      var spts = Array.from(board.sel.points);
+      curLine = { id1: spts[0], id2: spts[1], name: getLabel(spts[0]) + getLabel(spts[1]) };
+    }
+
+    if (!curLine && lineCandidates.length > 0) {
+      var defLine = lineCandidates.find(function(l) { return l.group === 'Cạnh bên'; }) || lineCandidates[0];
+      curLine = { id1: defLine.id1, id2: defLine.id2, name: defLine.name };
+    }
+
+    // 4. Thu thập các mặt phẳng mục tiêu (Target Planes)
+    var planes = getSolidPlanes(board);
+    var cs = board.crossSection;
+    if (cs && cs.page === pageIdx && cs.labels && cs.labels.length >= 3) {
+      var csPtIds = cs.labels.map(function(lbl) {
+        var found = allPtsList.find(function(p) { return p.label === lbl; });
+        return found ? found.id : null;
+      }).filter(Boolean);
+      if (csPtIds.length >= 3) {
+        planes.push({
+          key: 'cross_section',
+          name: '(' + cs.labels.join('') + ')',
+          desc: 'Mặt phẳng thiết diện (α)',
+          ptIds: csPtIds
+        });
+      }
+    }
+
+    // Đối tượng mục tiêu mặc định: Mặt đáy
+    var curTarget = null;
+    var basePlane = planes.find(function(p) { return p.desc === 'Mặt đáy'; }) || planes[0];
+    if (basePlane) {
+      curTarget = {
+        type: 'plane',
+        ptIds: basePlane.ptIds,
+        name: basePlane.name,
+        desc: basePlane.desc
+      };
+    }
+
+    // Nhãn điểm gợi ý
+    var existingLabels = new Set(Object.values(pg.geo.points).map(function(p) { return p.label; }).filter(Boolean));
+    var candidateLabels = ['I', 'J', 'K', 'E', 'F', 'P', 'Q', 'H'];
+    var suggestedLabel = candidateLabels.find(function(lbl) { return !existingLabels.has(lbl); }) || 'I';
+
+    // Xoá modal cũ nếu đang mở
+    var old = document.getElementById('spatial-intersection-wizard');
+    if (old) old.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'spatial-intersection-wizard';
+    overlay.className = 'spatial-modal-overlay';
+
+    // Tạo HTML các nút đường thẳng có sẵn (tránh generic .active class)
+    var lineChipsHtml = lineCandidates.map(function(l) {
+      var isAct = curLine && ((l.id1 === curLine.id1 && l.id2 === curLine.id2) || (l.id1 === curLine.id2 && l.id2 === curLine.id1));
+      var borderStyle = isAct ? 'border:2px solid #0284c7;background:#e0f2fe;color:#0369a1;font-weight:700;' : 'border:1.5px solid #cbd5e1;background:#f8fafc;color:#1e293b;';
+      return '<button class="spatial-chip line-chip ' + (isAct ? 'is-selected' : '') + '" data-id1="' + l.id1 + '" data-id2="' + l.id2 + '" data-name="' + l.name + '" style="' + borderStyle + '">' +
+        l.name + ' <span style="font-size:10px;opacity:0.75">(' + l.group + ')</span>' +
+      '</button>';
+    }).join('');
+
+    // Tạo HTML các chip điểm tự do
+    var pointChipsHtml = allPtsList.map(function(p) {
+      return '<button class="spatial-chip pt-line-chip" data-id="' + p.id + '">' + p.label + '</button>';
+    }).join('');
+
+    // Tạo HTML danh sách mặt phẳng (tránh class active)
+    var planesListHtml = planes.map(function(pl, idx) {
+      var isAct = curTarget && curTarget.type === 'plane' && curTarget.ptIds.join(',') === pl.ptIds.join(',');
+      var icon = pl.desc === 'Mặt đáy' ? '🟩' : (pl.desc.includes('bên') ? '🔺' : (pl.desc.includes('chéo') ? '📐' : '✨'));
+      var cardStyle = isAct
+        ? 'border:2px solid #0284c7;background:#f0f9ff;box-shadow:0 2px 8px rgba(2,132,199,0.12);'
+        : 'border:1.5px solid #e2e8f0;background:#ffffff;';
+      return '<button class="spatial-preset-btn plane-target-btn ' + (isAct ? 'is-selected' : '') + '" data-idx="' + idx + '" style="' + cardStyle + '">' +
+        '<span class="p-icon">' + icon + '</span>' +
+        '<div style="flex:1;text-align:left"><b style="color:' + (isAct ? '#0369a1' : '#1e293b') + ';">' + pl.name + '</b><div style="font-size:12px;color:#64748b">' + pl.desc + '</div></div>' +
+        '<span class="target-check" style="font-size:16px;color:#0284c7;font-weight:700;' + (isAct ? '' : 'display:none;') + '">✓</span>' +
+      '</button>';
+    }).join('');
+
+    // Tạo HTML danh sách đường thẳng đồng phẳng để cắt
+    var coplanarLinesHtml = lineCandidates.map(function(l, idx) {
+      return '<button class="spatial-preset-btn line-target-btn" data-id1="' + l.id1 + '" data-id2="' + l.id2 + '" data-name="' + l.name + '" style="border:1.5px solid #e2e8f0;background:#ffffff;">' +
+        '<span class="p-icon">📏</span>' +
+        '<div style="flex:1;text-align:left"><b>' + l.name + '</b><div style="font-size:12px;color:#64748b">' + l.group + '</div></div>' +
+        '<span class="target-check" style="font-size:16px;color:#0284c7;font-weight:700;display:none;">✓</span>' +
+      '</button>';
+    }).join('');
+
+    overlay.innerHTML = '<div class="spatial-modal-card" style="max-width:480px;max-height:88vh;display:flex;flex-direction:column;">' +
+      '<div class="spatial-modal-header">' +
+        '<div class="spatial-modal-title">📏 Tìm Giao Điểm & Mở Rộng Đường Thẳng</div>' +
+        '<button class="spatial-modal-close" id="btn-close-isect-modal">✕</button>' +
+      '</div>' +
+      '<div class="spatial-modal-body" style="padding:16px 20px;overflow-y:auto;flex:1;">' +
+        
+        // BƯỚC 1: ĐƯỜNG THẲNG CẦN MỞ RỘNG
+        '<div class="spatial-section-title" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
+          '<span>1. ĐƯỜNG THẲNG CẦN MỞ RỘNG (d)</span>' +
+          '<span id="isect-line-badge" style="background:#e0f2fe;color:#0284c7;font-weight:700;padding:3px 10px;border-radius:12px;font-size:13px;border:1px solid #bae6fd;">' +
+            (curLine ? curLine.name : 'Chưa chọn') +
+          '</span>' +
+        '</div>' +
+        '<div style="font-size:12px;color:#64748b;margin-bottom:6px;">Chọn nhanh đường thẳng / cạnh:</div>' +
+        '<div class="spatial-chips-wrap" id="isect-line-chips" style="margin-bottom:10px;max-height:85px;overflow-y:auto;">' + lineChipsHtml + '</div>' +
+        
+        '<div style="font-size:12px;color:#64748b;margin-bottom:6px;">Hoặc bấm 2 điểm bất kỳ để tạo đường thẳng:</div>' +
+        '<div class="spatial-chips-wrap" id="isect-pt-chips" style="margin-bottom:14px;">' + pointChipsHtml + '</div>' +
+
+        '<div style="border-top:1px dashed #cbd5e1;margin:12px 0;"></div>' +
+
+        // BƯỚC 2: CHỌN ĐỐI TƯỢNG ĐỂ TÌM GIAO ĐIỂM
+        '<div class="spatial-section-title" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
+          '<span>2. ĐỐI TƯỢNG ĐỂ TÌM GIAO ĐIỂM</span>' +
+          '<span id="isect-target-badge" style="background:#dcfce7;color:#15803d;font-weight:700;padding:3px 10px;border-radius:12px;font-size:13px;border:1px solid #bbf7d0;">' +
+            (curTarget ? curTarget.name : 'Chưa chọn') +
+          '</span>' +
+        '</div>' +
+
+        '<div style="display:flex;gap:8px;margin-bottom:12px;">' +
+          '<button id="isect-tab-plane" style="flex:1;padding:8px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:#0284c7;color:#fff;border:none;">' +
+            '📐 Mặt Phẳng' +
+          '</button>' +
+          '<button id="isect-tab-line" style="flex:1;padding:8px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:#f1f5f9;color:#475569;border:1px solid #cbd5e1;">' +
+            '📏 Đường Thẳng Đồng Phẳng' +
+          '</button>' +
+        '</div>' +
+
+        // TAB MẶT PHẲNG
+        '<div id="isect-pane-plane">' +
+          '<div class="spatial-preset-list" style="margin-bottom:10px;max-height:160px;overflow-y:auto;">' + planesListHtml + '</div>' +
+        '</div>' +
+
+        // TAB ĐƯỜNG THẲNG
+        '<div id="isect-pane-line" style="display:none;">' +
+          '<div class="spatial-preset-list" style="margin-bottom:10px;max-height:160px;overflow-y:auto;">' + coplanarLinesHtml + '</div>' +
+        '</div>' +
+
+        // TÊN ĐIỂM GIAO
+        '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;margin-top:10px;">' +
+          '<span style="font-size:13px;font-weight:600;color:#334155;">Tên điểm giao:</span>' +
+          '<div style="display:flex;align-items:center;gap:8px;">' +
+            '<input id="isect-label-input" type="text" value="' + suggestedLabel + '" maxlength="3" style="width:48px;text-align:center;font-weight:700;font-size:15px;padding:4px;border:1.5px solid #94a3b8;border-radius:6px;color:#0284c7;background:#fff;" />' +
+            '<span style="font-size:12px;color:#64748b;">(Tự động: I, J, K...)</span>' +
+          '</div>' +
+        '</div>' +
+
+      '</div>' +
+
+      // FOOTER
+      '<div class="spatial-modal-footer" style="padding:12px 20px;background:#f8fafc;border-top:1px solid #e2e8f0;display:flex;justify-content:flex-end;gap:10px;">' +
+        '<button id="btn-cancel-isect" class="spatial-preset-btn" style="padding:8px 16px;margin:0;">Hủy</button>' +
+        '<button id="btn-apply-isect" class="spatial-btn-primary" style="padding:9px 20px;font-size:14px;font-weight:700;border-radius:10px;background:#0284c7;color:#fff;border:none;cursor:pointer;">' +
+          '✨ Tìm giao điểm ngay' +
+        '</button>' +
+      '</div>' +
+    '</div>';
+
+    document.body.appendChild(overlay);
+
+    var close = function() { overlay.remove(); };
+    overlay.querySelector('#btn-close-isect-modal').onclick = close;
+    overlay.querySelector('#btn-cancel-isect').onclick = close;
+    overlay.onclick = function(e) { if (e.target === overlay) close(); };
+
+    // Xử lý chọn đường thẳng qua line chip
+    var lineChips = overlay.querySelectorAll('.line-chip');
+    lineChips.forEach(function(btn) {
+      btn.onclick = function() {
+        lineChips.forEach(function(b) {
+          b.style.border = '1.5px solid #cbd5e1';
+          b.style.background = '#f8fafc';
+          b.style.color = '#1e293b';
+          b.style.fontWeight = '500';
+        });
+        btn.style.border = '2px solid #0284c7';
+        btn.style.background = '#e0f2fe';
+        btn.style.color = '#0369a1';
+        btn.style.fontWeight = '700';
+        curLine = { id1: btn.getAttribute('data-id1'), id2: btn.getAttribute('data-id2'), name: btn.getAttribute('data-name') };
+        overlay.querySelector('#isect-line-badge').innerText = curLine.name;
+        // Bỏ chọn chip điểm tự do
+        overlay.querySelectorAll('.pt-line-chip').forEach(function(p) {
+          p.style.border = '';
+          p.style.background = '';
+          p.style.color = '';
+        });
+        selectedFreePts = [];
+      };
+    });
+
+    // Xử lý chọn đường thẳng qua 2 điểm tự do
+    var selectedFreePts = [];
+    var ptChips = overlay.querySelectorAll('.pt-line-chip');
+    ptChips.forEach(function(btn) {
+      btn.onclick = function() {
+        var pid = btn.getAttribute('data-id');
+        if (selectedFreePts.includes(pid)) {
+          selectedFreePts = selectedFreePts.filter(function(id) { return id !== pid; });
+          btn.style.border = '';
+          btn.style.background = '';
+          btn.style.color = '';
+        } else {
+          if (selectedFreePts.length >= 2) {
+            selectedFreePts = [];
+            ptChips.forEach(function(b) {
+              b.style.border = '';
+              b.style.background = '';
+              b.style.color = '';
+            });
+          }
+          selectedFreePts.push(pid);
+          btn.style.border = '2px solid #0284c7';
+          btn.style.background = '#e0f2fe';
+          btn.style.color = '#0369a1';
+        }
+
+        if (selectedFreePts.length === 2) {
+          lineChips.forEach(function(b) {
+            b.style.border = '1.5px solid #cbd5e1';
+            b.style.background = '#f8fafc';
+            b.style.color = '#1e293b';
+            b.style.fontWeight = '500';
+          });
+          curLine = { id1: selectedFreePts[0], id2: selectedFreePts[1], name: getLabel(selectedFreePts[0]) + getLabel(selectedFreePts[1]) };
+          overlay.querySelector('#isect-line-badge').innerText = curLine.name;
+        } else if (selectedFreePts.length === 1) {
+          overlay.querySelector('#isect-line-badge').innerText = getLabel(selectedFreePts[0]) + '...? (chọn tiếp)';
+        }
+      };
+    });
+
+    // Chuyển Tab Mặt Phẳng / Đường Thẳng
+    var tabPlane = overlay.querySelector('#isect-tab-plane');
+    var tabLine = overlay.querySelector('#isect-tab-line');
+    var panePlane = overlay.querySelector('#isect-pane-plane');
+    var paneLine = overlay.querySelector('#isect-pane-line');
+
+    tabPlane.onclick = function() {
+      tabPlane.style.background = '#0284c7';
+      tabPlane.style.color = '#fff';
+      tabPlane.style.border = 'none';
+      tabLine.style.background = '#f1f5f9';
+      tabLine.style.color = '#475569';
+      tabLine.style.border = '1px solid #cbd5e1';
+      panePlane.style.display = 'block';
+      paneLine.style.display = 'none';
+      if (basePlane) {
+        curTarget = { type: 'plane', ptIds: basePlane.ptIds, name: basePlane.name, desc: basePlane.desc };
+        overlay.querySelector('#isect-target-badge').innerText = curTarget.name;
+        overlay.querySelector('#isect-target-badge').style.background = '#dcfce7';
+        overlay.querySelector('#isect-target-badge').style.color = '#15803d';
+      }
+    };
+
+    tabLine.onclick = function() {
+      tabLine.style.background = '#0284c7';
+      tabLine.style.color = '#fff';
+      tabLine.style.border = 'none';
+      tabPlane.style.background = '#f1f5f9';
+      tabPlane.style.color = '#475569';
+      tabPlane.style.border = '1px solid #cbd5e1';
+      paneLine.style.display = 'block';
+      panePlane.style.display = 'none';
+      if (lineCandidates.length > 0) {
+        var defTLine = lineCandidates.find(function(l) { return l.group === 'Cạnh đáy'; }) || lineCandidates[0];
+        curTarget = { type: 'line', ptIds: [defTLine.id1, defTLine.id2], name: defTLine.name, desc: defTLine.group };
+        overlay.querySelector('#isect-target-badge').innerText = defTLine.name;
+        overlay.querySelector('#isect-target-badge').style.background = '#fef3c7';
+        overlay.querySelector('#isect-target-badge').style.color = '#b45309';
+      }
+    };
+
+    // Chọn Mặt phẳng mục tiêu
+    var planeBtns = overlay.querySelectorAll('.plane-target-btn');
+    planeBtns.forEach(function(btn) {
+      btn.onclick = function() {
+        planeBtns.forEach(function(b) {
+          b.style.borderColor = '#e2e8f0';
+          b.style.background = '#ffffff';
+          b.style.boxShadow = 'none';
+          var titleEl = b.querySelector('b');
+          if (titleEl) titleEl.style.color = '#1e293b';
+          b.querySelector('.target-check').style.display = 'none';
+        });
+        btn.style.borderColor = '#0284c7';
+        btn.style.background = '#f0f9ff';
+        btn.style.boxShadow = '0 2px 8px rgba(2,132,199,0.12)';
+        var activeTitle = btn.querySelector('b');
+        if (activeTitle) activeTitle.style.color = '#0369a1';
+        btn.querySelector('.target-check').style.display = 'inline';
+
+        var idx = parseInt(btn.getAttribute('data-idx'), 10);
+        var pl = planes[idx];
+        curTarget = { type: 'plane', ptIds: pl.ptIds, name: pl.name, desc: pl.desc };
+        overlay.querySelector('#isect-target-badge').innerText = pl.name;
+      };
+      btn.ondblclick = function() {
+        btn.onclick();
+        overlay.querySelector('#btn-apply-isect').click();
+      };
+    });
+
+    // Chọn Đường thẳng mục tiêu
+    var lineBtns = overlay.querySelectorAll('.line-target-btn');
+    lineBtns.forEach(function(btn) {
+      btn.onclick = function() {
+        lineBtns.forEach(function(b) {
+          b.style.borderColor = '#e2e8f0';
+          b.style.background = '#ffffff';
+          b.style.boxShadow = 'none';
+          var titleEl = b.querySelector('b');
+          if (titleEl) titleEl.style.color = '#1e293b';
+          b.querySelector('.target-check').style.display = 'none';
+        });
+        btn.style.borderColor = '#0284c7';
+        btn.style.background = '#f0f9ff';
+        btn.style.boxShadow = '0 2px 8px rgba(2,132,199,0.12)';
+        var activeTitle = btn.querySelector('b');
+        if (activeTitle) activeTitle.style.color = '#0369a1';
+        btn.querySelector('.target-check').style.display = 'inline';
+
+        var id1 = btn.getAttribute('data-id1');
+        var id2 = btn.getAttribute('data-id2');
+        var name = btn.getAttribute('data-name');
+        curTarget = { type: 'line', ptIds: [id1, id2], name: name, desc: 'Đường thẳng ' + name };
+        overlay.querySelector('#isect-target-badge').innerText = name;
+      };
+      btn.ondblclick = function() {
+        btn.onclick();
+        overlay.querySelector('#btn-apply-isect').click();
+      };
+    });
+
+    // Nút thực hiện: Tìm giao điểm ngay
+    overlay.querySelector('#btn-apply-isect').onclick = function() {
+      if (!curLine || !curLine.id1 || !curLine.id2) {
+        showSpatialToast('⚠️ Vui lòng chọn đường thẳng cần mở rộng!');
+        return;
+      }
+      if (!curTarget || !curTarget.ptIds || curTarget.ptIds.length < 2) {
+        showSpatialToast('⚠️ Vui lòng chọn đối tượng để tìm giao điểm!');
+        return;
+      }
+
+      var customLabel = overlay.querySelector('#isect-label-input').value;
+      close();
+
+      executeLineIntersection(board, {
+        ptAId: curLine.id1,
+        ptBId: curLine.id2,
+        targetType: curTarget.type,
+        targetPlanePtIds: curTarget.type === 'plane' ? curTarget.ptIds : null,
+        targetLinePtIds: curTarget.type === 'line' ? curTarget.ptIds : null,
+        targetName: curTarget.name,
+        label: customLabel
+      });
+    };
+  }
+
+  window.openSmartIntersectionModal = openSmartIntersectionModal;
+  window.executeLineIntersection = executeLineIntersection;
+
+  function expandLinePlaneIntersection(board, linePtIds, planePtIds) {
+    if (!board) return false;
+    // Nếu chưa truyền đủ đường thẳng và mặt phẳng mục tiêu, mở giao diện chọn đối tượng
+    if (!linePtIds || !planePtIds || linePtIds.length < 2 || planePtIds.length < 3) {
+      openSmartIntersectionModal(board, linePtIds, planePtIds);
+      return true;
+    }
+    return executeLineIntersection(board, {
+      ptAId: linePtIds[0],
+      ptBId: linePtIds[1],
+      targetType: 'plane',
+      targetPlanePtIds: planePtIds
+    });
+  }
 
   /**
    * 🌟 THÔNG BÁO NỔI THÔNG MINH (GLASSMORPHISM TOAST)
@@ -1395,6 +1878,8 @@
     }
 
     var sol = pg.geo.shapes.find(function(s) { return s.kind === 'solid' && s.solid; });
+    var groupId = sol ? (sol.group || ('grp_3d_' + Date.now())) : undefined;
+    if (sol && !sol.group) sol.group = groupId;
     if (sol) attachDrawnElementsToSolid(board, pageIdx, sol);
 
     var pMap2D = getPointMap(pg.geo);
@@ -1402,12 +1887,16 @@
     var pA2D = pMap2D.get(idA), pB2D = pMap2D.get(idB);
     if (!ptA || !ptB || !pA2D || !pB2D) return false;
 
+    var zA = (ptA.z !== undefined && Number.isFinite(ptA.z)) ? ptA.z : 0;
+    var zB = (ptB.z !== undefined && Number.isFinite(ptB.z)) ? ptB.z : 0;
+    var midZ = (zA + zB) / 2;
+
     var mid2D = { x: (pA2D.x + pB2D.x) / 2, y: (pA2D.y + pB2D.y) / 2 };
     var mid3D = null;
     if (sol && sol.solid) {
       var c = o4(sol.solid.view || Cp);
-      var pA3D = ptA.pos3d ? ptA.pos3d.slice() : wo(c, [pA2D.x, pA2D.y, ptA.z !== undefined ? ptA.z : 0]);
-      var pB3D = ptB.pos3d ? ptB.pos3d.slice() : wo(c, [pB2D.x, pB2D.y, ptB.z !== undefined ? ptB.z : 0]);
+      var pA3D = ptA.pos3d ? ptA.pos3d.slice() : wo(c, [pA2D.x, pA2D.y, zA]);
+      var pB3D = ptB.pos3d ? ptB.pos3d.slice() : wo(c, [pB2D.x, pB2D.y, zB]);
       mid3D = [(pA3D[0] + pB3D[0]) / 2, (pA3D[1] + pB3D[1]) / 2, (pA3D[2] + pB3D[2]) / 2];
     }
 
@@ -1418,10 +1907,11 @@
     var ptMidId = "pt_mid_" + Date.now();
     var ptMid = {
       id: ptMidId,
-      def: { t: "free", x: Math.round(mid2D.x * 10) / 10, y: Math.round(mid2D.y * 10) / 10 },
+      def: { t: "free", x: mid2D.x, y: mid2D.y },
       label: chosenLabel,
       show: true,
-      group: sol ? sol.group : undefined,
+      group: groupId,
+      z: midZ,
       pos3d: mid3D ? [Math.round(mid3D[0]*100)/100, Math.round(mid3D[1]*100)/100, Math.round(mid3D[2]*100)/100] : undefined
     };
 
@@ -1454,42 +1944,79 @@
     }
 
     var sol = pg.geo.shapes.find(function(s) { return s.kind === 'solid' && s.solid; });
+    var groupId = sol ? (sol.group || ('grp_3d_' + Date.now())) : undefined;
+    if (sol && !sol.group) sol.group = groupId;
     if (sol) attachDrawnElementsToSolid(board, pageIdx, sol);
 
     var pMap2D = getPointMap(pg.geo);
     var pA = pMap2D.get(ids[0]), pB = pMap2D.get(ids[1]), pC = pMap2D.get(ids[2]);
     if (!pA || !pB || !pC) return false;
 
+    var ptA = pg.geo.points[ids[0]], ptB = pg.geo.points[ids[1]], ptC = pg.geo.points[ids[2]];
+    var zA = (ptA && ptA.z !== undefined && Number.isFinite(ptA.z)) ? ptA.z : 0;
+    var zB = (ptB && ptB.z !== undefined && Number.isFinite(ptB.z)) ? ptB.z : 0;
+    var zC = (ptC && ptC.z !== undefined && Number.isFinite(ptC.z)) ? ptC.z : 0;
+
     var g2D = { x: (pA.x + pB.x + pC.x) / 3, y: (pA.y + pB.y + pC.y) / 3 };
+    var gZ = (zA + zB + zC) / 3;
+
+    var midBC = { x: (pB.x + pC.x) / 2, y: (pB.y + pC.y) / 2 };
+    var midZ = (zB + zC) / 2;
+
     var g3D = null;
+    var mid3D = null;
     if (sol && sol.solid) {
       var c = o4(sol.solid.view || Cp);
-      var ptA = pg.geo.points[ids[0]], ptB = pg.geo.points[ids[1]], ptC = pg.geo.points[ids[2]];
-      var pA3D = ptA.pos3d || wo(c, [pA.x, pA.y, ptA.z !== undefined ? ptA.z : 0]);
-      var pB3D = ptB.pos3d || wo(c, [pB.x, pB.y, ptB.z !== undefined ? ptB.z : 0]);
-      var pC3D = ptC.pos3d || wo(c, [pC.x, pC.y, ptC.z !== undefined ? ptC.z : 0]);
+      var pA3D = (ptA && ptA.pos3d) || wo(c, [pA.x, pA.y, zA]);
+      var pB3D = (ptB && ptB.pos3d) || wo(c, [pB.x, pB.y, zB]);
+      var pC3D = (ptC && ptC.pos3d) || wo(c, [pC.x, pC.y, zC]);
       g3D = [(pA3D[0]+pB3D[0]+pC3D[0])/3, (pA3D[1]+pB3D[1]+pC3D[1])/3, (pA3D[2]+pB3D[2]+pC3D[2])/3];
+      mid3D = [(pB3D[0]+pC3D[0])/2, (pB3D[1]+pC3D[1])/2, (pB3D[2]+pC3D[2])/2];
     }
 
     var ptGId = "pt_cen_" + Date.now();
     var ptG = {
       id: ptGId,
-      def: { t: "free", x: Math.round(g2D.x * 10) / 10, y: Math.round(g2D.y * 10) / 10 },
+      def: { t: "free", x: g2D.x, y: g2D.y },
       label: "G",
       show: true,
-      group: sol ? sol.group : undefined,
+      group: groupId,
+      z: gZ,
       pos3d: g3D ? [Math.round(g3D[0]*100)/100, Math.round(g3D[1]*100)/100, Math.round(g3D[2]*100)/100] : undefined
     };
 
-    var midBC = { x: (pB.x + pC.x)/2, y: (pB.y + pC.y)/2 };
     var ptMidId = "pt_cen_mid_" + Date.now();
     var ptMid = {
       id: ptMidId,
-      def: { t: "free", x: Math.round(midBC.x * 10)/10, y: Math.round(midBC.y * 10)/10 },
+      def: { t: "free", x: midBC.x, y: midBC.y },
       label: "",
       show: false,
-      group: sol ? sol.group : undefined
+      group: groupId,
+      z: midZ,
+      pos3d: mid3D ? [Math.round(mid3D[0]*100)/100, Math.round(mid3D[1]*100)/100, Math.round(mid3D[2]*100)/100] : undefined
     };
+
+    // Kiểm tra xem mặt tam giác này là mặt thấy hay mặt khuất:
+    // Nếu có cạnh biên nào là nét đứt -> mặt khuất -> trung tuyến vẽ nét đứt.
+    // Nếu tất cả các cạnh biên giữa các đỉnh là nét liền -> mặt thấy -> trung tuyến vẽ nét liền.
+    var isFaceDashed = false;
+    var allSegs = pg.geo.shapes.filter(function(s) { return s.kind === 'segment'; });
+    var p0 = ids[0], p1 = ids[1], p2 = ids[2];
+    var faceEdges = [
+      [p0, p1], [p1, p0],
+      [p1, p2], [p2, p1],
+      [p2, p0], [p0, p2]
+    ];
+    for (var fi = 0; fi < allSegs.length; fi++) {
+      var sg = allSegs[fi];
+      var matchesEdge = faceEdges.some(function(fe) {
+        return fe[0] === sg.pts[0] && fe[1] === sg.pts[1];
+      });
+      if (matchesEdge && sg.dashed) {
+        isFaceDashed = true;
+        break;
+      }
+    }
 
     var newShapes = [
       {
@@ -1498,8 +2025,8 @@
         pts: [ids[0], ptMidId],
         color: "#64748b",
         width: 1.5,
-        dashed: true,
-        group: sol ? sol.group : undefined,
+        dashed: isFaceDashed,
+        group: groupId,
         aux: true
       }
     ];
@@ -1513,6 +2040,132 @@
     return true;
   }
   window.addTriangleCentroid = addTriangleCentroid;
+  /**
+   * 🌟 DỰNG TRỌNG TÂM / TÂM MẶT THEO MẶT PHẲNG ĐÃ CHỌN (3D Face Centroid)
+   */
+  function addFaceCentroidByPlane(board, plane) {
+    if (!board || !plane) return false;
+    var ptIds = plane.ptIds;
+    if (!ptIds || ptIds.length < 3) return false;
+
+    if (ptIds.length === 3) {
+      return addTriangleCentroid(board, ptIds[0], ptIds[1], ptIds[2]);
+    }
+
+    var pageIdx = board.sel ? board.sel.page : 0;
+    var pg = board.doc.pages[pageIdx];
+    if (!pg || !pg.geo) return false;
+
+    var sol = pg.geo.shapes.find(function(s) { return s.kind === 'solid' && !s.hidden; }) ||
+              pg.geo.shapes.find(function(s) { return s.kind === 'solid'; });
+    var groupId = sol ? (sol.group || ('grp_3d_' + Date.now())) : undefined;
+    if (sol && !sol.group) sol.group = groupId;
+    if (sol) attachDrawnElementsToSolid(board, pageIdx, sol);
+
+    var pMap2D = getPointMap(pg.geo);
+    var pA = pMap2D.get(ptIds[0]), pB = pMap2D.get(ptIds[1]), pC = pMap2D.get(ptIds[2]), pD = pMap2D.get(ptIds[3]);
+    if (!pA || !pB || !pC || !pD) return false;
+
+    var ptA = pg.geo.points[ptIds[0]], ptB = pg.geo.points[ptIds[1]], ptC = pg.geo.points[ptIds[2]], ptD = pg.geo.points[ptIds[3]];
+    var zA = (ptA && ptA.z !== undefined && Number.isFinite(ptA.z)) ? ptA.z : 0;
+    var zB = (ptB && ptB.z !== undefined && Number.isFinite(ptB.z)) ? ptB.z : 0;
+    var zC = (ptC && ptC.z !== undefined && Number.isFinite(ptC.z)) ? ptC.z : 0;
+    var zD = (ptD && ptD.z !== undefined && Number.isFinite(ptD.z)) ? ptD.z : 0;
+    var oZ = (zA + zB + zC + zD) / 4;
+
+    var o2D = {
+      x: (pA.x + pB.x + pC.x + pD.x) / 4,
+      y: (pA.y + pB.y + pC.y + pD.y) / 4
+    };
+
+    var o3D = null;
+    if (sol && sol.solid) {
+      var c = o4(sol.solid.view || Cp);
+      var pA3D = ptA.pos3d || wo(c, [pA.x, pA.y, zA]);
+      var pB3D = ptB.pos3d || wo(c, [pB.x, pB.y, zB]);
+      var pC3D = ptC.pos3d || wo(c, [pC.x, pC.y, zC]);
+      var pD3D = ptD.pos3d || wo(c, [pD.x, pD.y, zD]);
+      o3D = [
+        (pA3D[0] + pB3D[0] + pC3D[0] + pD3D[0]) / 4,
+        (pA3D[1] + pB3D[1] + pC3D[1] + pD3D[1]) / 4,
+        (pA3D[2] + pB3D[2] + pC3D[2] + pD3D[2]) / 4
+      ];
+    }
+
+    var existingLabels = Object.values(pg.geo.points).map(function(p){ return p.label; });
+    var oLabel = "O";
+    if (existingLabels.includes("O")) {
+      for (var k = 1; k <= 9; k++) {
+        if (!existingLabels.includes("O" + k)) {
+          oLabel = "O" + k;
+          break;
+        }
+      }
+    }
+
+    var ptOId = "pt_center_" + Date.now();
+    var ptO = {
+      id: ptOId,
+      def: { t: "free", x: o2D.x, y: o2D.y },
+      label: oLabel,
+      show: true,
+      group: groupId,
+      z: oZ,
+      pos3d: o3D ? [Math.round(o3D[0]*100)/100, Math.round(o3D[1]*100)/100, Math.round(o3D[2]*100)/100] : undefined
+    };
+
+    var isQuadDashed = false;
+    var allSegsQuad = pg.geo.shapes.filter(function(s) { return s.kind === 'segment'; });
+    var quadEdges = [
+      [ptIds[0], ptIds[1]], [ptIds[1], ptIds[0]],
+      [ptIds[1], ptIds[2]], [ptIds[2], ptIds[1]],
+      [ptIds[2], ptIds[3]], [ptIds[3], ptIds[2]],
+      [ptIds[3], ptIds[0]], [ptIds[0], ptIds[3]]
+    ];
+    for (var fq = 0; fq < allSegsQuad.length; fq++) {
+      var sgQ = allSegsQuad[fq];
+      var matchesQEdge = quadEdges.some(function(qe) {
+        return qe[0] === sgQ.pts[0] && qe[1] === sgQ.pts[1];
+      });
+      if (matchesQEdge && sgQ.dashed) {
+        isQuadDashed = true;
+        break;
+      }
+    }
+
+    var newShapes = [
+      {
+        id: "seg_diag1_" + Date.now(),
+        kind: "segment",
+        pts: [ptIds[0], ptIds[2]],
+        color: "#94a3b8",
+        width: 1.5,
+        dashed: isQuadDashed,
+        group: sol ? sol.group : undefined,
+        aux: true
+      },
+      {
+        id: "seg_diag2_" + Date.now(),
+        kind: "segment",
+        pts: [ptIds[1], ptIds[3]],
+        color: "#94a3b8",
+        width: 1.5,
+        dashed: isQuadDashed,
+        group: sol ? sol.group : undefined,
+        aux: true
+      }
+    ];
+
+    board.commit(board.addGeo(pageIdx, [ptO], newShapes));
+    if (sol) attachDrawnElementsToSolid(board, pageIdx, sol);
+    board.sel = { page: pageIdx, points: new Set([ptOId]) };
+    board.redraw();
+    board.emit();
+    showSpatialToast("⭐ Đã dựng tâm " + oLabel + " mặt " + (plane.name || ""));
+    return true;
+  }
+  window.addFaceCentroidByPlane = addFaceCentroidByPlane;
+
 
   /**
    * 🌟 HỘP THOẠI THÔNG MINH: CHỌN MẶT PHẲNG (Smart Plane Wizard)
@@ -1644,6 +2297,369 @@
   window.openSmartPlaneModal = openSmartPlaneModal;
 
 
+  
+  /**
+   * 🌟 TÔ MÀU MẶT PHẲNG & CÁC MẶT CỦA KHỐI 3D (Solid Face & Plane Coloring)
+   */
+  function getSolidPlanes(board) {
+    if (!board) return [];
+    var pageIdx = board.sel ? board.sel.page : 0;
+    var pg = board.doc.pages[pageIdx];
+    if (!pg || !pg.geo) return [];
+
+    var sol = null;
+    if (typeof board.selectedSolid === 'function') {
+      var sInfo = board.selectedSolid();
+      if (sInfo && sInfo.id) sol = pg.geo.shapes.find(function(s) { return s.id === sInfo.id; });
+    }
+    if (!sol) {
+      sol = pg.geo.shapes.find(function(s) { return s.kind === 'solid' && s.solid && !s.hidden; }) ||
+            pg.geo.shapes.find(function(s) { return s.kind === 'solid' && s.solid; });
+    }
+    if (!sol || !sol.solid) return [];
+
+    var getLabel = function(id) {
+      return (pg.geo.points[id] && pg.geo.points[id].label) ? pg.geo.points[id].label : id;
+    };
+
+    var curFc = sol.solid.faceColors || {};
+    var planes = [];
+    var faces = sol.solid.faces || [];
+    faces.forEach(function(fIndices, idx) {
+      var ptIds = fIndices.map(function(i) { return sol.pts[i]; });
+      var name = ptIds.map(getLabel).join('');
+      var isBase = idx === 0;
+      var isTop = (sol.solid.of === 'box' || sol.solid.of === 'prism3' || sol.solid.of === 'cube') ? idx === 1 : false;
+      var desc = isBase ? 'Mặt đáy' : (isTop ? 'Đáy trên' : 'Mặt bên');
+      var fKey = 'face_' + idx;
+      planes.push({
+        key: fKey,
+        name: '(' + name + ')',
+        desc: desc,
+        ptIds: ptIds,
+        faceIdx: idx,
+        color: curFc[fKey] ? (typeof curFc[fKey] === 'string' ? curFc[fKey] : curFc[fKey].color) : null
+      });
+    });
+
+    // Các mặt chéo chuẩn SGK cho hình chóp đáy tứ giác và hình hộp
+    if (sol.pts.length === 5) {
+      var A = sol.pts[0], B = sol.pts[1], C = sol.pts[2], D = sol.pts[3], S = sol.pts[4];
+      planes.push({
+        key: 'diag_SAC',
+        name: '(' + [S, A, C].map(getLabel).join('') + ')',
+        desc: 'Mặt chéo',
+        ptIds: [S, A, C],
+        color: curFc['diag_SAC'] ? (typeof curFc['diag_SAC'] === 'string' ? curFc['diag_SAC'] : curFc['diag_SAC'].color) : null
+      });
+      planes.push({
+        key: 'diag_SBD',
+        name: '(' + [S, B, D].map(getLabel).join('') + ')',
+        desc: 'Mặt chéo',
+        ptIds: [S, B, D],
+        color: curFc['diag_SBD'] ? (typeof curFc['diag_SBD'] === 'string' ? curFc['diag_SBD'] : curFc['diag_SBD'].color) : null
+      });
+    } else if (sol.pts.length === 8 && (sol.solid.of === 'box' || sol.solid.of === 'cube')) {
+      var A = sol.pts[0], B = sol.pts[1], C = sol.pts[2], D = sol.pts[3];
+      var A1 = sol.pts[4], B1 = sol.pts[5], C1 = sol.pts[6], D1 = sol.pts[7];
+      planes.push({
+        key: 'diag_ACC1A1',
+        name: '(' + [A, C, C1, A1].map(getLabel).join('') + ')',
+        desc: 'Mặt chéo',
+        ptIds: [A, C, C1, A1],
+        color: curFc['diag_ACC1A1'] ? (typeof curFc['diag_ACC1A1'] === 'string' ? curFc['diag_ACC1A1'] : curFc['diag_ACC1A1'].color) : null
+      });
+      planes.push({
+        key: 'diag_BDD1B1',
+        name: '(' + [B, D, D1, B1].map(getLabel).join('') + ')',
+        desc: 'Mặt chéo',
+        ptIds: [B, D, D1, B1],
+        color: curFc['diag_BDD1B1'] ? (typeof curFc['diag_BDD1B1'] === 'string' ? curFc['diag_BDD1B1'] : curFc['diag_BDD1B1'].color) : null
+      });
+    }
+
+    // Nếu đang chọn điểm cụ thể:
+    if (board.sel && board.sel.points && board.sel.points.size >= 3) {
+      var selPtIds = Array.from(board.sel.points);
+      if (selPtIds.length < sol.pts.length) {
+        var selName = selPtIds.map(getLabel).join('');
+        var matched = planes.find(function(p) {
+          return p.ptIds.length === selPtIds.length && p.ptIds.every(function(id) { return selPtIds.includes(id); });
+        });
+        if (matched) {
+          matched.isCurrentSel = true;
+        } else {
+          planes.unshift({
+            key: 'custom_sel',
+            name: '(' + selName + ')',
+            desc: 'Điểm đang chọn',
+            ptIds: selPtIds,
+            isCurrentSel: true,
+            color: curFc['custom_sel'] ? (typeof curFc['custom_sel'] === 'string' ? curFc['custom_sel'] : curFc['custom_sel'].color) : null
+          });
+        }
+      }
+    }
+
+    return planes;
+  }
+
+  function colorSolidPlane(board, targetPlaneOrKey, color, alpha) {
+    if (!board) return false;
+    var pageIdx = board.sel ? board.sel.page : 0;
+    var pg = board.doc.pages[pageIdx];
+    if (!pg || !pg.geo) return false;
+
+    var cAlpha = typeof alpha === 'number' ? alpha : 0.38;
+    var col = color || '#3b82f6';
+
+    var sol = null;
+    if (typeof board.selectedSolid === 'function') {
+      var sInfo = board.selectedSolid();
+      if (sInfo && sInfo.id) sol = pg.geo.shapes.find(function(s) { return s.id === sInfo.id; });
+    }
+    if (!sol) {
+      sol = pg.geo.shapes.find(function(s) { return s.kind === 'solid' && s.solid && !s.hidden; }) ||
+            pg.geo.shapes.find(function(s) { return s.kind === 'solid' && s.solid; });
+    }
+
+    var planes = sol ? getSolidPlanes(board) : [];
+    var target = null;
+    if (typeof targetPlaneOrKey === 'string') {
+      target = planes.find(function(p) { return p.key === targetPlaneOrKey; });
+    } else if (targetPlaneOrKey && targetPlaneOrKey.ptIds) {
+      target = targetPlaneOrKey;
+    } else if (planes.length > 0) {
+      target = planes.find(function(p) { return p.isCurrentSel; }) || planes[0];
+    } else if (board.sel && board.sel.points && board.sel.points.size >= 3) {
+      var selPtIds = Array.from(board.sel.points);
+      var getLabel = function(id) { return (pg.geo.points[id] && pg.geo.points[id].label) ? pg.geo.points[id].label : id; };
+      target = {
+        key: 'custom_sel_' + Date.now(),
+        name: '(' + selPtIds.map(getLabel).join('') + ')',
+        ptIds: selPtIds
+      };
+    }
+
+    if (!target || !target.ptIds || target.ptIds.length < 3) {
+      showSpatialToast("⚠️ Vui lòng chọn một mặt phẳng hoặc ít nhất 3 điểm để tô màu!");
+      return false;
+    }
+
+    if (sol && sol.solid) {
+      var curFc = Object.assign({}, sol.solid.faceColors || {});
+      curFc[target.key] = {
+        color: col,
+        alpha: cAlpha,
+        pts: target.ptIds,
+        indices: target.faceIdx !== undefined ? sol.solid.faces[target.faceIdx] : undefined
+      };
+      var upSol = Object.assign({}, sol, { solid: Object.assign({}, sol.solid, { faceColors: curFc }) });
+      board.commit(board.updatePage(pageIdx, function(p) {
+        return Object.assign({}, p, {
+          geo: Object.assign({}, p.geo, {
+            shapes: p.geo.shapes.map(function(sh) { return sh.id === sol.id ? upSol : sh; })
+          })
+        });
+      }));
+      board.redraw();
+      board.emit();
+      showSpatialToast("🎨 Đã tô màu mặt phẳng " + target.name + "!");
+      return true;
+    } else {
+      // 2D polygon: Sắp xếp các điểm theo góc cực quanh tâm để không bị chéo cánh bướm
+      var pMap = ut(pg.geo);
+      var coords = target.ptIds.map(function(id) { return { id: id, p: pMap.get(id) }; }).filter(function(it) { return !!it.p; });
+      if (coords.length >= 3) {
+        var cx = coords.reduce(function(s, it) { return s + it.p.x; }, 0) / coords.length;
+        var cy = coords.reduce(function(s, it) { return s + it.p.y; }, 0) / coords.length;
+        coords.sort(function(a, b) {
+          return Math.atan2(a.p.y - cy, a.p.x - cx) - Math.atan2(b.p.y - cy, b.p.x - cx);
+        });
+        var sortedIds = coords.map(function(it) { return it.id; });
+        var newShape = {
+          id: "poly_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
+          kind: "polygon",
+          pts: sortedIds,
+          color: col,
+          fill: col.startsWith('rgba') ? col : col,
+          width: 1.5,
+          group: "gP"
+        };
+        board.commit(board.updatePage(pageIdx, function(p) {
+          return Object.assign({}, p, {
+            geo: Object.assign({}, p.geo, {
+              shapes: p.geo.shapes.concat([newShape])
+            })
+          });
+        }));
+        board.redraw();
+        board.emit();
+        showSpatialToast("🎨 Đã tô màu mặt phẳng " + target.name + "!");
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function clearSolidPlaneColor(board, planeKey) {
+    if (!board) return false;
+    var pageIdx = board.sel ? board.sel.page : 0;
+    var pg = board.doc.pages[pageIdx];
+    if (!pg || !pg.geo) return false;
+
+    var sol = null;
+    if (typeof board.selectedSolid === 'function') {
+      var sInfo = board.selectedSolid();
+      if (sInfo && sInfo.id) sol = pg.geo.shapes.find(function(s) { return s.id === sInfo.id; });
+    }
+    if (!sol) {
+      sol = pg.geo.shapes.find(function(s) { return s.kind === 'solid' && s.solid && !s.hidden; }) ||
+            pg.geo.shapes.find(function(s) { return s.kind === 'solid' && s.solid; });
+    }
+    if (!sol || !sol.solid) return false;
+
+    var curFc = Object.assign({}, sol.solid.faceColors || {});
+    if (planeKey) {
+      delete curFc[planeKey];
+      showSpatialToast("🗑️ Đã xóa màu mặt phẳng đã chọn");
+    } else {
+      curFc = {};
+      showSpatialToast("🧹 Đã xóa toàn bộ màu các mặt của khối");
+    }
+
+    var upSol = Object.assign({}, sol, { solid: Object.assign({}, sol.solid, { faceColors: curFc }) });
+    board.commit(board.updatePage(pageIdx, function(p) {
+      return Object.assign({}, p, {
+        geo: Object.assign({}, p.geo, {
+          shapes: p.geo.shapes.map(function(sh) { return sh.id === sol.id ? upSol : sh; })
+        })
+      });
+    }));
+    board.redraw();
+    board.emit();
+    return true;
+  }
+
+  function openColoredPlaneModal(board) {
+    if (!board) return;
+    var pageIdx = board.sel ? board.sel.page : 0;
+    var pg = board.doc.pages[pageIdx];
+    if (!pg || !pg.geo) return;
+
+    var planes = getSolidPlanes(board);
+    if (!planes.length && (!board.sel || !board.sel.points || board.sel.points.size < 3)) {
+      showSpatialToast("⚠️ Vui lòng vẽ hoặc chọn một khối 3D hoặc từ 3 điểm trở lên!");
+      return;
+    }
+
+    var old = document.getElementById('spatial-color-plane-modal');
+    if (old) old.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'spatial-color-plane-modal';
+    overlay.className = 'spatial-modal-overlay';
+
+    var selectedKey = planes.length ? (planes.find(function(p){ return p.isCurrentSel; }) || planes[0]).key : '';
+    var selectedColor = '#ef4444';
+    var selectedAlpha = 0.38;
+
+    var colors = [
+      { name: 'Đỏ', hex: '#ef4444' },
+      { name: 'Xanh dương', hex: '#3b82f6' },
+      { name: 'Xanh lá', hex: '#22c55e' },
+      { name: 'Tím', hex: '#a855f7' },
+      { name: 'Cam', hex: '#ea580c' },
+      { name: 'Vàng', hex: '#eab308' },
+      { name: 'Xanh ngọc', hex: '#06b6d4' }
+    ];
+
+    function renderPlanesHtml() {
+      return planes.map(function(p) {
+        var isAct = p.key === selectedKey ? ' active' : '';
+        var colDot = p.color ? '<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:' + p.color + ';margin-right:5px;box-shadow:0 0 4px rgba(0,0,0,0.3);"></span>' : '';
+        return '<button type="button" class="spatial-preset-btn plane-choice' + isAct + '" data-key="' + p.key + '" style="padding:8px 12px;margin-bottom:6px;font-size:13px;display:flex;align-items:center;justify-content:space-between;border:1.5px solid ' + (p.key === selectedKey ? '#ea580c' : '#e2e8f0') + ';background:' + (p.key === selectedKey ? '#fff7ed' : '#ffffff') + ';">' +
+          '<div>' + colDot + '<b>' + p.name + '</b> <span style="font-size:11.5px;color:#64748b;">(' + p.desc + ')</span></div>' +
+          (p.key === selectedKey ? '<span style="color:#ea580c;font-weight:700;">✓</span>' : '') +
+        '</button>';
+      }).join('');
+    }
+
+    function renderColorsHtml() {
+      return colors.map(function(c) {
+        var isAct = c.hex === selectedColor ? 'style="border:3px solid #1e293b;transform:scale(1.08);box-shadow:0 3px 8px rgba(0,0,0,0.25);"' : 'style="border:2px solid #ffffff;"';
+        return '<button type="button" class="color-swatch" data-hex="' + c.hex + '" title="' + c.name + '" ' + isAct + ' style="width:38px;height:38px;border-radius:10px;background:' + c.hex + ';cursor:pointer;transition:all 0.15s;"></button>';
+      }).join('');
+    }
+
+    overlay.innerHTML = '<div class="spatial-modal-card" style="max-width:440px;">' +
+      '<div class="spatial-modal-header" style="background:#fff7ed;border-bottom:1px solid #fed7aa;">' +
+        '<div class="spatial-modal-title" style="color:#ea580c;">🎨 Tô Màu Mặt Phẳng Không Gian</div>' +
+        '<button type="button" class="spatial-modal-close" id="btn-close-cp-modal">✕</button>' +
+      '</div>' +
+      '<div class="spatial-modal-body" style="padding:16px 20px;">' +
+        '<div class="spatial-section-title">1. Chọn mặt phẳng cần tô màu:</div>' +
+        '<div id="plane-choices-list" style="max-height:180px;overflow-y:auto;padding-right:4px;margin-bottom:14px;">' +
+          renderPlanesHtml() +
+        '</div>' +
+        '<div class="spatial-section-title">2. Chọn màu sắc:</div>' +
+        '<div id="color-swatches-grid" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;padding:4px 0;">' +
+          renderColorsHtml() +
+        '</div>' +
+      '</div>' +
+      '<div class="spatial-modal-footer" style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:#f8fafc;">' +
+        '<button type="button" id="btn-clear-plane-color" style="font-size:12.5px;color:#dc2626;background:transparent;border:1px solid #fca5a5;padding:6px 12px;border-radius:8px;cursor:pointer;">🗑️ Xóa màu mặt</button>' +
+        '<div style="display:flex;gap:8px;">' +
+          '<button type="button" id="btn-cancel-cp-modal" style="padding:7px 14px;border:1px solid #cbd5e1;background:#ffffff;border-radius:8px;font-size:13px;cursor:pointer;">Đóng</button>' +
+          '<button type="button" id="btn-apply-cp-modal" class="spatial-btn-primary" style="padding:7px 18px;background:#ea580c;color:#ffffff;border:none;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;">Áp dụng</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+    document.body.appendChild(overlay);
+
+    function close() {
+      overlay.remove();
+    }
+
+    document.getElementById('btn-close-cp-modal').onclick = close;
+    document.getElementById('btn-cancel-cp-modal').onclick = close;
+
+    overlay.onclick = function(e) {
+      if (e.target === overlay) close();
+    };
+
+    var listEl = document.getElementById('plane-choices-list');
+    listEl.onclick = function(e) {
+      var btn = e.target.closest('.plane-choice');
+      if (btn) {
+        selectedKey = btn.getAttribute('data-key');
+        listEl.innerHTML = renderPlanesHtml();
+      }
+    };
+
+    var colorsEl = document.getElementById('color-swatches-grid');
+    colorsEl.onclick = function(e) {
+      var btn = e.target.closest('.color-swatch');
+      if (btn) {
+        selectedColor = btn.getAttribute('data-hex');
+        colorsEl.innerHTML = renderColorsHtml();
+        // Áp dụng ngay khi bấm màu
+        colorSolidPlane(board, selectedKey, selectedColor, selectedAlpha);
+      }
+    };
+
+    document.getElementById('btn-apply-cp-modal').onclick = function() {
+      colorSolidPlane(board, selectedKey, selectedColor, selectedAlpha);
+      close();
+    };
+
+    document.getElementById('btn-clear-plane-color').onclick = function() {
+      clearSolidPlaneColor(board, selectedKey);
+      listEl.innerHTML = renderPlanesHtml();
+    };
+  }
+
   function patchBoardPrototype(BoardProto) {
     if (!BoardProto || BoardProto._group3DPatchedV2) return;
     BoardProto._group3DPatchedV2 = true;
@@ -1734,6 +2750,24 @@
     };
 
     // Gắn thêm các tiện ích
+    // Hook autoTurnBegin để luôn đồng bộ các đối tượng vẽ thêm trước khi xoay
+    BoardProto._origAutoTurnBegin = BoardProto.autoTurnBegin;
+    BoardProto.autoTurnBegin = function() {
+      if (this.turning && this.turning.id && this.turning.id !== '_group_selection_') {
+        attachDrawnElementsToSolid(this, this.turning.page, { id: this.turning.id });
+      }
+      return BoardProto._origAutoTurnBegin ? BoardProto._origAutoTurnBegin.call(this) : false;
+    };
+
+    // Hook turnView để luôn đồng bộ trước khi đổi hướng nhìn
+    BoardProto._origTurnView = BoardProto.turnView;
+    BoardProto.turnView = function(view) {
+      if (this.turning && this.turning.id && this.turning.id !== '_group_selection_') {
+        attachDrawnElementsToSolid(this, this.turning.page, { id: this.turning.id });
+      }
+      return BoardProto._origTurnView ? BoardProto._origTurnView.call(this, view) : false;
+    };
+
     BoardProto.groupSelection = function() { groupSelection(this); };
     BoardProto.ungroupSelection = function() { ungroupSelection(this); };
     BoardProto.isGroupSelection = function() { return isGroupSelection(this); };
@@ -1747,9 +2781,21 @@
     BoardProto.addPointProjection = function(ptId) { return addPointProjection(this, ptId); };
     BoardProto.addSegmentMidpoint = function(ptA, ptB) { return addSegmentMidpoint(this, ptA, ptB); };
     BoardProto.addTriangleCentroid = function(ptA, ptB, ptC) { return addTriangleCentroid(this, ptA, ptB, ptC); };
+    BoardProto.addFaceCentroidByPlane = function(plane) { return addFaceCentroidByPlane(this, plane); };
     BoardProto.openSmartPlaneModal = function() { return openSmartPlaneModal(this); };
+    BoardProto.openSmartIntersectionModal = function(linePtIds, planePtIds) { return openSmartIntersectionModal(this, linePtIds, planePtIds); };
 
     BoardProto.addLinePlaneIntersection = function(linePtIds, planePtIds) { return expandLinePlaneIntersection(this, linePtIds, planePtIds); };
+    BoardProto.getSolidPlanes = function() { return getSolidPlanes(this); };
+    BoardProto.colorSolidPlane = function(plane, color, alpha) { return colorSolidPlane(this, plane, color, alpha); };
+    BoardProto.clearSolidPlaneColor = function(key) { return clearSolidPlaneColor(this, key); };
+    BoardProto.drawColoredPlane = function(color) { return colorSolidPlane(this, null, color); };
+    BoardProto.openColoredPlaneModal = function() { return openColoredPlaneModal(this); };
+    BoardProto.hasSolidInPage = function() {
+      var pg = this.doc.pages[this.sel ? this.sel.page : 0];
+      return !!(pg && pg.geo && pg.geo.shapes.some(function(s) { return s.kind === 'solid'; }));
+    };
+
 
     console.log('[Group3D] Đã tích hợp thành công nâng cấp 3D Sync vào Board.prototype');
   }

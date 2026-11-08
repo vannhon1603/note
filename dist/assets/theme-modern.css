@@ -3252,3 +3252,475 @@ label.pp-check:hover,
   transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(109, 40, 217, 0.35);
 }
+
+
+/* ========================================================
+   SELECTION TOOLBAR: 2-ROW BALANCED MODERN LAYOUT
+   ======================================================== */
+.selection-bar {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  padding: 6px 10px !important;
+  max-width: min(940px, calc(100vw - 20px)) !important;
+  width: auto !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.05) !important;
+  overflow: visible !important;
+  z-index: 9000 !important;
+}
+
+.sel-bar-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  flex-wrap: nowrap !important;
+  width: 100% !important;
+  overflow: visible !important;
+}
+
+.sel-bar-row:empty {
+  display: none !important;
+}
+
+.sel-bar-row-geo {
+  padding-bottom: 5px !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+
+.sel-bar-row-main {
+  padding-top: 1px !important;
+}
+
+/* Dropdown wrapper spans in selection rows */
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row span.sel-3d-dropdown,
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row span:not(.sel-3d-menu-pop):not([class*="chevron"]):not(.icon) {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  height: 29px !important;
+}
+
+/* ── Selection Bar Toolbar Buttons (excl popovers) ── */
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button:not(.sel-3d-menu-pop button):not(.sel-3d-menu-item):not(.sel-plane-chip):not(.sel-pop-close):not(.sel-color-swatch-btn):not(.sel-label-color-btn):not(.sel-pop-btn-detail):not(.sel-pop-btn-clear):not(.color-swatch):not(.plane-choice),
+.selection-bar:not(.cross-section-bar):not(.turn-bar) > button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  padding: 4px 8px !important;
+  height: 29px !important;
+  min-height: 29px !important;
+  max-height: 29px !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #ffffff !important;
+  color: #334155 !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.12s ease !important;
+  flex-shrink: 0 !important;
+  line-height: 1 !important;
+}
+
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button:not(.sel-3d-menu-pop button):not(.sel-3d-menu-item):not(.sel-plane-chip):not(.sel-pop-close):not(.sel-color-swatch-btn):not(.sel-label-color-btn):not(.sel-pop-btn-detail):not(.sel-pop-btn-clear):not(.color-swatch):not(.plane-choice):hover:not(:disabled),
+.selection-bar:not(.cross-section-bar):not(.turn-bar) > button:hover:not(:disabled) {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08) !important;
+}
+
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button:not(.sel-3d-menu-pop button):not(.sel-3d-menu-item):not(.sel-plane-chip):not(.sel-pop-close):not(.sel-color-swatch-btn):not(.sel-label-color-btn):not(.sel-pop-btn-detail):not(.sel-pop-btn-clear):not(.color-swatch):not(.plane-choice).on,
+.selection-bar:not(.cross-section-bar):not(.turn-bar) > button.on {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+  border-color: #93c5fd !important;
+  font-weight: 600 !important;
+}
+
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button:disabled,
+.selection-bar:not(.cross-section-bar):not(.turn-bar) > button:disabled {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+}
+
+/* Specific button theme accents */
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button[title*="Tô màu"] {
+  color: #ea580c !important;
+  background: #fff7ed !important;
+  border-color: #fed7aa !important;
+  font-weight: 600 !important;
+}
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button[title*="Tô màu"]:hover {
+  background: #ffedd5 !important;
+  border-color: #fdba74 !important;
+}
+
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button[title*="Mở rộng đt"],
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button[title*="Hình chiếu"] {
+  color: #0284c7 !important;
+  background: #f0f9ff !important;
+  border-color: #bae6fd !important;
+  font-weight: 600 !important;
+}
+
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button[title*="Mở rộng mp"] {
+  color: #7c3aed !important;
+  background: #f5f3ff !important;
+  border-color: #ddd6fe !important;
+  font-weight: 600 !important;
+}
+
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button[title*="Trọng tâm"] {
+  color: #059669 !important;
+  background: #ecfdf5 !important;
+  border-color: #a7f3d0 !important;
+  font-weight: 600 !important;
+}
+
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button[title*="Xoay 3D"] {
+  color: #2563eb !important;
+  background: #eff6ff !important;
+  border-color: #bfdbfe !important;
+  font-weight: 600 !important;
+}
+
+/* SVG Icon adjustments */
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button svg {
+  width: 14px !important;
+  height: 14px !important;
+  flex-shrink: 0 !important;
+}
+
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button svg.chevron,
+.selection-bar:not(.cross-section-bar):not(.turn-bar) .sel-bar-row button [class*="chevron"] {
+  width: 11px !important;
+  height: 11px !important;
+  opacity: 0.65 !important;
+}
+
+/* ── SEL-3D-MENU-POP: Popover styling & resets ── */
+.sel-3d-menu-pop {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.18), 0 8px 10px -6px rgba(15, 23, 42, 0.1) !important;
+  z-index: 100 !important;
+}
+
+/* Color swatches in 3D face color palette */
+.sel-3d-menu-pop .sel-color-swatch-btn,
+button.sel-color-swatch-btn {
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 0 !important;
+  border-radius: 6px !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22) !important;
+  cursor: pointer !important;
+  overflow: hidden !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  background: transparent !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.sel-3d-menu-pop .sel-color-swatch-btn:hover,
+button.sel-color-swatch-btn:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35) !important;
+  border-color: #ffffff !important;
+  z-index: 2 !important;
+}
+
+.sel-3d-menu-pop .sel-color-swatch-btn span.swatch-color-fill,
+button.sel-color-swatch-btn span.swatch-color-fill {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 4px !important;
+}
+
+/* Point label color circle buttons */
+.sel-3d-menu-pop .sel-label-color-btn,
+button.sel-label-color-btn {
+  width: 22px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 0 0 1px #cbd5e1 !important;
+  cursor: pointer !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  background: transparent !important;
+  transition: transform 0.15s ease !important;
+}
+
+.sel-3d-menu-pop .sel-label-color-btn:hover,
+button.sel-label-color-btn:hover {
+  transform: scale(1.18) !important;
+  box-shadow: 0 0 0 1.5px #2563eb !important;
+}
+
+.sel-3d-menu-pop .sel-label-color-btn span,
+button.sel-label-color-btn span {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+}
+
+/* Plane chips inside popover */
+.sel-3d-menu-pop .sel-plane-chip {
+  min-height: 24px !important;
+  height: auto !important;
+  padding: 3px 8px !important;
+  border-radius: 6px !important;
+  font-size: 11.5px !important;
+  background: #f8fafc !important;
+  color: #334155 !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: none !important;
+}
+
+.sel-3d-menu-pop .sel-plane-chip:hover:not(.active) {
+  background: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+
+.sel-3d-menu-pop .sel-plane-chip.active {
+  background: #fff7ed !important;
+  color: #ea580c !important;
+  border: 2px solid #ea580c !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 0 1.5px rgba(234, 88, 12, 0.2) !important;
+}
+
+/* Popover close button */
+.sel-3d-menu-pop .sel-pop-close {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 4px !important;
+  font-size: 14px !important;
+  color: #64748b !important;
+}
+
+.sel-3d-menu-pop .sel-pop-close:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Clear color action button */
+.sel-3d-menu-pop .sel-pop-btn-clear {
+  background: #fef2f2 !important;
+  color: #dc2626 !important;
+  border: 1px solid #fecaca !important;
+  font-weight: 500 !important;
+  padding: 5px 6px !important;
+  font-size: 11px !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+
+.sel-3d-menu-pop .sel-pop-btn-clear:hover {
+  background: #fee2e2 !important;
+  color: #b91c1c !important;
+  border-color: #fca5a5 !important;
+}
+
+/* Detail modal action button */
+.sel-3d-menu-pop .sel-pop-btn-detail {
+  background: #f5f3ff !important;
+  color: #7c3aed !important;
+  border: 1px solid #ddd6fe !important;
+  font-weight: 600 !important;
+  padding: 5px 6px !important;
+  font-size: 11px !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+
+.sel-3d-menu-pop .sel-pop-btn-detail:hover {
+  background: #ede9fe !important;
+  color: #6d28d9 !important;
+  border-color: #c4b5fd !important;
+}
+
+.selection-bar .sel-length {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  font-size: 11.5px !important;
+  color: #64748b !important;
+  padding: 0 4px !important;
+}
+
+.selection-bar .sel-length input {
+  width: 44px !important;
+  height: 26px !important;
+  font-size: 11.5px !important;
+  text-align: center !important;
+  border-radius: 4px !important;
+  border: 1px solid #cbd5e1 !important;
+  padding: 2px 4px !important;
+}
+
+.sel-3d-dropdown {
+  position: relative !important;
+  display: inline-flex !important;
+}
+
+.sel-3d-menu-pop,
+.sel-pen-pop {
+  position: absolute !important;
+  z-index: 99999 !important;
+}
+
+
+/* Cross-Section Toolbar Styling: 2 horizontal rows */
+.selection-bar.cross-section-bar,
+.cross-section-bar {
+  position: absolute !important;
+  top: 16px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: max-content !important;
+  max-width: min(980px, calc(100vw - 20px)) !important;
+  background: #ffffff !important;
+  border: 1px solid #0284c7 !important;
+  box-shadow: 0 14px 36px rgba(2, 132, 199, 0.2), 0 3px 10px rgba(15, 23, 42, 0.1) !important;
+  padding: 6px 14px !important;
+  border-radius: 12px !important;
+  gap: 4px !important;
+  z-index: 9000 !important;
+}
+.cs-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px 6px !important;
+  flex-wrap: nowrap !important;
+  width: 100% !important;
+}
+.cs-row-top {
+  padding-bottom: 3px !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+.cs-row-bottom {
+  padding-top: 2px !important;
+}
+.cs-header {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  color: #0284c7 !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+}
+.cs-icon {
+  font-size: 15px !important;
+}
+.cs-slider-label {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+  white-space: nowrap !important;
+}
+.cs-slider-label input[type="range"] {
+  width: 80px !important;
+  height: 18px !important;
+  accent-color: #0284c7 !important;
+  cursor: pointer !important;
+  vertical-align: middle !important;
+}
+.cs-btn-export {
+  background: #e0f2fe !important;
+  color: #0284c7 !important;
+  border: 1px solid #bae6fd !important;
+  font-weight: 600 !important;
+}
+.cs-btn-export:hover {
+  background: #0284c7 !important;
+  color: #fff !important;
+  border-color: #0284c7 !important;
+}
+.cs-trigger-btn {
+  color: #0284c7 !important;
+  font-weight: 600 !important;
+}
+.cross-section-bar button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 4px 9px !important;
+  min-height: 26px !important;
+  font-size: 11.5px !important;
+  white-space: nowrap !important;
+}
+.cross-section-bar button.on {
+  background: #e0f2fe !important;
+  border-color: #38bdf8 !important;
+  color: #0284c7 !important;
+  font-weight: 600 !important;
+}
+
+/* 3D Turn Toolbar: single horizontal bar */
+.selection-bar.turn-bar,
+.turn-bar {
+  position: absolute !important;
+  top: 16px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: max-content !important;
+  max-width: min(960px, calc(100vw - 20px)) !important;
+  background: #ffffff !important;
+  border: 1px solid #3b82f6 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 32px rgba(59, 130, 246, 0.18), 0 2px 8px rgba(15, 23, 42, 0.08) !important;
+  padding: 6px 12px !important;
+  gap: 4px 6px !important;
+  z-index: 9000 !important;
+}
+.turn-bar button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 4px 9px !important;
+  min-height: 26px !important;
+  font-size: 11.5px !important;
+  white-space: nowrap !important;
+}
