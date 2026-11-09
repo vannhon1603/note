@@ -2764,8 +2764,177 @@
         from { opacity: 0; transform: translateY(6px); }
         to { opacity: 1; transform: translateY(0); }
       }
+
+      /* 🎬 BỘ ĐIỀU KHIỂN VẼ HÌNH TỪNG BƯỚC (STEP ANIMATION PLAYER) */
+      .spatial-step-player {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(203, 213, 225, 0.9);
+        border-radius: 18px;
+        box-shadow: 0 16px 40px -6px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.04);
+        padding: 12px 18px;
+        z-index: 10002;
+        display: none;
+        flex-direction: column;
+        gap: 9px;
+        min-width: 460px;
+        max-width: 620px;
+        font-family: system-ui, -apple-system, sans-serif;
+        color: #1e293b;
+        user-select: none;
+        animation: ssp-slide-up 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      @keyframes ssp-slide-up {
+        from { opacity: 0; transform: translate(-50%, 14px) scale(0.96); }
+        to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+      }
+      .ssp-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .ssp-title {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 700;
+        font-size: 13.5px;
+        color: #0f172a;
+      }
+      .ssp-icon { font-size: 16px; }
+      .ssp-progress {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        background: #f1f5f9;
+        padding: 3px 8px;
+        border-radius: 20px;
+      }
+      .ssp-badge {
+        font-size: 11px;
+        font-weight: 600;
+        color: #64748b;
+        padding: 2px 7px;
+        border-radius: 10px;
+        transition: all 0.2s;
+      }
+      .ssp-badge.active {
+        background: #2563eb;
+        color: #ffffff;
+      }
+      .ssp-badge.done {
+        background: #dcfce7;
+        color: #15803d;
+      }
+      .ssp-sep {
+        font-size: 9px;
+        color: #94a3b8;
+      }
+      .ssp-close {
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        font-size: 14px;
+        cursor: pointer;
+        padding: 2px 6px;
+        border-radius: 6px;
+        line-height: 1;
+        transition: all 0.15s;
+      }
+      .ssp-close:hover {
+        background: #f1f5f9;
+        color: #0f172a;
+      }
+      .ssp-desc {
+        background: #f8fafc;
+        border-left: 3.5px solid #2563eb;
+        padding: 7px 11px;
+        border-radius: 6px;
+        font-size: 12.5px;
+        color: #334155;
+        line-height: 1.45;
+      }
+      .ssp-bulb { margin-right: 2px; }
+      .ssp-controls {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .ssp-btn {
+        padding: 6px 11px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: #ffffff;
+        font-size: 12px;
+        font-weight: 600;
+        color: #334155;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: all 0.15s;
+      }
+      .ssp-btn:hover {
+        background: #f8fafc;
+        border-color: #94a3b8;
+        transform: translateY(-1px);
+      }
+      .ssp-btn:active { transform: translateY(0); }
+      .ssp-btn-play {
+        background: #eff6ff;
+        border-color: #bfdbfe;
+        color: #1d4ed8;
+      }
+      .ssp-btn-play:hover {
+        background: #dbeafe;
+        border-color: #93c5fd;
+      }
+      .ssp-btn-accent {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #ffffff;
+      }
+      .ssp-btn-accent:hover {
+        background: #1d4ed8;
+        border-color: #1d4ed8;
+      }
+      .ssp-btn-turn {
+        background: #fdf4ff;
+        border-color: #f0abfc;
+        color: #a21caf;
+        margin-left: auto;
+      }
+      .ssp-btn-turn:hover {
+        background: #fae8ff;
+      }
+
+      /* Nút kích hoạt 🎬 trong menu chọn hình */
+      .shape-anim-btn {
+        margin-left: auto;
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-size: 11px;
+        opacity: 0.7;
+        cursor: pointer;
+        background: rgba(37, 99, 235, 0.08);
+        color: #2563eb;
+        border: 1px solid rgba(37, 99, 235, 0.2);
+        transition: all 0.15s;
+      }
+      .shape-anim-btn:hover {
+        opacity: 1;
+        background: #2563eb;
+        color: #ffffff;
+        transform: scale(1.08);
+      }
     `;
-    document.head.appendChild(style);
+    
+      document.head.appendChild(style);
   }
 
   if (typeof document !== 'undefined') {
@@ -2777,7 +2946,503 @@
   }
 
   // XUẤT ĐẦY ĐỦ CÁC HÀM CỦA SPATIAL GEOMETRY BUILDER
+  
+  /**
+   * =======================================================================
+   * 🎬 HỆ THỐNG MẪU VẼ HÌNH TỪNG BƯỚC CHO TẤT CẢ CÁC HÌNH (SGK TOÁN)
+   * =======================================================================
+   */
+    const SHAPE_CONFIGS = {
+    // 1. HÌNH CHÓP (PYRAMIDS)
+    pyramid4Perp: {
+      name: "Hình chóp S.ABCD (SA ⊥ đáy)",
+      shapeType: "pyramid", baseType: "quad", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ mặt đáy ABCD (Hình bình hành) - cạnh khuất AD vẽ nét đứt",
+      step2Desc: "Bước 2: Dựng đường cao SA ⊥ (ABCD) tại đỉnh A kèm ký hiệu vuông góc",
+      step3Desc: "Bước 3: Nối các đỉnh đáy tạo các cạnh bên SB, SC, SD hoàn thiện khối chóp"
+    },
+    pyramid4SidePerp: {
+      name: "Hình chóp S.ABCD (Mặt bên ⊥ đáy)",
+      shapeType: "pyramid", baseType: "quad", heightType: "mid_H",
+      step1Desc: "Bước 1: Vẽ mặt đáy ABCD (Hình bình hành) và xác định trung điểm H của AB",
+      step2Desc: "Bước 2: Dựng đường cao SH ⊥ (ABCD) tại H kèm ký hiệu vuông góc",
+      step3Desc: "Bước 3: Nối đỉnh S với các đỉnh A, B, C, D hoàn thiện các cạnh bên"
+    },
+    pyramid4: {
+      name: "Hình chóp đều S.ABCD (SO ⊥ đáy)",
+      shapeType: "pyramid", baseType: "quad", heightType: "center_O",
+      step1Desc: "Bước 1: Vẽ mặt đáy ABCD và giao điểm O của hai đường chéo AC, BD",
+      step2Desc: "Bước 2: Dựng trục thẳng đứng SO ⊥ (ABCD) tại tâm O",
+      step3Desc: "Bước 3: Nối đỉnh S với các đỉnh A, B, C, D tạo 4 cạnh bên bằng nhau"
+    },
+    pyramidTrapezoid: {
+      name: "Hình chóp S.ABCD (Đáy hình thang)",
+      shapeType: "pyramid_trap", baseType: "trapezoid", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ mặt đáy ABCD là hình thang (AD // BC, cạnh AD nét đứt)",
+      step2Desc: "Bước 2: Dựng đường cao SA ⊥ (ABCD) tại đỉnh A",
+      step3Desc: "Bước 3: Nối S với B, C, D tạo các mặt bên của hình chóp"
+    },
+    pyramid3Perp: {
+      name: "Hình chóp tam giác S.ABC (SA ⊥ đáy)",
+      shapeType: "pyramid_tri", baseType: "triangle", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ mặt đáy tam giác ABC (cạnh khuất AC vẽ nét đứt)",
+      step2Desc: "Bước 2: Dựng đường cao SA ⊥ (ABC) tại đỉnh A kèm góc vuông",
+      step3Desc: "Bước 3: Nối đỉnh S với B và C tạo các cạnh bên SB, SC"
+    },
+    pyramid3SidePerp: {
+      name: "Hình chóp tam giác S.ABC (Mặt bên ⊥ đáy)",
+      shapeType: "pyramid_tri", baseType: "triangle", heightType: "mid_H",
+      step1Desc: "Bước 1: Vẽ tam giác đáy ABC và lấy trung điểm H của cạnh AB",
+      step2Desc: "Bước 2: Dựng đường cao SH ⊥ (ABC) tại trung điểm H",
+      step3Desc: "Bước 3: Nối đỉnh S với A, B, C hoàn thiện khối chóp"
+    },
+    pyramid3Regular: {
+      name: "Hình chóp tam giác đều S.ABC",
+      shapeType: "pyramid_regular", baseType: "tri_regular", heightType: "center_O",
+      step1Desc: "Bước 1: Vẽ tam giác đều ABC và xác định trọng tâm O của tam giác",
+      step2Desc: "Bước 2: Dựng trục thẳng đứng SO ⊥ (ABC) tại trọng tâm O",
+      step3Desc: "Bước 3: Nối đỉnh S với A, B, C tạo 3 cạnh bên bằng nhau"
+    },
+    tetrahedronRegular: {
+      name: "Tứ diện đều ABCD",
+      shapeType: "pyramid_regular", baseType: "tri_regular", heightType: "center_O",
+      step1Desc: "Bước 1: Vẽ tam giác đáy BCD và xác định trọng tâm H",
+      step2Desc: "Bước 2: Dựng đường cao AH ⊥ (BCD) tại trọng tâm H",
+      step3Desc: "Bước 3: Nối đỉnh A với B, C, D tạo 4 mặt tam giác đều"
+    },
+    tetrahedronPerp: {
+      name: "Tứ diện vuông S.ABC (SA ⊥ đáy)",
+      shapeType: "pyramid_tri", baseType: "triangle", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ đáy tam giác vuông ABC tại A",
+      step2Desc: "Bước 2: Dựng SA ⊥ AB và SA ⊥ AC tạo tam diện vuông tại A",
+      step3Desc: "Bước 3: Nối các cạnh SB, SC, BC"
+    },
+    pyramid3: {
+      name: "Hình chóp tam giác S.ABC",
+      shapeType: "pyramid_tri", baseType: "triangle", heightType: "slant",
+      step1Desc: "Bước 1: Vẽ tam giác đáy ABC",
+      step2Desc: "Bước 2: Xác định vị trí đỉnh S trong không gian",
+      step3Desc: "Bước 3: Nối đỉnh S với các đỉnh A, B, C"
+    },
+    frustumPyramid: {
+      name: "Hình chóp cụt tứ giác",
+      shapeType: "frustum", baseType: "quad", heightType: "center_O",
+      step1Desc: "Bước 1: Vẽ mặt đáy dưới ABCD (Hình bình hành/tứ giác)",
+      step2Desc: "Bước 2: Dựng trục đối xứng và mặt đáy trên A'B'C'D' đồng dạng",
+      step3Desc: "Bước 3: Nối 4 cạnh bên AA', BB', CC', DD' tạo hình chóp cụt"
+    },
+    frustumPyramid3: {
+      name: "Hình chóp cụt tam giác",
+      shapeType: "frustum", baseType: "triangle", heightType: "center_O",
+      step1Desc: "Bước 1: Vẽ mặt đáy dưới tam giác ABC",
+      step2Desc: "Bước 2: Dựng mặt đáy trên A'B'C' song song và đồng dạng đáy dưới",
+      step3Desc: "Bước 3: Nối các cạnh bên AA', BB', CC'"
+    },
+
+    // 2. HÌNH LĂNG TRỤ & HỘP (PRISMS & BOXES)
+    prism3: {
+      name: "Lăng trụ đứng tam giác ABC.A'B'C'",
+      shapeType: "prism_tri", baseType: "triangle", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ mặt đáy dưới tam giác ABC (cạnh khuất AC nét đứt)",
+      step2Desc: "Bước 2: Dựng các cạnh bên đứng vuông góc đáy: AA', BB', CC'",
+      step3Desc: "Bước 3: Nối đáy trên A'B'C' hoàn thiện lăng trụ đứng"
+    },
+    prism3Regular: {
+      name: "Lăng trụ tam giác đều ABC.A'B'C'",
+      shapeType: "prism_tri", baseType: "tri_regular", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ đáy dưới tam giác đều ABC",
+      step2Desc: "Bước 2: Dựng các cạnh bên đứng vuông góc với đáy",
+      step3Desc: "Bước 3: Nối đáy trên tam giác đều A'B'C'"
+    },
+    obliquePrism: {
+      name: "Lăng trụ xiên tam giác ABC.A'B'C'",
+      shapeType: "prism_tri", baseType: "triangle", heightType: "slant",
+      step1Desc: "Bước 1: Vẽ mặt đáy dưới tam giác ABC",
+      step2Desc: "Bước 2: Dựng các cạnh bên xiên song song và bằng nhau",
+      step3Desc: "Bước 3: Nối mặt đáy trên A'B'C'"
+    },
+    cube: {
+      name: "Hình lập phương ABCD.A'B'C'D'",
+      shapeType: "cube", baseType: "quad", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ mặt đáy dưới ABCD (các cạnh khuất vẽ nét đứt)",
+      step2Desc: "Bước 2: Dựng 4 cạnh bên đứng bằng nhau: AA', BB', CC', DD'",
+      step3Desc: "Bước 3: Nối mặt đáy trên A'B'C'D' tạo 6 mặt hình vuông"
+    },
+    box: {
+      name: "Hình hộp chữ nhật ABCD.A'B'C'D'",
+      shapeType: "cuboid", baseType: "quad", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ mặt đáy dưới hình chữ nhật ABCD",
+      step2Desc: "Bước 2: Dựng các cạnh bên đứng AA', BB', CC', DD'",
+      step3Desc: "Bước 3: Nối mặt đáy trên A'B'C'D' hoàn thiện hình hộp"
+    },
+    prism4: {
+      name: "Lăng trụ đứng tứ giác ABCD.A'B'C'D'",
+      shapeType: "prism_quad", baseType: "quad", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ mặt đáy dưới tứ giác ABCD",
+      step2Desc: "Bước 2: Dựng các cạnh bên đứng AA', BB', CC', DD'",
+      step3Desc: "Bước 3: Nối đáy trên A'B'C'D'"
+    },
+    prism6: {
+      name: "Lăng trụ lục giác",
+      shapeType: "prism_quad", baseType: "quad", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ mặt đáy dưới lục giác",
+      step2Desc: "Bước 2: Dựng các cạnh bên đứng song song",
+      step3Desc: "Bước 3: Nối các đỉnh mặt đáy trên"
+    },
+    obliqueBox: {
+      name: "Hình hộp xiên",
+      shapeType: "cuboid", baseType: "quad", heightType: "slant",
+      step1Desc: "Bước 1: Vẽ mặt đáy dưới hình bình hành ABCD",
+      step2Desc: "Bước 2: Dựng 4 cạnh bên nghiêng song song",
+      step3Desc: "Bước 3: Nối mặt đáy trên A'B'C'D'"
+    },
+
+    // 3. HÌNH TRÒN XOAY (REVOLUTION SOLIDS)
+    cone: {
+      name: "Hình nón tròn xoay (Đỉnh S, trục SO)",
+      shapeType: "cone", baseType: "round", heightType: "center_O",
+      step1Desc: "Bước 1: Vẽ đường tròn đáy elip tâm O và bán kính đáy OA",
+      step2Desc: "Bước 2: Dựng trục thẳng đứng SO ⊥ mặt đáy tại tâm O",
+      step3Desc: "Bước 3: Nối đỉnh S với hai mút đường kính đáy tạo 2 đường sinh"
+    },
+    frustumCone: {
+      name: "Hình nón cụt tròn xoay",
+      shapeType: "cone", baseType: "round", heightType: "center_O",
+      step1Desc: "Bước 1: Vẽ đường tròn đáy lớn elip tâm O",
+      step2Desc: "Bước 2: Dựng trục đối xứng và đáy nhỏ elip tâm O'",
+      step3Desc: "Bước 3: Nối hai đường sinh hai bên hoàn thiện nón cụt"
+    },
+    cylinder: {
+      name: "Hình trụ tròn xoay (Trục OO')",
+      shapeType: "cylinder", baseType: "round", heightType: "center_O",
+      step1Desc: "Bước 1: Vẽ đường tròn đáy dưới elip tâm O",
+      step2Desc: "Bước 2: Dựng trục thẳng đứng OO' và đường tròn đáy trên tâm O'",
+      step3Desc: "Bước 3: Nối 2 đường sinh song song hai bên AA' và BB'"
+    },
+    truncCylinder: {
+      name: "Hình trụ vát",
+      shapeType: "cylinder", baseType: "round", heightType: "center_O",
+      step1Desc: "Bước 1: Vẽ đường tròn đáy dưới elip tâm O",
+      step2Desc: "Bước 2: Dựng trục và mặt cắt vát xiên ở phía trên",
+      step3Desc: "Bước 3: Nối 2 đường sinh bên"
+    },
+    sphere: {
+      name: "Mặt cầu / Khối cầu (Tâm O, trục NS)",
+      shapeType: "sphere", baseType: "round", heightType: "center_O",
+      step1Desc: "Bước 1: Vẽ đường tròn biên chính tâm O",
+      step2Desc: "Bước 2: Dựng trục đứng cực Bắc N - cực Nam S qua tâm O",
+      step3Desc: "Bước 3: Dựng đường xích đạo elip (nửa sau nét đứt, nửa trước nét liền)"
+    },
+    cap: {
+      name: "Chỏm cầu",
+      shapeType: "sphere", baseType: "round", heightType: "center_O",
+      step1Desc: "Bước 1: Vẽ cung tròn chỏm cầu",
+      step2Desc: "Bước 2: Dựng trục đối xứng qua tâm O",
+      step3Desc: "Bước 3: Vẽ đường tròn đáy elip của chỏm cầu"
+    },
+
+    // 4. HÌNH PHẲNG 2D (PLANE SHAPES)
+    triangle: {
+      name: "Tam giác thường ABC",
+      shapeType: "pyramid_tri", baseType: "triangle", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ cạnh đáy BC",
+      step2Desc: "Bước 2: Xác định toạ độ đỉnh A",
+      step3Desc: "Bước 3: Nối các cạnh AB, AC và hiển thị tên đỉnh"
+    },
+    rightTriangle: {
+      name: "Tam giác vuông ABC (tại A)",
+      shapeType: "pyramid_tri", baseType: "triangle", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ cạnh góc vuông AB",
+      step2Desc: "Bước 2: Dựng AC ⊥ AB tại đỉnh A kèm góc vuông",
+      step3Desc: "Bước 3: Nối cạnh huyền BC"
+    },
+    equilateral: {
+      name: "Tam giác đều ABC",
+      shapeType: "pyramid_regular", baseType: "tri_regular", heightType: "center_O",
+      step1Desc: "Bước 1: Vẽ cạnh đáy BC",
+      step2Desc: "Bước 2: Dựng đường trung trực và xác định đỉnh A sao cho AB = AC = BC",
+      step3Desc: "Bước 3: Nối các cạnh và hoàn thiện tam giác đều"
+    },
+    square: {
+      name: "Hình vuông ABCD",
+      shapeType: "cube", baseType: "quad", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ cạnh đáy AB",
+      step2Desc: "Bước 2: Dựng các cạnh vuông góc AD ⊥ AB và BC ⊥ AB có cùng độ dài",
+      step3Desc: "Bước 3: Nối CD khép kín hình vuông"
+    },
+    parallelogram: {
+      name: "Hình bình hành ABCD",
+      shapeType: "pyramid", baseType: "quad", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ cạnh đáy AB",
+      step2Desc: "Bước 2: Dựng cạnh xiên AD",
+      step3Desc: "Bước 3: Dựng BC // AD và CD // AB hoàn thiện hình bình hành"
+    },
+    trapezoid: {
+      name: "Hình thang ABCD",
+      shapeType: "pyramid_trap", baseType: "trapezoid", heightType: "perp_A",
+      step1Desc: "Bước 1: Vẽ đáy lớn AB",
+      step2Desc: "Bước 2: Dựng đáy nhỏ CD song song với AB",
+      step3Desc: "Bước 3: Nối 2 cạnh bên AD và BC"
+    }
+  };
+
+  let animPlayerEl = null;
+  let activeAnimationTimer = null;
+  let animState = {
+    shapeId: 'pyramid4Perp',
+    step: 1,
+    isPaused: false,
+    options: null
+  };
+
+  function createOrGetAnimPlayer() {
+    let player = document.getElementById('spatial-step-player');
+    if (!player) {
+      player = document.createElement('div');
+      player.id = 'spatial-step-player';
+      player.className = 'spatial-step-player';
+      document.body.appendChild(player);
+    }
+    animPlayerEl = player;
+    return player;
+  }
+
+  function updatePlayerUI(cfg, currentStep) {
+    const player = createOrGetAnimPlayer();
+    player.style.display = 'flex';
+
+    const s1Desc = cfg.step1Desc || 'Bước 1: Vẽ mặt đáy hình học';
+    const s2Desc = cfg.step2Desc || 'Bước 2: Dựng chiều cao / trục đối xứng';
+    const s3Desc = cfg.step3Desc || 'Bước 3: Nối cạnh bên & hoàn thiện khối 3D';
+
+    const descText = currentStep === 1 ? s1Desc : (currentStep === 2 ? s2Desc : s3Desc);
+
+    player.innerHTML = `
+      <div class="ssp-header">
+        <div class="ssp-title">
+          <span class="ssp-icon">🎬</span>
+          <span class="ssp-name">${cfg.name}</span>
+        </div>
+        <div class="ssp-progress">
+          <span class="ssp-badge ${currentStep === 1 ? 'active' : (currentStep > 1 ? 'done' : '')}">1. Đáy</span>
+          <span class="ssp-sep">➔</span>
+          <span class="ssp-badge ${currentStep === 2 ? 'active' : (currentStep > 2 ? 'done' : '')}">2. Chiều cao</span>
+          <span class="ssp-sep">➔</span>
+          <span class="ssp-badge ${currentStep === 3 ? 'active' : ''}">3. Hoàn thiện</span>
+        </div>
+        <button type="button" class="ssp-close" id="ssp-btn-close" title="Đóng trình chiếu">✕</button>
+      </div>
+      <div class="ssp-desc">
+        <span class="ssp-bulb">💡</span> ${descText}
+      </div>
+      <div class="ssp-controls">
+        <button type="button" class="ssp-btn" id="ssp-btn-replay" title="Vẽ lại từ Bước 1">⏮️ Vẽ lại</button>
+        <button type="button" class="ssp-btn" id="ssp-btn-prev" title="Quay lại bước trước">⏪ Trước</button>
+        <button type="button" class="ssp-btn ssp-btn-play" id="ssp-btn-toggle-pause" title="Tạm dừng / Tiếp tục animation">
+          ${animState.isPaused ? '▶️ Tiếp tục' : '⏸️ Tạm dừng'}
+        </button>
+        <button type="button" class="ssp-btn" id="ssp-btn-next" title="Chuyển sang bước tiếp theo">⏩ Bước tiếp</button>
+        <button type="button" class="ssp-btn ssp-btn-accent" id="ssp-btn-build-all" title="Dựng xong toàn bộ ngay lập tức">⚡ Vẽ hết</button>
+        <button type="button" class="ssp-btn ssp-btn-turn" id="ssp-btn-turn" title="Xoay 3D khối hình">🔄 Xoay 3D</button>
+      </div>
+    `;
+
+    // Gắn sự kiện các nút
+    player.querySelector('#ssp-btn-close').onclick = () => {
+      clearTimeout(activeAnimationTimer);
+      player.style.display = 'none';
+    };
+
+    player.querySelector('#ssp-btn-replay').onclick = () => {
+      clearTimeout(activeAnimationTimer);
+      animateShape(animState.shapeId, getActiveBoard(), { forceReplay: true });
+    };
+
+    player.querySelector('#ssp-btn-prev').onclick = () => {
+      clearTimeout(activeAnimationTimer);
+      const prevStep = Math.max(1, animState.step - 1);
+      gotoStep(prevStep);
+    };
+
+    player.querySelector('#ssp-btn-toggle-pause').onclick = () => {
+      animState.isPaused = !animState.isPaused;
+      const btn = player.querySelector('#ssp-btn-toggle-pause');
+      if (btn) btn.innerHTML = animState.isPaused ? '▶️ Tiếp tục' : '⏸️ Tạm dừng';
+      if (!animState.isPaused) {
+        resumeAnimation();
+      } else {
+        clearTimeout(activeAnimationTimer);
+      }
+    };
+
+    player.querySelector('#ssp-btn-next').onclick = () => {
+      clearTimeout(activeAnimationTimer);
+      const nextStep = Math.min(3, animState.step + 1);
+      gotoStep(nextStep);
+    };
+
+    player.querySelector('#ssp-btn-build-all').onclick = () => {
+      clearTimeout(activeAnimationTimer);
+      const b = getActiveBoard();
+      buildAll(b, animState.options);
+      animState.step = 3;
+      updatePlayerUI(cfg, 3);
+    };
+
+    player.querySelector('#ssp-btn-turn').onclick = () => {
+      const b = getActiveBoard();
+      turn3DCurrent(b);
+    };
+  }
+
+  function gotoStep(stepNum) {
+    const b = getActiveBoard();
+    if (!b) return;
+    const cfg = SHAPE_CONFIGS[animState.shapeId] || SHAPE_CONFIGS.pyramid4Perp;
+    animState.step = stepNum;
+    updatePlayerUI(cfg, stepNum);
+
+    if (stepNum === 1) {
+      step1_DrawBase(b, { ...animState.options, animate: true });
+    } else if (stepNum === 2) {
+      step2_DrawHeight(b, { ...animState.options, animate: true });
+    } else if (stepNum === 3) {
+      step3_CompleteEdges(b, { ...animState.options, animate: true });
+    }
+  }
+
+  function resumeAnimation() {
+    if (animState.isPaused) return;
+    const b = getActiveBoard();
+    if (!b) return;
+    const cfg = SHAPE_CONFIGS[animState.shapeId] || SHAPE_CONFIGS.pyramid4Perp;
+
+    if (animState.step === 1) {
+      activeAnimationTimer = setTimeout(() => {
+        if (animState.isPaused) return;
+        animState.step = 2;
+        updatePlayerUI(cfg, 2);
+        step2_DrawHeight(b, {
+          ...animState.options,
+          animate: true,
+          onComplete: () => {
+            if (animState.isPaused) return;
+            activeAnimationTimer = setTimeout(() => {
+              if (animState.isPaused) return;
+              animState.step = 3;
+              updatePlayerUI(cfg, 3);
+              step3_CompleteEdges(b, {
+                ...animState.options,
+                animate: true,
+                onComplete: () => {
+                  showToast('🌟 Diễn hoạt vẽ hình hoàn tất! Học sinh có thể bấm "Xoay 3D".');
+                }
+              });
+            }, 800);
+          }
+        });
+      }, 700);
+    } else if (animState.step === 2) {
+      activeAnimationTimer = setTimeout(() => {
+        if (animState.isPaused) return;
+        animState.step = 3;
+        updatePlayerUI(cfg, 3);
+        step3_CompleteEdges(b, { ...animState.options, animate: true });
+      }, 800);
+    }
+  }
+
+  /**
+   * 🎬 VẼ TỪNG BƯỚC CHO BẤT KỲ HÌNH NÀO (Universal animateShape)
+   */
+  function animateShape(shapeId, board, opts = {}) {
+    // Tự động đóng các popup menu đang mở
+    try {
+      const backdrop = document.querySelector('.menu-backdrop, .overlay-backdrop');
+      if (backdrop) backdrop.click();
+      document.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
+    } catch(e) {}
+    if (!board) board = getActiveBoard();
+    if (!board) {
+      showToast('⚠️ Vui lòng mở bảng vẽ trước!');
+      return;
+    }
+
+    const cfg = SHAPE_CONFIGS[shapeId] || {
+      name: 'Khối hình ' + shapeId,
+      shapeType: shapeId.includes('prism') ? 'prism_tri' : (shapeId.includes('cube') ? 'cube' : 'pyramid'),
+      baseType: 'quad',
+      heightType: 'perp_A',
+      step1Desc: 'Bước 1: Vẽ mặt đáy',
+      step2Desc: 'Bước 2: Dựng chiều cao',
+      step3Desc: 'Bước 3: Hoàn thiện các cạnh bên'
+    };
+
+    clearTimeout(activeAnimationTimer);
+    animState.shapeId = shapeId;
+    animState.step = 1;
+    animState.isPaused = false;
+    animState.options = {
+      shapeType: cfg.shapeType,
+      baseType: cfg.baseType,
+      heightType: cfg.heightType,
+      ...opts
+    };
+
+    updatePlayerUI(cfg, 1);
+    showToast('🎬 Bắt đầu vẽ từng bước: <b>' + cfg.name + '</b>');
+
+    step1_DrawBase(board, {
+      ...animState.options,
+      animate: true,
+      onComplete: () => {
+        if (animState.isPaused) return;
+        activeAnimationTimer = setTimeout(() => {
+          if (animState.isPaused) return;
+          animState.step = 2;
+          updatePlayerUI(cfg, 2);
+          step2_DrawHeight(board, {
+            ...animState.options,
+            animate: true,
+            onComplete: () => {
+              if (animState.isPaused) return;
+              activeAnimationTimer = setTimeout(() => {
+                if (animState.isPaused) return;
+                animState.step = 3;
+                updatePlayerUI(cfg, 3);
+                step3_CompleteEdges(board, {
+                  ...animState.options,
+                  animate: true,
+                  onComplete: () => {
+                    showToast('🌟 Tuyệt vời! Đã hoàn thành vẽ hình từng bước.');
+                  }
+                });
+              }, 900);
+            }
+          });
+        }, 800);
+      }
+    });
+  }
+
+  function replaySelectedShape(board) {
+    if (!board) board = getActiveBoard();
+    if (!board) return;
+    const pageIdx = typeof board.currentPage === 'function' ? board.currentPage() : 0;
+    const pg = board.doc.pages[pageIdx];
+    if (!pg || !pg.geo) return;
+
+    let shapeId = 'pyramid4Perp';
+    const sol = pg.geo.shapes.find(s => s.kind === 'solid' && s.solid);
+    if (sol && sol.solid && sol.solid.of) {
+      shapeId = sol.solid.of;
+    }
+    animateShape(shapeId, board);
+  }
+
   window.SpatialGeometryBuilder = {
+    animateShape,
+    replaySelectedShape,
     open: openBuilder,
     close: closeBuilder,
     toggle: toggleBuilder,
